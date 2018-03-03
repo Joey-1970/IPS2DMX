@@ -40,7 +40,7 @@
             	parent::ApplyChanges();
 		
 			//Status-Variablen anlegen
-		for ($i = 0; $i <= 8; $i++) {
+		for ($i = 0; $i <= 7; $i++) {
 			$this->RegisterVariableBoolean("Status_RGB_".($i + 1), "Status RGB ".($i + 1), "~Switch", 10 + ($i * 70));
 			$this->EnableAction("Status_RGB_".($i + 1));
 			IPS_SetHidden($this->GetIDForIdent("Status_RGB_".($i + 1)), false);
