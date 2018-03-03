@@ -82,12 +82,28 @@
 		}
 	}
 	
-	public function ReceiveData($JSONString) 
-	{
-	    	// Empfangene Daten vom Gateway/Splitter
-	    	$data = json_decode($JSONString);
-	 	
- 	}
+public function RequestAction($Ident, $Value) 
+{
+	$Parts = explode("_", $Ident);
+	$Source = $Parts[0];
+	$Channel = $Parts[1];
+	$Group = $Parts[2];
+
+	switch($Source) {
+	case "Status":
+		//$this->SetOutputPinStatus($Group, $Channel, $Value);
+		break;
+	case "Color":
+		//$this->SetOutputPinColor($Group, $Value);
+		break;
+	case "Intensity":
+		//$this->SetOutputPinValue($Group, $Channel, $Value);
+		break;
+	default:
+	    throw new Exception("Invalid Ident");
+	}
+
+}
 	    
 	// Beginn der Funktionen
 
