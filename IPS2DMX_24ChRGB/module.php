@@ -10,6 +10,9 @@
  	    	$this->RegisterPropertyBoolean("Open", false);
 		$this->ConnectParent("{B1E43BF6-770A-4FD7-B4FE-6D265F93746B}");
  	    	$this->RegisterPropertyInteger("DMXStartChannel", 1);
+		for ($i = 0; $i <= 7; $i++) {
+			$this->RegisterPropertyBoolean("Visible_"($i + 1), false);
+		}
         }
  	
 	public function GetConfigurationForm() 
@@ -22,7 +25,9 @@
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv"); 
  		$arrayElements[] = array("type" => "NumberSpinner", "name" => "DMXStartChannel",  "caption" => "DMX-Start-Kanal");
-		
+		for ($i = 0; $i <= 7; $i++) {
+			$arrayElements[] = array("name" => "Visible_"($i + 1), "type" => "CheckBox",  "caption" => "Kanal ".($i + 1)." nutzen");
+		}
 		
 		
 		 
