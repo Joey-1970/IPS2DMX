@@ -1,0 +1,14 @@
+{
+  "id": "{772E101B-3EA6-4A86-AC84-A94DA41DB20A}",
+  "name": "IPS2DMX_24ChRGB",
+  "type": 3,
+  "vendor": "JP-IPS-Modules",
+  "aliases":
+  [
+    "IPS2GPIO_24ChRGB"
+  ],
+  "parentRequirements": ["{B1E43BF6-770A-4FD7-B4FE-6D265F93746B}"],
+  "childRequirements": [],
+  "implemented": ["{F57A380D-7CAC-4E9F-88C2-3BA505426BA4}"],
+  "prefix": "I2D24ChRGB"
+}
