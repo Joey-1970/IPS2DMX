@@ -120,7 +120,8 @@ public function RequestAction($Ident, $Value)
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetChannelValue", "Ausfuehrung", 0);
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
-			$DMXChannel = $DMXStartChannel + ($Channel * $Group);
+			//$DMXChannel = $DMXStartChannel + ($Channel * $Group);
+			$DMXChannel = $DMXStartChannel + (($Group - 1) * 3) + $Channel;
 			$this->SendDebug("SetChannelValue", "DMXChannel: ".$DMXChannel, 0);
 			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
 		}
