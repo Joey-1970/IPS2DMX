@@ -109,7 +109,8 @@ public function RequestAction($Ident, $Value)
 	public function SetOutputValue(Int $Channel, Int $Value)
 	{ 
 		$this->SendDebug("SetOutputValue", "Ausfuehrung", 0);
-		$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Channel" => $Channel, "Value" => $Value)));
+		//Daten: {"DataID":"{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}","Size":1,"Channel":3,"Value":229,"FadingSeconds":0.0,"DelayedSeconds":0.0}
+		$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $Channel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
 		$this->SendDebug("SetOutputValue", "Erbegnis: ".$Result, 0);
 	}
 	    
