@@ -2,6 +2,15 @@
     // Klassendefinition
     class IPS2DMX_24ChRGB extends IPSModule 
     {
+	public function Destroy() 
+	{
+		//Never delete this line!
+		parent::Destroy();
+		for ($i = 0; $i <= 7; $i++) {
+			$this->SetTimerInterval("Timer_".($i + 1), 0);
+		}
+	}
+	    
 	// Überschreibt die interne IPS_Create($id) Funktion
         public function Create() 
         {
@@ -12,6 +21,8 @@
  	    	$this->RegisterPropertyInteger("DMXStartChannel", 1);
 		for ($i = 0; $i <= 7; $i++) {
 			$this->RegisterPropertyBoolean("Visible_".($i + 1), true);
+			$this->RegisterPropertyInteger("Timer_".($i + 1), 0);
+			$this->RegisterTimer("Timer_".($i + 1), 0, 'I2D24ChRGB_ProgramTimer($_IPS["TARGET"], ($i + 1));');
 		}
         }
  	
@@ -176,6 +187,11 @@ public function RequestAction($Ident, $Value)
 			SetValueInteger($this->GetIDForIdent("Color_RGB_".$Group), $this->RGB2Hex($Value_R, $Value_G, $Value_B));
 		}
 	} 
+	 
+	public function ProgramTimer(Int $Timer)
+	{
+		$this->SendDebug("ProgramTimer", "Ausfuehrung Timer: ".$Timer, 0);
+	}
 	    
 	private function Hex2RGB($Hex)
 	{
