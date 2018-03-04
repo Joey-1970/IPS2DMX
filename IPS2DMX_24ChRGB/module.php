@@ -85,9 +85,10 @@
 public function RequestAction($Ident, $Value) 
 {
 	$Parts = explode("_", $Ident);
-	$Source = $Parts[0];
-	$Channel = $Parts[1];
-	$Group = $Parts[2];
+	$Source = $Parts[0]; // Steuerelement
+	$Channel = $Parts[1]; // R, G, B bzw. RGB
+	$ChannelArray = ["R" => 0, "G" => 1, "B" => 2];
+	$Group = $Parts[2]; // Gruppe (1-8)
 
 	switch($Source) {
 	case "Status":
@@ -97,7 +98,7 @@ public function RequestAction($Ident, $Value)
 		//$this->SetOutputPinColor($Group, $Value);
 		break;
 	case "Intensity":
-		//$this->SetOutputPinValue($Group, $Channel, $Value);
+		$this->SetChannelValue($Group, $ChannelArray[$Channel], $Value);
 		break;
 	default:
 	    throw new Exception("Invalid Ident");
@@ -108,13 +109,22 @@ public function RequestAction($Ident, $Value)
 	// Beginn der Funktionen
 	public function SetOutputValue(Int $Channel, Int $Value)
 	{ 
-		$this->SendDebug("SetOutputValue", "Ausfuehrung", 0);
-		//Daten: {"DataID":"{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}","Size":1,"Channel":3,"Value":229,"FadingSeconds":0.0,"DelayedSeconds":0.0}
-		$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $Channel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-		$this->SendDebug("SetOutputValue", "Erbegnis: ".$Result, 0);
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->SendDebug("SetOutputValue", "Ausfuehrung", 0);
+			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $Channel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
+		}
 	}
 	    
-
+	private function SetChannelValue(Int $Group, Int $Channel, Int $Value)
+	{ 
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->SendDebug("SetChannelValue", "Ausfuehrung", 0);
+			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
+			$DMXChannel = $DMXStartChannel + ($Channel * $Group);
+			$this->SendDebug("SetChannelValue", "DMXChannel: ".$DMXChannel, 0);
+			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
+		}
+	}
 
 	 	    
 
