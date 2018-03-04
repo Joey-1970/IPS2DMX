@@ -121,12 +121,16 @@ public function RequestAction($Ident, $Value)
 			$this->SendDebug("SetChannelValue", "Ausfuehrung", 0);
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
 			$GroupStatus = GetValueBoolean($this->GetIDForIdent("Status_RGB_".$Group));
+			$Value_R = GetValueInteger($this->GetIDForIdent("Intensity_R_".$Group));
+			$Value_G = GetValueInteger($this->GetIDForIdent("Intensity_G_".$Group));
+			$Value_B = GetValueInteger($this->GetIDForIdent("Intensity_B_".$Group));
 			
 			$DMXChannel = $DMXStartChannel + (($Group - 1) * 3) + $Channel;
 			$this->SendDebug("SetChannelValue", "DMXChannel: ".$DMXChannel, 0);
 			If ($GroupStatus == true) {
 				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
 			}
+			
 			SetValueInteger($this->GetIDForIdent("Color_RGB_".$Group), $this->RGB2Hex($Value_R, $Value_G, $Value_B));
 		}
 	}
