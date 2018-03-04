@@ -47,9 +47,10 @@
             	parent::ApplyChanges();
 		
 		// Profil anlegen
-		$this->RegisterProfileInteger("IPS2DMX.Program", "Popcorn", "", "", 0, 128, 1);
+		$this->RegisterProfileInteger("IPS2DMX.Program", "Popcorn", "", "", 0, 2, 1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 0, "Manuelle Steuerung", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 10, "Sinus", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 1, "Sinus", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 2, "Sägezahn", "Information", -1);
 		
 		//Status-Variablen anlegen
 		for ($i = 0; $i <= 7; $i++) {
