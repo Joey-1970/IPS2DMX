@@ -45,7 +45,7 @@ class IPS2DMX_FakeSplitter extends IPSModule
 	{
 	 	// Empfangene Daten von der Device Instanz
 	    	$data = json_decode($JSONString);
-	    	$this->SendDebug("ForwardData", "Daten: ".$data, 0);
+	    	$this->SendDebug("ForwardData", "Daten: ".$JSONString, 0);
 	}
 
 }
