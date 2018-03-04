@@ -120,15 +120,31 @@ public function RequestAction($Ident, $Value)
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetChannelValue", "Ausfuehrung", 0);
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
-			//$DMXChannel = $DMXStartChannel + ($Channel * $Group);
+			$GroupStatus = GetValueBoolean($this->GetIDForIdent("Status_RGB_".$Group));
+			
 			$DMXChannel = $DMXStartChannel + (($Group - 1) * 3) + $Channel;
 			$this->SendDebug("SetChannelValue", "DMXChannel: ".$DMXChannel, 0);
-			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
+			If ($GroupStatus == true) {
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
+			}
+			SetValueInteger($this->GetIDForIdent("Color_RGB_".$Group), $this->RGB2Hex($Value_R, $Value_G, $Value_B));
 		}
 	}
 
 	 	    
-
+	private function Hex2RGB($Hex)
+	{
+		$r = (($Hex >> 16) & 0xFF);
+		$g = (($Hex >> 8) & 0xFF);
+		$b = (($Hex >> 0) & 0xFF);	
+	return array($r, $g, $b);
+	}
+	
+	private function RGB2Hex($r, $g, $b)
+	{
+		$Hex = hexdec(str_pad(dechex($r), 2,'0', STR_PAD_LEFT).str_pad(dechex($g), 2,'0', STR_PAD_LEFT).str_pad(dechex($b), 2,'0', STR_PAD_LEFT));
+	return $Hex;
+	}
 	
 	private function HasActiveParent()
     	{
