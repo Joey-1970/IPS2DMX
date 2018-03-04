@@ -123,6 +123,7 @@ public function RequestAction($Ident, $Value)
 		$this->SetChannelValue($Group, $ChannelArray[$Channel], $Value);
 		break;
 	case "Program":
+		SetValueInteger($this->GetIDForIdent($Ident), $Value);
 		$this->ProgramSelection($Group, $Value);
 		break;
 	default:
