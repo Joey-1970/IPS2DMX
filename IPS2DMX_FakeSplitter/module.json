@@ -1,0 +1,14 @@
+{
+  "id": "{E49903E1-2D0A-495F-81A2-A13F19B05E07}",
+  "name": "IPS2DMX_FakeSplitter",
+  "type": 2,
+  "vendor": "JP-IPS-Modules",
+  "aliases":
+  [
+    "IPS2DMX_FakeSplitter"
+  ],
+  "parentRequirements": [],
+  "childRequirements": [],
+  "implemented": ["{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}"],
+  "prefix": "I2DFS"
+}
