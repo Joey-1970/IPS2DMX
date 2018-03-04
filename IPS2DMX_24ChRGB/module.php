@@ -46,7 +46,12 @@
             	// Diese Zeile nicht löschen
             	parent::ApplyChanges();
 		
-			//Status-Variablen anlegen
+		// Profil anlegen
+		$this->RegisterProfileInteger("IPS2DMX.Program", "Popcorn", "", "", 0, 128, 1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 0, "Manuelle Steuerung", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 10, "Sinus", "Information", -1);
+		
+		//Status-Variablen anlegen
 		for ($i = 0; $i <= 7; $i++) {
 			$Visible = !$this->ReadPropertyBoolean("Visible_".($i + 1));
 			$this->RegisterVariableBoolean("Status_RGB_".($i + 1), "Status RGB ".($i + 1), "~Switch", 10 + ($i * 70));
@@ -68,6 +73,10 @@
 			$this->RegisterVariableInteger("Intensity_B_".($i + 1), "Intensity Blau ".($i + 1), "~Intensity.255", 50 + ($i * 70));
 			$this->EnableAction("Intensity_B_".($i + 1));
 			IPS_SetHidden($this->GetIDForIdent("Intensity_B_".($i + 1)), $Visible);
+			
+			$this->RegisterVariableInteger("Program_RGB_".($i + 1), "Programm ".($i + 1), "IPS2DMX.Program", 60 + ($i * 70));
+			$this->EnableAction("Program_RGB_".($i + 1));
+			IPS_SetHidden($this->GetIDForIdent("Program_RGB_".($i + 1)), $Visible);
 		}
 		
 		
@@ -100,6 +109,9 @@ public function RequestAction($Ident, $Value)
 	case "Intensity":
 		SetValueInteger($this->GetIDForIdent($Ident), $Value);
 		$this->SetChannelValue($Group, $ChannelArray[$Channel], $Value);
+		break;
+	case "Program":
+		//$this->SetOutputPinColor($Group, $Value);
 		break;
 	default:
 	    throw new Exception("Invalid Ident");
@@ -178,6 +190,23 @@ public function RequestAction($Ident, $Value)
 	return $Hex;
 	}
 	
+	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
+	{
+	        if (!IPS_VariableProfileExists($Name))
+	        {
+	            IPS_CreateVariableProfile($Name, 1);
+	        }
+	        else
+	        {
+	            $profile = IPS_GetVariableProfile($Name);
+	            if ($profile['ProfileType'] != 1)
+	                throw new Exception("Variable profile type does not match for profile " . $Name);
+	        }
+	        IPS_SetVariableProfileIcon($Name, $Icon);
+	        IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
+	        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);    
+	}    
+	    
 	private function HasActiveParent()
     	{
 		$Instance = @IPS_GetInstance($this->InstanceID);
