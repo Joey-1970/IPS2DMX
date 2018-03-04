@@ -37,7 +37,7 @@
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv"); 
  		$arrayElements[] = array("type" => "NumberSpinner", "name" => "DMXStartChannel",  "caption" => "DMX-Start-Kanal");
 		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");
-		$arrayElements[] = array("type" => "Label", "label" => "Angabe der genutzten Kanäle"); 
+		$arrayElements[] = array("type" => "Label", "label" => "Angabe der genutzten RGB-Kanäle"); 
 		for ($i = 0; $i <= 7; $i++) {
 			$arrayElements[] = array("name" => "Visible_".($i + 1), "type" => "CheckBox",  "caption" => "Kanal ".($i + 1));
 		}
@@ -123,7 +123,7 @@ public function RequestAction($Ident, $Value)
 		$this->SetChannelValue($Group, $ChannelArray[$Channel], $Value);
 		break;
 	case "Program":
-		//$this->SetOutputPinColor($Group, $Value);
+		$this->ProgramSelection($Group, $Value);
 		break;
 	default:
 	    throw new Exception("Invalid Ident");
@@ -187,7 +187,12 @@ public function RequestAction($Ident, $Value)
 			SetValueInteger($this->GetIDForIdent("Color_RGB_".$Group), $this->RGB2Hex($Value_R, $Value_G, $Value_B));
 		}
 	} 
-	 
+	
+	private function ProgramSelection(Int $Group, Int $Program)
+	{
+		$this->SendDebug("ProgramSelection", "Ausfuehrung Gruppe: ".$Group." Programm: ".$Program, 0);
+	}
+	    
 	public function ProgramTimer(Int $Timer)
 	{
 		$this->SendDebug("ProgramTimer", "Ausfuehrung Timer: ".$Timer, 0);
