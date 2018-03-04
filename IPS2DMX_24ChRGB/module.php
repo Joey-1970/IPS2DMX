@@ -106,7 +106,12 @@ public function RequestAction($Ident, $Value)
 }
 	    
 	// Beginn der Funktionen
-
+	public function SetOutputValue(Int $Channel, Int $Value)
+	{ 
+		$this->SendDebug("SetOutputValue", "Ausfuehrung", 0);
+		$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "InstanceID" => $this->InstanceID, "Channel" => $Channel, "Value" => $Value)));
+		$this->SendDebug("SetOutputValue", "Erbegnis: ".$Result, 0);
+	}
 	    
 
 
