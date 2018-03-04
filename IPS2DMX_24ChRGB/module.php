@@ -98,6 +98,7 @@ public function RequestAction($Ident, $Value)
 		//$this->SetOutputPinColor($Group, $Value);
 		break;
 	case "Intensity":
+		SetValueInteger($this->GetIDForIdent($Ident, $Value);
 		$this->SetChannelValue($Group, $ChannelArray[$Channel], $Value);
 		break;
 	default:
@@ -120,6 +121,7 @@ public function RequestAction($Ident, $Value)
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetChannelValue", "Ausfuehrung", 0);
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
+			
 			$GroupStatus = GetValueBoolean($this->GetIDForIdent("Status_RGB_".$Group));
 			$Value_R = GetValueInteger($this->GetIDForIdent("Intensity_R_".$Group));
 			$Value_G = GetValueInteger($this->GetIDForIdent("Intensity_G_".$Group));
