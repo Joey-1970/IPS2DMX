@@ -98,7 +98,7 @@ public function RequestAction($Ident, $Value)
 		//$this->SetOutputPinColor($Group, $Value);
 		break;
 	case "Intensity":
-		SetValueInteger($this->GetIDForIdent($Ident, $Value);
+		SetValueInteger($this->GetIDForIdent($Ident), $Value);
 		$this->SetChannelValue($Group, $ChannelArray[$Channel], $Value);
 		break;
 	default:
