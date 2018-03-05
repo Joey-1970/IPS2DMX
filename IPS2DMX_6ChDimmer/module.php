@@ -38,9 +38,11 @@
             	parent::ApplyChanges();
 		
 		for ($i = 0; $i <= 5; $i++) {
+			/*
 			$this->RegisterVariableBoolean("Status_".($i + 1), "Status ".($i + 1), "~Switch", 10 + ($i * 30));
 			$this->EnableAction("Status_".($i + 1));
 			IPS_SetHidden($this->GetIDForIdent("Status_".($i + 1)), false);
+			*/
 			
 			$this->RegisterVariableInteger("Intensity_".($i + 1), "Intensity ".($i + 1), "~Intensity.255", 20 + ($i * 30) );
 			$this->EnableAction("Intensity_".($i + 1));
@@ -77,6 +79,7 @@
 			$this->SetChannelValue($Value);
 			break;
 		case "IntensityMaster":
+			SetValueInteger($Ident, $Value);
 			//$this->SetChannelStatus($Value);
 			break;
 		default:
@@ -93,13 +96,12 @@
 			$IntensityMaster = GetValueInteger($this->GetIDForIdent("IntensityMaster_0"));
 			$DMXChannel = $DMXStartChannel + $Channel;
 			$Value = min($IntensityMaster, $Value);
-			
 			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-
-			SetValueBoolean($this->GetIDForIdent("Intensity_".$Channel), $Status);
+			SetValueInteger($this->GetIDForIdent("Intensity_".$Channel), $Value);
 		}
 	} 
 	
+	/*
 	private function SetChannelStatus(Int $Channel, Bool $Status)
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
@@ -115,7 +117,7 @@
 			SetValueBoolean($this->GetIDForIdent("Status"), $Status);
 		}
 	} 
-	
+	*/
 	
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
 	{
