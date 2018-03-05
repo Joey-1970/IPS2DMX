@@ -2,14 +2,7 @@
     // Klassendefinition
     class IPS2DMX_6ChDimmer extends IPSModule 
     {
-	public function Destroy() 
-	{
-		//Never delete this line!
-		parent::Destroy();
-		$this->SetTimerInterval("Timer_1", 0);
-	}
-	    
-	// Überschreibt die interne IPS_Create($id) Funktion
+	 // Überschreibt die interne IPS_Create($id) Funktion
         public function Create() 
         {
             	// Diese Zeile nicht löschen.
@@ -17,8 +10,6 @@
  	    	$this->RegisterPropertyBoolean("Open", false);
 		$this->ConnectParent("{B1E43BF6-770A-4FD7-B4FE-6D265F93746B}");
  	    	$this->RegisterPropertyInteger("DMXStartChannel", 1);
-		$this->RegisterPropertyInteger("Timer_1", 60);
-		$this->RegisterTimer("Timer_1", 0, 'I2DFM900_SetChannelStatus($_IPS["TARGET"], false);');
         }
  	
 	public function GetConfigurationForm() 
@@ -46,10 +37,18 @@
             	// Diese Zeile nicht löschen
             	parent::ApplyChanges();
 		
-		$this->RegisterVariableBoolean("Status", "Status", "~Switch", 10);
-		$this->EnableAction("Status");
-		IPS_SetHidden($this->GetIDForIdent("Status"), false);
-		
+		for ($i = 0; $i <= 5; $i++) {
+			$this->RegisterVariableBoolean("Status_".($i + 1), "Status ".($i + 1), "~Switch", 10 + ($i * 30));
+			$this->EnableAction("Status_".($i + 1));
+			IPS_SetHidden($this->GetIDForIdent("Status_".($i + 1)), false);
+			
+			$this->RegisterVariableInteger("Intensity_".($i + 1), "Intensity ".($i + 1), "~Intensity.255", 20 + ($i * 30) );
+			$this->EnableAction("Intensity_".($i + 1));
+			IPS_SetHidden($this->GetIDForIdent("Intensity_".($i + 1)), false);
+		}
+		$this->RegisterVariableInteger("IntensityMaster_0", "Intensity Master", "~Intensity.255", 120);
+		$this->EnableAction("IntensityMaster_0");
+		IPS_SetHidden($this->GetIDForIdent("IntensityMaster_0"), false);
 		
 		
 		
@@ -66,9 +65,19 @@
 	
 	public function RequestAction($Ident, $Value) 
 	{
-		switch($Ident) {
+		$Parts = explode("_", $Ident);
+		$Source = $Parts[0]; // Steuerelement
+		$Channel = intval($Parts[1]); 
+		
+		switch($Source) {
 		case "Status":
-			$this->SetChannelStatus($Value);
+			//$this->SetChannelStatus($Value);
+			break;
+		case "Intensity":
+			$this->SetChannelValue($Value);
+			break;
+		case "IntensityMaster":
+			//$this->SetChannelStatus($Value);
 			break;
 		default:
 		    throw new Exception("Invalid Ident");
@@ -76,7 +85,22 @@
 	}
 	    
 	// Beginn der Funktionen
-	public function SetChannelStatus(Bool $Status)
+	private function SetChannelValue(Int $Channel, Int $Value)
+	{ 
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->SendDebug("SetChannelStatus", "Ausfuehrung", 0);
+			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
+			$IntensityMaster = GetValueInteger($this->GetIDForIdent("IntensityMaster_0"));
+			$DMXChannel = $DMXStartChannel + $Channel;
+			$Value = min($IntensityMaster, $Value);
+			
+			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
+
+			SetValueBoolean($this->GetIDForIdent("Intensity_".$Channel), $Status);
+		}
+	} 
+	
+	private function SetChannelStatus(Int $Channel, Bool $Status)
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetChannelStatus", "Ausfuehrung", 0);
