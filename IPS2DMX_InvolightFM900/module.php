@@ -46,11 +46,23 @@
             	// Diese Zeile nicht löschen
             	parent::ApplyChanges();
 		
+		// Profil anlegen
+		$this->RegisterProfileInteger("IPS2DMX.FM900Reset", "Clock", "", "", 0, 6, 1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.FM900Reset", 0, "Aus", "Clock", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.FM900Reset", 1, "10 sek", "Clock", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.FM900Reset", 2, "20 sek", "Clock", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.FM900Reset", 3, "30 sek", "Clock", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.FM900Reset", 4, "40 sek", "Clock", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.FM900Reset", 5, "50 sek", "Clock", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.FM900Reset", 6, "60 sek", "Clock", -1);
+		
 		$this->RegisterVariableBoolean("Status", "Status", "~Switch", 10);
 		$this->EnableAction("Status");
 		IPS_SetHidden($this->GetIDForIdent("Status"), false);
 		
-		
+		$this->RegisterVariableInteger("AutoReset", "Auto Reset", "IPS2DMX.FM900Reset", 20);
+		$this->EnableAction("AutoReset");
+		IPS_SetHidden($this->GetIDForIdent("AutoReset"), false);
 		
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
@@ -70,6 +82,9 @@
 		case "Status":
 			$this->SetChannelStatus($Value);
 			break;
+		case "AutoReset":
+			SetValueInteger($this->GetIDForIdent("AutoReset"), $Value);
+			break;
 		default:
 		    throw new Exception("Invalid Ident");
 		}
@@ -81,18 +96,22 @@
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetChannelStatus", "Ausfuehrung", 0);
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
+			$AutoReset = GetValueInteger($this->GetIDForIdent("AutoReset"));
 			
 			If ($Status == true) {
+				
 				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXStartChannel, "Value" => 255, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
+				If ($AutoReset > 0) {
+					$this->SetTimerInterval("Timer_1", ($AutoReset * 1000));
+				}	
 			}
 			else {
 				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXStartChannel, "Value" => 0, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
+				$this->SetTimerInterval("Timer_1", 0);
 			}
 			SetValueBoolean($this->GetIDForIdent("Status"), $Status);
 		}
 	} 
-	
-
 	
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
 	{
