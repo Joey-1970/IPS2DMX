@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<device image="Laser.gif" initsequence="set 0 0;set 1 2;set 2 0;set 3 0; set 4 20;set 5 20;set 6 24;set 7 1;set 9 0">
+  <information>
+    <comment>zu gefährliche Muster/Animationen weggelassen</comment>
+    <author>Daniel Siebert</author>
+    <vendor>Laserworld</vendor>
+    <name>Ecoline EL 200RGY</name>
+  </information>
+  <channels>
+    <function channel="0" minvalue="0" maxvalue="255" name="Modus" fade="no" action="get_mode" />
+    <function channel="1" minvalue="0" maxvalue="255" name="Muster" fade="no" action="get_pattern" />
+    <function channel="2" minvalue="0" maxvalue="255" name="Strobe" fade="yes" />
+    <function channel="3" minvalue="0" maxvalue="255" name="Punktspeed" fade="yes" />
+    <function channel="4" minvalue="0" maxvalue="255" name="Pan" fade="yes" type="pan" action="get_x" />
+    <function channel="5" minvalue="0" maxvalue="255" name="Tilt" fade="yes" type="tilt" action="get_y" />
+    <function channel="6" minvalue="0" maxvalue="255" name="Zoom" fade="yes" action="get_zoom" />
+    <function channel="7" minvalue="0" maxvalue="255" name="Farbe" fade="no" />
+    <function channel="8" minvalue="0" maxvalue="255" name="Reset" fade="no" />
+    <function channel="9" minvalue="0" maxvalue="255" name="Farbeffekt" fade="no" />
+  </channels>
+  <form width="305" height="480">
+    <deviceimage top="8" left="16" height="32" width="32" />
+    <devicename top="8" left="56" />
+    <deviceadress top="24" left="56" />
+    <dropdown top="8" left="192" width="97" name="mode" action="set_mode">
+      <item caption="AUS" value="0" />
+      <item caption="Sound" value="80" />
+      <item caption="DMX" value="250" />
+    </dropdown>
+    <command top="448" left="16" width="48" height="30" caption="Reset" clicksequence="save 8;set 0 255;hold 5" />
+    <dropdown top="352" left="16" width="121" name="Farbauswahl" channel="7">
+      <item caption="gelb" value="1" />
+      <item caption="rot" value="40" />
+      <item caption="grün" value="80" />
+      <item caption="originalmuster" value="120" />
+      <item caption="Farbwechsel" value="160" />
+    </dropdown>
+    <slider top="280" left="8" height="41" width="140" startvalue="0" endvalue="255" name="Strobe" channel="2" />
+    <label top="264" left="16" caption="Strobe:" />
+    <slider top="280" left="152" height="41" width="140" startvalue="0" endvalue="255" name="Punktgeschwindigkeit" channel="3" />
+    <label top="264" left="160" caption="Punktgeschwindigkeit:" />
+    <label top="336" left="16" caption="Farbe:" />
+    <dropdown top="352" left="160" width="121" channel="9">
+      <item caption="AUS" value="0" />
+      <item caption="Teil des Musters zeichnen" value="1" />
+      <item caption="Durchlaufend" value="80" />
+      <item caption="Farbwechsel" value="120" />
+    </dropdown>
+    <label top="336" left="160" caption="Farbeffekt:" />
+    <label top="400" left="16" caption="Muster/Animation:" />
+    <slider top="208" left="8" height="41" width="164" startvalue="0" endvalue="255" name="zoom_slider" action="set_zoom" />
+    <label top="192" left="16" caption="Zoom-Control" />
+    <dropdown top="416" left="16" width="265" name="pattern" action="set_pattern">
+      <item caption="Linie waagerecht" value="2" />
+      <item caption="Linie senkrecht" value="4" />
+      <item caption="Kreuz" value="6" />
+      <item caption="Quadrat" value="8" />
+      <item caption="Diagonale ul-&gt;or" value="10" />
+      <item caption="Diagonale ur-&gt;ol" value="12" />
+      <item caption="Welle" value="14" />
+      <item caption="Schnecke" value="16" />
+      <item caption="Dreieck" value="18" />
+      <item caption="X-Wing normal" value="20" />
+      <item caption="X-Wing gedreht" value="22" />
+      <item caption="umgedrehtes V" value="24" />
+      <item caption="Kreis" value="26" />
+      <item caption="Rechteck waagerecht" value="28" />
+      <item caption="X-Wing versch. Flügel" value="30" />
+      <item caption="X-Wing versch. Flügel gedreht" value="32" />
+      <item caption="-- waagerechte Flächen auf und zu" value="144" />
+      <item caption="-- Vogel Flügelschlag unten" value="154" />
+      <item caption="-- drehendes V" value="156" />
+      <item caption="-- Vogel Flügelschlag unten und oben" value="158" />
+      <item caption="-- drehendes V aus Linien" value="160" />
+      <item caption="-- Kreis aus Linien" value="168" />
+      <item caption="-- Rechteck auf und zu" value="178" />
+      <item caption="-- Rechteck drehend" value="180" />
+      <item caption="-- Rechteck drehend 2" value="182" />
+      <item caption="-- X-Wing drehend" value="184" />
+      <item caption="-- X-Wing versetzt auf/zu/über Kreuz" value="186" />
+      <item caption="-- X-Wing versetzt auf/zu/über Kreuz aus Linien" value="188" />
+      <item caption="-- X-Wing drehend Linien" value="190" />
+      <item caption="-- X-Wing versetzt horizontal auf/zu/über Kreuz" value="192" />
+      <item caption="-- Kreise wechselnde Positionen" value="194" />
+      <item caption="-- Kreis grösser werdend" value="198" />
+      <item caption="-- Kreis kleiner werdend" value="204" />
+      <item caption="-- Kreis kleiner und grösser werdend" value="210" />
+      <item caption="-- Quadrate wechselnde Positionen" value="216" />
+      <item caption="-- Quadrat grösser werdend" value="222" />
+      <item caption="-- Quadrat kleiner werdend" value="228" />
+      <item caption="-- Quadrat kleiner und grösser werdend" value="234" />
+      <item caption="-- rote springende Strahlen" value="240" />
+      <item caption="-- gelbe springende Strahlen" value="246" />
+    </dropdown>
+    <slider top="64" left="8" height="41" width="164" startvalue="0" endvalue="255" name="x_slider" action="set_x" />
+    <slider top="136" left="8" height="41" width="164" startvalue="0" endvalue="255" name="y_slider" action="set_y" />
+    <label top="48" left="16" caption="X-Control" />
+    <label top="120" left="16" caption="Y-Control" />
+    <command top="448" left="80" width="200" height="30" caption="AUS" name="off" action="blanking" />
+    <options top="40" left="192" name="x_option" action="set_x">
+      <option value="1" caption="X-Position" top="0" left="0" />
+      <option value="2" caption="auto R ---&gt; L" top="16" left="0" />
+      <option value="3" caption="auto L ---&gt; R" top="32" left="0" />
+      <option value="4" caption="auto R &lt;---&gt; L" top="48" left="0" />
+    </options>
+    <options top="112" left="192" name="y_option" action="set_y">
+      <option value="1" caption="Y-Position" top="0" left="0" />
+      <option value="2" caption="auto U ---&gt; O" top="16" left="0" />
+      <option value="3" caption="auto O ---&gt; U" top="32" left="0" />
+      <option value="4" caption="auto U &lt;---&gt; O" top="48" left="0" />
+    </options>
+    <options top="184" left="192" name="zoom_option" action="set_zoom">
+      <option value="1" caption="Zoom" top="0" left="0" />
+      <option value="2" caption="auto k ---&gt; g" top="16" left="0" />
+      <option value="3" caption="auto g ---&gt; k" top="32" left="0" />
+      <option value="4" caption="auto k &lt;---&gt; g" top="48" left="0" />
+    </options>
+  </form>
+  <help>- Reset geht nur bei den beeinflussbaren Mustern
+- wenn bei den Mustern mit "-- " die farbe verändert werden soll, muss
+  zwischendurch (nach Farbwechsel) kurz auf ein Muster ohne "-- " gesetzt werden
+  (z.B. waagerechte Linie) oder Modus auf "AUS"
+- "!!!!!" -Muster sind zu gefährlich (z.B. pulsierende, wobei kurz ein stehender Beam
+  vorkommt)
+
+
+- experimentell ermittelte Werte:
+Channel 1 #### Modus
+Aus 0
+Soundmodus 80
+DMX Modus 255
+
+Channel 2 #### Muster
+Punkt 0
+waagerechte Linie 2
+senkrechte Linie 4
+Kreuz 6
+Quadrat 8
+Diagonale rechts 10
+Diagonale links 12
+Welle 14
+pulsierende Schnecke 16
+Dreieck 18
+X-Wing normal 20
+X-Wing gedreht 22
+umgedrehtes V 24
+Kreis 26
+Rechteck waagerecht 28
+X-Wing verschobene Flügel 30
+X-Wing verschobene Flügel gedreht 32
+!!!!! 172
+!!!!! 174
+!!!!! 176
+-- Rechteck auf und zu 178
+-- drehendes Rechteck 180
+-- drehends Rechteck 2 182
+-- drehender X-Wing 184
+-- X-Wing versetzt auf/zu/über Kreuz 186
+-- X-Wing versetzt auf/zu/über Kreuz als Linien 188
+-- drehender X-Wing als Linien 190
+-- X-Wing versetzt horizontal auf/zu/über Kreuz 192
+-- Kreise wechselnde Positionen 194
+-- -- Kreis grösser werdend 198
+-- -- Kreis kleiner werdend 204
+-- Kreis kleiner und grösser werdend 210
+-- Quadrate wechselnde Positionen 216
+-- Quadrat grösser werdend 222
+-- Quadrat kleiner werdend 228
+-- Quadrat kleiner und grösser werdend 234
+-- schnell springende Strahlen 240
+-- langsamer springende Strahlen 246
+!!!!! 162
+!!!!! 130
+-- waagerechte Flächen auf und zu 144
+-- Vogel Flügel unten 154
+-- drehendes V 156
+-- Vogel Flügel unten und oben 158
+-- drehendes V aus Linien 160
+-- Kreis aus Linien 168
+
+Channel 3 #### Strobe
+kein Strobe 0
+langsam an aus 32
+
+Channel 4 #### Punktspeed
+große Fläche 0
+kleine Flächen 255
+
+Channel 5 #### X-Position
+- 2. Step ab 24 dann alle 4 Werte (28,32,...)
+- letzter Step bei 140
+- kleiner Wert ist links, großer Wert ist rechts
+- 0 bewirkt Mitte
+auto rechts --&gt; links steigender Speed 162 - 189
+auto links --&gt; rechts steigender Speed 192 - 219
+auto hin &lt;--&gt; her steigender Speed 222 - 255
+
+Channel 6 #### Y-Position
+- 2. Step ab 24 dann alle 4 Werte (28,32,...)
+- letzter Step bei 140
+- kleiner Wert ist oben, großer Wert ist unten
+auto unten --&gt; oben steigender Speed 161- 190
+auto oben --&gt; unten steigender Speed 191 - 220
+auto hoch &lt;--&gt; runter steigender Speed 221 - 255
+
+Channel 7 #### Zoom
+Punkt !!! 3
+klein 18 (besser ab 24, da ab da alle beeinflussbaren Muster reagieren)
+groß 65
+auto klein --&gt; gross steigender Speed 93 - 146
+auto gross --&gt; klein steigender Speed 147 - 200
+auto gross &lt;--&gt; klein steigender Speed 201 - 255
+
+Channel 8 #### Color
+gelb 0
+rot 40
+grün 80
+bunt 120
+durchlaufend 160
+wechselnd 200
+
+Channel 9 #### Reset
+
+Channel 10 #### Farbeffektkanal</help>
+  <code>
+    <procedure name="INITCONTROLS">!call|get_x$
+!call|get_y$
+!call|get_zoom$
+!call|get_mode$
+!call|get_pattern$</procedure>
+    <procedure name="blanking">!set_channel|0|0$
+!set_control|mode|0$
+</procedure>
+    <procedure name="set_x">!if|{x_option}|eq|1|
+   !set_channel|4|(({x_slider} / 2.1157) + 20)$
+$
+!if|{x_option}|eq|2|
+   !set_channel|4|(({x_slider} / 9.46428) + 162)$
+$
+!if|{x_option}|eq|3|
+   !set_channel|4|(({x_slider} / 9.46428) + 192)$
+$
+!if|{x_option}|eq|4|
+   !set_channel|4|(({x_slider} / 9.46428) + 222)$
+$
+</procedure>
+    <procedure name="get_x">!if|({channel_4} &gt; 19 and {channel_4} &lt; 141)|
+   !set_control|x_option|1$
+   !set_control|x_slider|(({channel_4} - 20) * 2.1157)$
+$
+!if|({channel_4} &gt; 161) and ({channel_4} &lt; 190)|
+   !set_control|x_option|2$
+   !set_control|x_slider|(({channel_4} - 162) * 9.46428)$
+$
+!if|({channel_4} &gt; 191) and ({channel_4} &lt; 220)|
+   !set_control|x_option|3$
+   !set_control|x_slider|(({channel_4} - 192) * 9.46428)$
+$
+!if|({channel_4} &gt; 221) and ({channel_4} &lt; 249)|
+   !set_control|x_option|4$
+   !set_control|x_slider|(({channel_4} - 222) * 9.46428)$
+$  </procedure>
+    <procedure name="set_y">!if|{y_option}|eq|1|
+   !set_channel|5|(({y_slider} / 2.1157) + 20)$
+$
+!if|{y_option}|eq|2|
+   !set_channel|5|(({y_slider} / 9.46428) + 162)$
+$
+!if|{y_option}|eq|3|
+   !set_channel|5|(({y_slider} / 9.46428) + 192)$
+$
+!if|{y_option}|eq|4|
+   !set_channel|5|(({y_slider} / 9.46428) + 222)$
+$</procedure>
+    <procedure name="get_y">!if|({channel_5} &gt; 19 and {channel_5} &lt; 141)|
+   !set_control|y_option|1$
+   !set_control|y_slider|(({channel_5} - 20) * 2.1157)$
+$
+!if|({channel_5} &gt; 161) and ({channel_5} &lt; 190)|
+   !set_control|y_option|2$
+   !set_control|y_slider|(({channel_5} - 162) * 9.46428)$
+$
+!if|({channel_5} &gt; 191) and ({channel_5} &lt; 220)|
+   !set_control|y_option|3$
+   !set_control|y_slider|(({channel_5} - 192) * 9.46428)$
+$
+!if|({channel_5} &gt; 221) and ({channel_5} &lt; 249)|
+   !set_control|y_option|4$
+   !set_control|y_slider|(({channel_5} - 222) * 9.46428)$
+$  
+</procedure>
+    <procedure name="set_zoom">!if|{zoom_option}|eq|1|
+   !set_channel|6|(({zoom_slider} / 6.095238) + 24)$
+$
+!if|{zoom_option}|eq|2|
+   !set_channel|6|(({zoom_slider} / 4.923077) + 93)$
+$
+!if|{zoom_option}|eq|3|
+   !set_channel|6|(({zoom_slider} / 4.740741) + 147)$
+$
+!if|{zoom_option}|eq|4|
+   !set_channel|6|(({zoom_slider} / 4.740741) + 201)$
+$</procedure>
+    <procedure name="get_zoom">!if|({channel_6} &gt; 23 and {channel_6} &lt; 66)|
+   !set_control|zoom_option|1$
+   !set_control|zoom_slider|(({channel_6} - 24) * 6.095238)$
+$
+!if|({channel_6} &gt; 92) and ({channel_6} &lt; 147)|
+   !set_control|zoom_option|2$
+   !set_control|zoom_slider|(({channel_6} - 93) * 4.923077)$
+$
+!if|({channel_6} &gt; 146) and ({channel_6} &lt; 201)|
+   !set_control|zoom_option|3$
+   !set_control|zoom_slider|(({channel_6} - 147) * 4.740741)$
+$
+!if|({channel_6} &gt; 200)|
+   !set_control|zoom_option|4$
+   !set_control|zoom_slider|(({channel_6} - 201) * 4.740741)$
+$</procedure>
+    <procedure name="set_pattern">!set_channel|1|({pattern})$</procedure>
+    <procedure name="get_pattern">!set_control|pattern|{channel_1}$</procedure>
+    <procedure name="set_mode">!if|({mode} = 0) or ({mode} = 80)|
+  !set_channel|0|{mode}$
+$
+!if|({mode} = 250)|
+  !set_channel|0|{mode}$
+  !set_channel|1|2$
+$</procedure>
+    <procedure name="get_mode">!set_control|mode|{channel_0}$</procedure>
+  </code>
+</device>
