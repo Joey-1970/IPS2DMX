@@ -76,7 +76,7 @@
 			//$this->SetChannelStatus($Value);
 			break;
 		case "Intensity":
-			$this->SetChannelValue($Value);
+			$this->SetChannelValue($Channel, $Value);
 			break;
 		case "IntensityMaster":
 			SetValueInteger($this->GetIDForIdent("IntensityMaster_0"), $Value);
