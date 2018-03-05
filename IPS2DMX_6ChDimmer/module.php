@@ -39,16 +39,16 @@
 		
 		for ($i = 0; $i <= 5; $i++) {
 			/*
-			$this->RegisterVariableBoolean("Status_".($i + 1), "Status ".($i + 1), "~Switch", 10 + ($i * 30));
+			$this->RegisterVariableBoolean("Status_".($i + 1), "Status ".($i + 1), "~Switch", 10 + ($i * 20));
 			$this->EnableAction("Status_".($i + 1));
 			IPS_SetHidden($this->GetIDForIdent("Status_".($i + 1)), false);
 			*/
 			
-			$this->RegisterVariableInteger("Intensity_".($i + 1), "Intensity ".($i + 1), "~Intensity.255", 20 + ($i * 30) );
+			$this->RegisterVariableInteger("Intensity_".($i + 1), "Intensity ".($i + 1), "~Intensity.255", 20 + ($i * 20) );
 			$this->EnableAction("Intensity_".($i + 1));
 			IPS_SetHidden($this->GetIDForIdent("Intensity_".($i + 1)), false);
 		}
-		$this->RegisterVariableInteger("IntensityMaster_0", "Intensity Master", "~Intensity.255", 120);
+		$this->RegisterVariableInteger("IntensityMaster_0", "Intensity Master", "~Intensity.255", 130);
 		$this->EnableAction("IntensityMaster_0");
 		IPS_SetHidden($this->GetIDForIdent("IntensityMaster_0"), false);
 		
