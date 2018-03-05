@@ -94,7 +94,7 @@
 			$this->SendDebug("SetChannelStatus", "Ausfuehrung", 0);
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
 			$IntensityMaster = GetValueInteger($this->GetIDForIdent("IntensityMaster_0"));
-			$DMXChannel = $DMXStartChannel + $Channel;
+			$DMXChannel = $DMXStartChannel + $Channel - 1;
 			$Value = min($IntensityMaster, $Value);
 			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
 			SetValueInteger($this->GetIDForIdent("Intensity_".$Channel), $Value);
