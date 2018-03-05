@@ -18,7 +18,7 @@
 		$this->ConnectParent("{B1E43BF6-770A-4FD7-B4FE-6D265F93746B}");
  	    	$this->RegisterPropertyInteger("DMXStartChannel", 1);
 		$this->RegisterPropertyInteger("Timer_1", 60);
-		$this->RegisterTimer("Timer_1", 0, 'I2DFM900_ProgramTimer($_IPS["TARGET"]);');
+		$this->RegisterTimer("Timer_1", 0, 'I2DFM900_SetChannelStatus($_IPS["TARGET"], false);');
         }
  	
 	public function GetConfigurationForm() 
@@ -64,31 +64,30 @@
 		}
 	}
 	
-public function RequestAction($Ident, $Value) 
-{
-	switch($Ident) {
-	case "Status":
-		$this->SetChannelStatus($Value);
-		break;
-	default:
-	    throw new Exception("Invalid Ident");
+	public function RequestAction($Ident, $Value) 
+	{
+		switch($Ident) {
+		case "Status":
+			$this->SetChannelStatus($Value);
+			break;
+		default:
+		    throw new Exception("Invalid Ident");
+		}
 	}
-}
 	    
 	// Beginn der Funktionen
-	private function SetChannelStatus(Bool $Status)
+	public function SetChannelStatus(Bool $Status)
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetChannelStatus", "Ausfuehrung", 0);
 			
 			If ($Status == true) {
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value_R, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => 255, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
 			}
 			else {
 				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => 0, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
 			}
 			SetValueBoolean($this->GetIDForIdent("Status"), $Status);
-			
 		}
 	} 
 	
