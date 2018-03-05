@@ -96,7 +96,7 @@
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetChannelStatus", "Ausfuehrung", 0);
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
-			$AutoReset = GetValueInteger($this->GetIDForIdent("AutoReset"));
+			$AutoReset = 10 * GetValueInteger($this->GetIDForIdent("AutoReset"));
 			
 			If ($Status == true) {
 				
