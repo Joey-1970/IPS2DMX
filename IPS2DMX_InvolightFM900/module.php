@@ -80,6 +80,7 @@
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetChannelStatus", "Ausfuehrung", 0);
+			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
 			
 			If ($Status == true) {
 				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => 255, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
