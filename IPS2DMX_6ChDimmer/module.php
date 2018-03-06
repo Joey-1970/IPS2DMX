@@ -91,7 +91,7 @@
 	private function SetChannelValue(Int $Channel, Int $Value)
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
-			$this->SendDebug("SetChannelStatus", "Ausfuehrung", 0);
+			$this->SendDebug("SetChannelValue", "Ausfuehrung", 0);
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
 			$IntensityMaster = GetValueInteger($this->GetIDForIdent("IntensityMaster_0"));
 			$DMXChannel = $DMXStartChannel + $Channel - 1;
