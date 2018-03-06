@@ -37,12 +37,12 @@
             	parent::ApplyChanges();
 	
 		// Profil anlegen
-		$this->RegisterProfileInteger("IPS2DMX.EL200RGYModus", "Popcorn", "", "", 0, 2, 1);
+		$this->RegisterProfileInteger("IPS2DMX.EL200RGYModus", "Popcorn", "", "", 0, 2, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYModus", 0, "Aus", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYModus", 80, "Sound", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYModus", 255, "DMX", "Information", -1);
 		
-		$this->RegisterProfileInteger("IPS2DMX.EL200RGYMuster", "Popcorn", "", "", 0, 38, 1);
+		$this->RegisterProfileInteger("IPS2DMX.EL200RGYMuster", "Popcorn", "", "", 0, 38, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 2, "Linie waagerecht", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 4, "Linie senkrecht", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 6, "Kreuz", "Information", -1);
