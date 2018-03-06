@@ -90,6 +90,12 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYColor", 120, "Originalmuster", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYColor", 160, "Farbwechsel", "Information", -1);
 		
+		$this->RegisterProfileInteger("IPS2DMX.EL200RGYFarbeffekt", "Popcorn", "", "", 0, 2, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYFarbeffekt", 0, "Aus", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYFarbeffekt", 1, "Teil des Musters zeichnen", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYFarbeffekt", 80, "Durchlaufend", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYFarbeffekt", 120, "Farbwechsel", "Information", -1);
+		
 		
 		
 		// Statusvariablen anlegen
@@ -109,10 +115,15 @@
 		$this->EnableAction("Punktspeed");
 		IPS_SetHidden($this->GetIDForIdent("Punktspeed"), false);
 		
-		$this->RegisterVariableInteger("Color", "Color", "IPS2DMX.EL200RGYColor", 80);
+		$this->RegisterVariableInteger("Color", "Farbe", "IPS2DMX.EL200RGYColor", 80);
 		$this->EnableAction("Color");
 		IPS_SetHidden($this->GetIDForIdent("Color"), false);
 		
+		// Reset
+		
+		$this->RegisterVariableInteger("Farbeffekt", "Farbeffekt", "IPS2DMX.EL200RGYFarbeffekt", 100);
+		$this->EnableAction("Farbeffekt");
+		IPS_SetHidden($this->GetIDForIdent("Farbeffekt"), false);
 		
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
@@ -131,19 +142,24 @@
 		
 		switch($Ident) {
 		case "Modus":
-			$this->SetChannelValue( 0, $Value);
+			$this->SetChannelValue(0, $Value);
 			break;
 		case "Muster":
-			$this->SetChannelValue( 1, $Value);
+			$this->SetChannelValue(1, $Value);
 			break;
 		case "Strobe":
-			$this->SetChannelValue( 2, $Value);
+			$this->SetChannelValue(2, $Value);
 			break;
 		case "Punktspeed":
-			$this->SetChannelValue( 3, $Value);
+			$this->SetChannelValue(3, $Value);
 			break;
+				
 		case "Color":
 			$this->SetChannelValue( 7, $Value);
+			break;
+				
+		case "Farbeffekt":
+			$this->SetChannelValue( 9, $Value);
 			break;
 		default:
 		    throw new Exception("Invalid Ident");
