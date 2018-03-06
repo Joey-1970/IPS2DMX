@@ -22,8 +22,7 @@
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv"); 
  		$arrayElements[] = array("type" => "NumberSpinner", "name" => "DMXStartChannel",  "caption" => "DMX-Start-Kanal");
-		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");
-		
+		$arrayElements[] = array("type" => "Label", "label" => "Dieses Gerät benötigt 4 DMX-Kanäle");
 		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________"); 
 		$arrayActions = array();
 		$arrayActions[] = array("type" => "Label", "label" => "Diese Funktionen stehen erst nach Eingabe und Übernahme der erforderlichen Daten zur Verfügung!");
@@ -54,7 +53,6 @@
 		IPS_SetHidden($this->GetIDForIdent("SoundActive"), false);
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
-		
 			If ($this->ReadPropertyBoolean("Open") == true) {
 				$this->SetStatus(102);
 			}
@@ -97,25 +95,6 @@
 		}
 	} 
 	
-	
-	
-	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
-	{
-	        if (!IPS_VariableProfileExists($Name))
-	        {
-	            IPS_CreateVariableProfile($Name, 1);
-	        }
-	        else
-	        {
-	            $profile = IPS_GetVariableProfile($Name);
-	            if ($profile['ProfileType'] != 1)
-	                throw new Exception("Variable profile type does not match for profile " . $Name);
-	        }
-	        IPS_SetVariableProfileIcon($Name, $Icon);
-	        IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
-	        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);    
-	}    
-	    
 	private function HasActiveParent()
     	{
 		$Instance = @IPS_GetInstance($this->InstanceID);
