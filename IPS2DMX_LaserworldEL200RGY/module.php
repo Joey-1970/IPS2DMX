@@ -80,8 +80,8 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 222, "-- Quadrat grösser werdend", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 228, "-- Quadrat kleiner werdend", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 234, "-- Quadrat kleiner und grösser werdend", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 240, "-- rote springende Strahlen", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 246, "-- gelbe springende Strahlen", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 240, "-- Rote springende Strahlen", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 246, "-- Gelbe springende Strahlen", "Information", -1);
 		
 		$this->RegisterProfileInteger("IPS2DMX.EL200RGYColor", "Popcorn", "", "", 0, 2, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYColor", 1, "Gelb", "Information", -1);
