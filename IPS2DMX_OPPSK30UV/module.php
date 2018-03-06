@@ -70,16 +70,16 @@
 		
 		switch($Ident) {
 		case "Brightness":
-			//$this->SetChannelStatus($Value);
+			$this->SetChannelValue( 0, $Value);
 			break;
 		case "Strobe":
-			//$this->SetChannelValue($Channel, $Value);
+			$this->SetChannelValue( 1, $Value);
 			break;
 		case "AutoPrograms":
-			//$this->SetChannelStatus($Value);
+			$this->SetChannelValue( 2, $Value);
 			break;
 		case "SoundActive":
-			//$this->SetChannelStatus($Value);
+			$this->SetChannelValue( 3, $Value);
 			break;
 		default:
 		    throw new Exception("Invalid Ident");
@@ -90,13 +90,10 @@
 	private function SetChannelValue(Int $Channel, Int $Value)
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
-			$this->SendDebug("SetChannelStatus", "Ausfuehrung", 0);
+			$this->SendDebug("SetChannelValue", "Ausfuehrung", 0);
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
-			$IntensityMaster = GetValueInteger($this->GetIDForIdent("IntensityMaster_0"));
-			$DMXChannel = $DMXStartChannel + $Channel - 1;
-			$Value = min($IntensityMaster, $Value);
+			$DMXChannel = $DMXStartChannel + $Channel; 
 			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-			SetValueInteger($this->GetIDForIdent("Intensity_".$Channel), $Value);
 		}
 	} 
 	
