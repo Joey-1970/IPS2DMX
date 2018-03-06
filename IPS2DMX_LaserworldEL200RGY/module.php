@@ -118,20 +118,19 @@
 		SetValueInteger($this->GetIDForIdent($Ident), $Value);
 		
 		switch($Ident) {
-		/*
-		case "Brightness":
+		case "Modus":
 			$this->SetChannelValue( 0, $Value);
 			break;
-		case "Strobe":
+		case "Muster":
 			$this->SetChannelValue( 1, $Value);
 			break;
-		case "AutoPrograms":
+		case "Strobe":
 			$this->SetChannelValue( 2, $Value);
 			break;
-		case "SoundActive":
+		case "Punktspeed":
 			$this->SetChannelValue( 3, $Value);
 			break;
-		*/
+
 		default:
 		    throw new Exception("Invalid Ident");
 		}
