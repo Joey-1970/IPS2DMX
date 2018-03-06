@@ -42,7 +42,7 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYModus", 80, "Sound", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYModus", 255, "DMX", "Information", -1);
 		
-		$this->RegisterProfileInteger("IPS2DMX.EL200RGYMuster", "Popcorn", "", "", 0, 2, 1);
+		$this->RegisterProfileInteger("IPS2DMX.EL200RGYMuster", "Popcorn", "", "", 0, 38, 1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 2, "Linie waagerecht", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 4, "Linie senkrecht", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 6, "Kreuz", "Information", -1);
@@ -71,6 +71,17 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 186, "-- X-Wing versetzt auf/zu/über Kreuz", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 188, "-- X-Wing versetzt auf/zu/über Kreuz aus Linien", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 190, "-- X-Wing drehend Linien", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 192, "-- X-Wing versetzt horizontal auf/zu/über Kreuz", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 194, "-- Kreise wechselnde Positionen", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 198, "-- Kreis grösser werdend", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 204, "-- Kreis kleiner werdend", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 210, "-- Kreis kleiner und grösser werdend", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 216, "-- Quadrate wechselnde Positionen", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 222, "-- Quadrat grösser werdend", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 228, "-- Quadrat kleiner werdend", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 234, "-- Quadrat kleiner und grösser werdend", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 240, "-- rote springende Strahlen", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 246, "-- gelbe springende Strahlen", "Information", -1);
 		
 		
 		// Statusvariablen anlegen
