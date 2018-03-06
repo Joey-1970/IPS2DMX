@@ -36,23 +36,22 @@
         {
             	// Diese Zeile nicht löschen
             	parent::ApplyChanges();
+	
+		$this->RegisterVariableInteger("Brightness", "Brightness", "~Intensity.255", 10);
+		$this->EnableAction("Brightness");
+		IPS_SetHidden($this->GetIDForIdent("Brightness"), false);
 		
-		for ($i = 0; $i <= 5; $i++) {
-			/*
-			$this->RegisterVariableBoolean("Status_".($i + 1), "Status ".($i + 1), "~Switch", 10 + ($i * 20));
-			$this->EnableAction("Status_".($i + 1));
-			IPS_SetHidden($this->GetIDForIdent("Status_".($i + 1)), false);
-			*/
-			
-			$this->RegisterVariableInteger("Intensity_".($i + 1), "Intensity ".($i + 1), "~Intensity.255", 20 + ($i * 20) );
-			$this->EnableAction("Intensity_".($i + 1));
-			IPS_SetHidden($this->GetIDForIdent("Intensity_".($i + 1)), false);
-		}
-		$this->RegisterVariableInteger("IntensityMaster_0", "Intensity Master", "~Intensity.255", 130);
-		$this->EnableAction("IntensityMaster_0");
-		IPS_SetHidden($this->GetIDForIdent("IntensityMaster_0"), false);
+		$this->RegisterVariableInteger("Strobe", "Strobe", "~Intensity.255", 20);
+		$this->EnableAction("Strobe");
+		IPS_SetHidden($this->GetIDForIdent("Strobe"), false);
 		
+		$this->RegisterVariableInteger("AutoPrograms", "AutoPrograms", "~Intensity.255", 30);
+		$this->EnableAction("AutoPrograms");
+		IPS_SetHidden($this->GetIDForIdent("AutoPrograms"), false);
 		
+		$this->RegisterVariableInteger("SoundActive", "SoundActive", "~Intensity.255", 40);
+		$this->EnableAction("SoundActive");
+		IPS_SetHidden($this->GetIDForIdent("SoundActive"), false);
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
 		
@@ -67,19 +66,19 @@
 	
 	public function RequestAction($Ident, $Value) 
 	{
-		$Parts = explode("_", $Ident);
-		$Source = $Parts[0]; // Steuerelement
-		$Channel = intval($Parts[1]); 
+		SetValueInteger($this->GetIDForIdent($Ident), $Value);
 		
-		switch($Source) {
-		case "Status":
+		switch($Ident) {
+		case "Brightness":
 			//$this->SetChannelStatus($Value);
 			break;
-		case "Intensity":
-			$this->SetChannelValue($Channel, $Value);
+		case "Strobe":
+			//$this->SetChannelValue($Channel, $Value);
 			break;
-		case "IntensityMaster":
-			SetValueInteger($this->GetIDForIdent("IntensityMaster_0"), $Value);
+		case "AutoPrograms":
+			//$this->SetChannelStatus($Value);
+			break;
+		case "SoundActive":
 			//$this->SetChannelStatus($Value);
 			break;
 		default:
@@ -101,23 +100,7 @@
 		}
 	} 
 	
-	/*
-	private function SetChannelStatus(Int $Channel, Bool $Status)
-	{ 
-		If ($this->ReadPropertyBoolean("Open") == true) {
-			$this->SendDebug("SetChannelStatus", "Ausfuehrung", 0);
-			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
-			
-			If ($Status == true) {
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXStartChannel, "Value" => 255, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-			}
-			else {
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXStartChannel, "Value" => 0, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-			}
-			SetValueBoolean($this->GetIDForIdent("Status"), $Status);
-		}
-	} 
-	*/
+	
 	
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
 	{
