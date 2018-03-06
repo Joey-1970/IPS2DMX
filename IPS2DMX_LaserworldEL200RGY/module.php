@@ -42,11 +42,27 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYModus", 1, "Sound", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYModus", 2, "DMX", "Information", -1);
 		
+		$this->RegisterProfileInteger("IPS2DMX.EL200RGYMuster", "Popcorn", "", "", 0, 2, 1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 0, "Punkt", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 1, "Waagerechte Linie", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 2, "Senkrechte Linie", "Information", -1);
 		
-		
+		// Statusvariablen anlegen
 		$this->RegisterVariableInteger("Modus", "Modus", "IPS2DMX.EL200RGYModus", 10);
 		$this->EnableAction("Modus");
 		IPS_SetHidden($this->GetIDForIdent("Modus"), false);
+		
+		$this->RegisterVariableInteger("Muster", "Muster", "IPS2DMX.EL200RGYMuster", 20);
+		$this->EnableAction("Muster");
+		IPS_SetHidden($this->GetIDForIdent("Muster"), false);
+		
+		$this->RegisterVariableInteger("Strobe", "Strobe", "~Intensity.255", 30);
+		$this->EnableAction("Strobe");
+		IPS_SetHidden($this->GetIDForIdent("Strobe"), false);
+		
+		$this->RegisterVariableInteger("Punktspeed", "Punktspeed", "~Intensity.255", 40);
+		$this->EnableAction("Punktspeed");
+		IPS_SetHidden($this->GetIDForIdent("Punktspeed"), false);
 		
 		
 		
