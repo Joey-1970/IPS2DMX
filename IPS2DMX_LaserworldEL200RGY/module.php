@@ -22,7 +22,7 @@
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv"); 
  		$arrayElements[] = array("type" => "NumberSpinner", "name" => "DMXStartChannel",  "caption" => "DMX-Start-Kanal");
-		$arrayElements[] = array("type" => "Label", "label" => "Dieses Gerät benötigt 4 DMX-Kanäle");
+		$arrayElements[] = array("type" => "Label", "label" => "Dieses Gerät benötigt 10 DMX-Kanäle");
 		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________"); 
 		$arrayActions = array();
 		$arrayActions[] = array("type" => "Label", "label" => "Diese Funktionen stehen erst nach Eingabe und Übernahme der erforderlichen Daten zur Verfügung!");
@@ -36,21 +36,19 @@
             	// Diese Zeile nicht löschen
             	parent::ApplyChanges();
 	
-		$this->RegisterVariableInteger("Brightness", "Brightness", "~Intensity.255", 10);
-		$this->EnableAction("Brightness");
-		IPS_SetHidden($this->GetIDForIdent("Brightness"), false);
+		// Profil anlegen
+		$this->RegisterProfileInteger("IPS2DMX.EL200RGYModus", "Popcorn", "", "", 0, 2, 1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYModus", 0, "Aus", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYModus", 1, "Sound", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYModus", 2, "DMX", "Information", -1);
 		
-		$this->RegisterVariableInteger("Strobe", "Strobe", "~Intensity.255", 20);
-		$this->EnableAction("Strobe");
-		IPS_SetHidden($this->GetIDForIdent("Strobe"), false);
 		
-		$this->RegisterVariableInteger("AutoPrograms", "AutoPrograms", "~Intensity.255", 30);
-		$this->EnableAction("AutoPrograms");
-		IPS_SetHidden($this->GetIDForIdent("AutoPrograms"), false);
 		
-		$this->RegisterVariableInteger("SoundActive", "SoundActive", "~Intensity.255", 40);
-		$this->EnableAction("SoundActive");
-		IPS_SetHidden($this->GetIDForIdent("SoundActive"), false);
+		$this->RegisterVariableInteger("Modus", "Modus", "IPS2DMX.EL200RGYModus", 10);
+		$this->EnableAction("Modus");
+		IPS_SetHidden($this->GetIDForIdent("Modus"), false);
+		
+		
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
 			If ($this->ReadPropertyBoolean("Open") == true) {
@@ -67,6 +65,7 @@
 		SetValueInteger($this->GetIDForIdent($Ident), $Value);
 		
 		switch($Ident) {
+		/*
 		case "Brightness":
 			$this->SetChannelValue( 0, $Value);
 			break;
@@ -79,6 +78,7 @@
 		case "SoundActive":
 			$this->SetChannelValue( 3, $Value);
 			break;
+		*/
 		default:
 		    throw new Exception("Invalid Ident");
 		}
@@ -95,6 +95,23 @@
 		}
 	} 
 	
+	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
+	{
+	        if (!IPS_VariableProfileExists($Name))
+	        {
+	            IPS_CreateVariableProfile($Name, 1);
+	        }
+	        else
+	        {
+	            $profile = IPS_GetVariableProfile($Name);
+	            if ($profile['ProfileType'] != 1)
+	                throw new Exception("Variable profile type does not match for profile " . $Name);
+	        }
+	        IPS_SetVariableProfileIcon($Name, $Icon);
+	        IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
+	        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);    
+	}    
+	    
 	private function HasActiveParent()
     	{
 		$Instance = @IPS_GetInstance($this->InstanceID);
