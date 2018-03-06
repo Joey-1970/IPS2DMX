@@ -39,13 +39,32 @@
 		// Profil anlegen
 		$this->RegisterProfileInteger("IPS2DMX.EL200RGYModus", "Popcorn", "", "", 0, 2, 1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYModus", 0, "Aus", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYModus", 1, "Sound", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYModus", 2, "DMX", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYModus", 80, "Sound", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYModus", 255, "DMX", "Information", -1);
 		
 		$this->RegisterProfileInteger("IPS2DMX.EL200RGYMuster", "Popcorn", "", "", 0, 2, 1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 0, "Punkt", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 1, "Waagerechte Linie", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 2, "Senkrechte Linie", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 2, "Waagerechte Linie", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 4, "Senkrechte Linie", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 6, "Kreuz", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 8, "Quadrat", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 10, "Diagonale rechts", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 12, "Diagonale links", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 14, "Welle", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 16, "Pulsierende Schnecke", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 18, "Dreieck", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 20, "X-Wing normal", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 22, "X-Wing gedreht", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 24, "Umgedrehtes V", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 26, "Kreis", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 28, "Rechteck waagerecht", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 30, "X-Wing verschobene Flügel", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 32, "X-Wing verschobene Flügel gedreht", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 178, "-- Rechteck auf und zu", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 180, "-- Drehendes Rechteck", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 182, "-- Drehendes Rechteck 2", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 184, "-- Drehendes X-Wing", "Information", -1);
+		
 		
 		// Statusvariablen anlegen
 		$this->RegisterVariableInteger("Modus", "Modus", "IPS2DMX.EL200RGYModus", 10);
