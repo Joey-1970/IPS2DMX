@@ -83,6 +83,14 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 240, "-- rote springende Strahlen", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYMuster", 246, "-- gelbe springende Strahlen", "Information", -1);
 		
+		$this->RegisterProfileInteger("IPS2DMX.EL200RGYColor", "Popcorn", "", "", 0, 2, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYColor", 1, "Gelb", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYColor", 40, "Rot", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYColor", 80, "Grün", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYColor", 120, "Originalmuster", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYColor", 160, "Farbwechsel", "Information", -1);
+		
+		
 		
 		// Statusvariablen anlegen
 		$this->RegisterVariableInteger("Modus", "Modus", "IPS2DMX.EL200RGYModus", 10);
@@ -100,6 +108,10 @@
 		$this->RegisterVariableInteger("Punktspeed", "Punktspeed", "~Intensity.255", 40);
 		$this->EnableAction("Punktspeed");
 		IPS_SetHidden($this->GetIDForIdent("Punktspeed"), false);
+		
+		$this->RegisterVariableInteger("Color", "Color", "IPS2DMX.EL200RGYColor", 80);
+		$this->EnableAction("Color");
+		IPS_SetHidden($this->GetIDForIdent("Color"), false);
 		
 		
 		
@@ -130,7 +142,9 @@
 		case "Punktspeed":
 			$this->SetChannelValue( 3, $Value);
 			break;
-
+		case "Color":
+			$this->SetChannelValue( 7, $Value);
+			break;
 		default:
 		    throw new Exception("Invalid Ident");
 		}
