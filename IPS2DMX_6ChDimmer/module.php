@@ -101,6 +101,7 @@
 			break;
 		case "Program":
 			SetValueInteger($this->GetIDForIdent($Ident), $Value);
+			$this->SetBuffer("StepCounter", 0);
 			break;
 		default:
 		    throw new Exception("Invalid Ident");
@@ -143,9 +144,26 @@
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetProgrammedValue", "Ausfuehrung", 0);
 			$Program = GetValueInteger($this->GetIDForIdent("Program_0"));
+			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
+			$IntensityMaster = GetValueInteger($this->GetIDForIdent("IntensityMaster_0"));
+			
 			switch($Program) {
 				case "1":
-					//$this->SetChannelStatus($Value);
+					$Step[0] = array(255, 0, 255, 0, 255, 0);
+					$Step[1] = array(0, 255, 0, 255, 0, 255);
+					$Steps = count($Step);
+					$StepCounter = intval($this->GetBuffer("StepCounter"));
+					If ($StepCounter >= $Steps) {
+						$StepCounter = 0;
+					}
+					
+					$this->SendDebug("SetProgrammedValue", "Steps: ".$Steps." Zaehler: ".$StepCounter, 0);
+					for ($i = 0; $i <= 5; $i++) {
+						$DMXChannel = $DMXStartChannel + $i;
+						$Value = min($IntensityMaster, $Step[$StepCounter][$i]);
+						$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
+					}
+					$this->SetBuffer("StepCounter", $StepCounter + 1);
 					break;
 			}
 			
