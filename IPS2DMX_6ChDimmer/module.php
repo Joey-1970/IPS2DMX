@@ -99,7 +99,7 @@
 			case 10603:
 				// Änderung der Trigger-Variablen
 				If ($SenderID == $this->ReadPropertyInteger("TriggerID")) {
-					$this->SendDebug("MessageSink", "Trigger-Daten: ".$Data, 0);
+					$this->SendDebug("MessageSink", "Trigger-Daten: ".serialize($Data), 0);
 				}
 				break;
 		}
