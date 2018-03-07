@@ -40,6 +40,12 @@
             	// Diese Zeile nicht löschen
             	parent::ApplyChanges();
 		
+		// Profil anlegen
+		$this->RegisterProfileInteger("IPS2DMX.ProgramDimmer", "Popcorn", "", "", 0, 2, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 0, "Manuelle Steuerung", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 1, "Sinus", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 2, "Sägezahn", "Information", -1);
+		
 		for ($i = 0; $i <= 5; $i++) {
 			/*
 			$this->RegisterVariableBoolean("Status_".($i + 1), "Status ".($i + 1), "~Switch", 10 + ($i * 20));
@@ -54,6 +60,10 @@
 		$this->RegisterVariableInteger("IntensityMaster_0", "Intensity Master", "~Intensity.255", 130);
 		$this->EnableAction("IntensityMaster_0");
 		IPS_SetHidden($this->GetIDForIdent("IntensityMaster_0"), false);
+		
+		$this->RegisterVariableInteger("Program", "Programm", "IPS2DMX.ProgramDimmer", 140);
+		$this->EnableAction("Program");
+		IPS_SetHidden($this->GetIDForIdent("Program", false);
 		
 		// Registrierung für die Änderung der Trigger-Variablen
 		If ($this->ReadPropertyInteger("TriggerID") > 0) {
@@ -85,8 +95,11 @@
 			$this->SetChannelValue($Channel, $Value);
 			break;
 		case "IntensityMaster":
-			SetValueInteger($this->GetIDForIdent("IntensityMaster_0"), $Value);
+			SetValueInteger($this->GetIDForIdent($Ident), $Value);
 			//$this->SetChannelStatus($Value);
+			break;
+		case "Program":
+			SetValueInteger($this->GetIDForIdent($Ident), $Value);
 			break;
 		default:
 		    throw new Exception("Invalid Ident");
@@ -99,7 +112,8 @@
 			case 10603:
 				// Änderung der Trigger-Variablen
 				If ($SenderID == $this->ReadPropertyInteger("TriggerID")) {
-					If ($Data[0] == true) {
+					$Program = GetValueInteger($this->GetIDForIdent("Program"));
+					If (($Data[0] == true) AND ($Program > 0)) {
 						$this->SetChannelStatus($Value);
 					}
 				}
@@ -126,6 +140,9 @@
 	{
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetProgrammedValue", "Ausfuehrung", 0);
+			$Program = GetValueInteger($this->GetIDForIdent("Program"));
+			
+			
 			
 		}
 	}
