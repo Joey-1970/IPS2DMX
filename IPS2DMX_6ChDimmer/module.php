@@ -10,6 +10,7 @@
  	    	$this->RegisterPropertyBoolean("Open", false);
 		$this->ConnectParent("{B1E43BF6-770A-4FD7-B4FE-6D265F93746B}");
  	    	$this->RegisterPropertyInteger("DMXStartChannel", 1);
+		$this->RegisterPropertyInteger("TriggerID", 0);
         }
  	
 	public function GetConfigurationForm() 
@@ -23,7 +24,9 @@
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv"); 
  		$arrayElements[] = array("type" => "NumberSpinner", "name" => "DMXStartChannel",  "caption" => "DMX-Start-Kanal");
 		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");
-		
+		$arrayElements[] = array("type" => "Label", "label" => "Trigger-Variable");
+		$arrayElements[] = array("type" => "SelectVariable", "name" => "TriggerID", "caption" => "Trigger"); 
+
 		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________"); 
 		$arrayActions = array();
 		$arrayActions[] = array("type" => "Label", "label" => "Diese Funktionen stehen erst nach Eingabe und Übernahme der erforderlichen Daten zur Verfügung!");
@@ -52,7 +55,10 @@
 		$this->EnableAction("IntensityMaster_0");
 		IPS_SetHidden($this->GetIDForIdent("IntensityMaster_0"), false);
 		
-		
+		// Registrierung für die Änderung der Trigger-Variablen
+		If ($this->ReadPropertyInteger("TriggerID") > 0) {
+			$this->RegisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
+		}
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
 		
@@ -86,6 +92,19 @@
 		    throw new Exception("Invalid Ident");
 		}
 	}
+	
+	public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
+    	{
+ 		switch ($Message) {
+			case 10603:
+				// Änderung der Trigger-Variablen
+				If ($SenderID == $this->ReadPropertyInteger("TriggerID")) {
+					$this->SendDebug("MessageSink", "Trigger", 0);
+				}
+				break;
+		}
+    	}    
+	    
 	    
 	// Beginn der Funktionen
 	private function SetChannelValue(Int $Channel, Int $Value)
