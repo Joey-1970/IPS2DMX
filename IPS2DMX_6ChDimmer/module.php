@@ -99,7 +99,9 @@
 			case 10603:
 				// Änderung der Trigger-Variablen
 				If ($SenderID == $this->ReadPropertyInteger("TriggerID")) {
-					$this->SendDebug("MessageSink", "Trigger-Daten: ".print_r($Data, true), 0);
+					If ($Data[0] == true) {
+						$this->SetChannelStatus($Value);
+					}
 				}
 				break;
 		}
@@ -120,6 +122,14 @@
 		}
 	} 
 	
+	private function SetProgrammedValue()
+	{
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->SendDebug("SetProgrammedValue", "Ausfuehrung", 0);
+			
+		}
+	}
+	 
 	/*
 	private function SetChannelStatus(Int $Channel, Bool $Status)
 	{ 
