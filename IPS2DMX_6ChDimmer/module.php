@@ -43,7 +43,7 @@
 		// Profil anlegen
 		$this->RegisterProfileInteger("IPS2DMX.ProgramDimmer", "Popcorn", "", "", 0, 2, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 0, "Manuelle Steuerung", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 1, "Sinus", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 1, "Wechselblinker", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 2, "Sägezahn", "Information", -1);
 		
 		for ($i = 0; $i <= 5; $i++) {
@@ -92,6 +92,7 @@
 			//$this->SetChannelStatus($Value);
 			break;
 		case "Intensity":
+			
 			$this->SetChannelValue($Channel, $Value);
 			break;
 		case "IntensityMaster":
@@ -112,9 +113,8 @@
 			case 10603:
 				// Änderung der Trigger-Variablen
 				If ($SenderID == $this->ReadPropertyInteger("TriggerID")) {
-					$Program = GetValueInteger($this->GetIDForIdent("Program"));
-					$this->SendDebug("MessageSink", "Ausfuehrung - Wert: ".$Data[0]." Programm: ".$Program, 0);
-					
+					$Program = GetValueInteger($this->GetIDForIdent("Program_0"));
+					//$this->SendDebug("MessageSink", "Ausfuehrung - Wert: ".$Data[0]." Programm: ".$Program, 0);
 					If (($Data[0] == 1) AND ($Program > 0)) {
 						$this->SetProgrammedValue();
 					}
@@ -142,9 +142,12 @@
 	{
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetProgrammedValue", "Ausfuehrung", 0);
-			$Program = GetValueInteger($this->GetIDForIdent("Program"));
-			
-			
+			$Program = GetValueInteger($this->GetIDForIdent("Program_0"));
+			switch($Program) {
+				case "1":
+					//$this->SetChannelStatus($Value);
+					break;
+			}
 			
 		}
 	}
