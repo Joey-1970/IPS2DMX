@@ -115,7 +115,7 @@
 					$this->SendDebug("MessageSink", "Ausfuehrung - Wert: ".$Data[0], 0);
 					$Program = GetValueInteger($this->GetIDForIdent("Program"));
 					If (($Data[0] == true) AND ($Program > 0)) {
-						$this->SetChannelStatus($Value);
+						$this->SetProgrammedValue();
 					}
 				}
 				break;
