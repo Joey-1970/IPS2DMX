@@ -104,7 +104,7 @@
 					$this->EnableAction("Intensity_".($i + 1));
 				}
 				If ($this->ReadPropertyInteger("TriggerID") > 0) {
-					$this->RegisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
+					$this->UnregisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
 				}
 			}
 			else {
@@ -113,7 +113,7 @@
 				}
 				// De-Registrierung für die Änderung der Trigger-Variablen
 				If ($this->ReadPropertyInteger("TriggerID") > 0) {
-					$this->UnregisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
+					$this->RegisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
 				}
 			}
 			break;
