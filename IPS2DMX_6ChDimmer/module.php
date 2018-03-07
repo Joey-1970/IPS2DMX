@@ -63,7 +63,7 @@
 		
 		$this->RegisterVariableInteger("Program", "Programm", "IPS2DMX.ProgramDimmer", 140);
 		$this->EnableAction("Program");
-		IPS_SetHidden($this->GetIDForIdent("Program", false);
+		IPS_SetHidden($this->GetIDForIdent("Program"), false);
 		
 		// Registrierung für die Änderung der Trigger-Variablen
 		If ($this->ReadPropertyInteger("TriggerID") > 0) {
