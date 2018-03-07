@@ -112,6 +112,7 @@
 			case 10603:
 				// Änderung der Trigger-Variablen
 				If ($SenderID == $this->ReadPropertyInteger("TriggerID")) {
+					$this->SendDebug("MessageSink", "Ausfuehrung - Wert: ".$Data[0], 0);
 					$Program = GetValueInteger($this->GetIDForIdent("Program"));
 					If (($Data[0] == true) AND ($Program > 0)) {
 						$this->SetChannelStatus($Value);
