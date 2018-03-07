@@ -65,10 +65,7 @@
 		$this->EnableAction("Program_0");
 		IPS_SetHidden($this->GetIDForIdent("Program_0"), false);
 		
-		// Registrierung für die Änderung der Trigger-Variablen
-		If ($this->ReadPropertyInteger("TriggerID") > 0) {
-			$this->RegisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
-		}
+		
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
 		
@@ -102,6 +99,22 @@
 		case "Program":
 			SetValueInteger($this->GetIDForIdent($Ident), $Value);
 			$this->SetBuffer("StepCounter", 0);
+			If ($Value == 0) {
+				for ($i = 0; $i <= 5; $i++) {
+					$this->EnableAction("Intensity_".($i + 1));
+				}
+				If ($this->ReadPropertyInteger("TriggerID") > 0) {
+					$this->RegisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
+				}
+			else {
+				for ($i = 0; $i <= 5; $i++) {
+					$this->DisableAction("Intensity_".($i + 1));
+				}
+				// De-Registrierung für die Änderung der Trigger-Variablen
+				If ($this->ReadPropertyInteger("TriggerID") > 0) {
+					$this->UnregisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
+				}
+			}
 			break;
 		default:
 		    throw new Exception("Invalid Ident");
@@ -162,6 +175,7 @@
 						$DMXChannel = $DMXStartChannel + $i;
 						$Value = min($IntensityMaster, $Step[$StepCounter][$i]);
 						$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
+						SetValueInteger($this->GetIDForIdent("Intensity_".($i + 1)), $Value);
 					}
 					$this->SetBuffer("StepCounter", $StepCounter + 1);
 					break;
