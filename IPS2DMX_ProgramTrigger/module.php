@@ -16,7 +16,6 @@
             	parent::Create();
  	    	$this->RegisterPropertyBoolean("Open", false);
 		$this->ConnectParent("{B1E43BF6-770A-4FD7-B4FE-6D265F93746B}");
- 	    	$this->RegisterPropertyInteger("DMXStartChannel", 1);
 		$this->RegisterPropertyInteger("Timer_1", 1);
 		$this->RegisterTimer("Timer_1", 0, 'I2DPT_SetTrigger($_IPS["TARGET"]);');
         }
@@ -30,8 +29,7 @@
 				
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv"); 
- 		$arrayElements[] = array("type" => "NumberSpinner", "name" => "DMXStartChannel",  "caption" => "DMX-Start-Kanal");
-		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");
+ 		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");
 		
 		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________"); 
 		$arrayActions = array();
@@ -49,6 +47,10 @@
 		$this->RegisterVariableBoolean("Trigger", "Trigger", "~Switch", 10);
 		$this->DisableAction("Trigger");
 		IPS_SetHidden($this->GetIDForIdent("Trigger"), false);
+		
+		$this->RegisterVariableBoolean("Status", "Status", "~Switch", 20);
+		$this->EnableAction("Status");
+		IPS_SetHidden($this->GetIDForIdent("Status"), false);
 		
 		
 		
@@ -69,7 +71,7 @@
 	public function RequestAction($Ident, $Value) 
 	{
 		switch($Ident) {
-		case "Trigger":
+		case "Status":
 			//$this->SetChannelStatus($Value);
 			break;
 		
