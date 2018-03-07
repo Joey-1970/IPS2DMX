@@ -106,6 +106,7 @@
 				If ($this->ReadPropertyInteger("TriggerID") > 0) {
 					$this->RegisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
 				}
+			}
 			else {
 				for ($i = 0; $i <= 5; $i++) {
 					$this->DisableAction("Intensity_".($i + 1));
