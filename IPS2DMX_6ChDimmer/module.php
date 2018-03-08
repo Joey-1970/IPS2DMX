@@ -43,8 +43,8 @@
 		// Profil anlegen
 		$this->RegisterProfileInteger("IPS2DMX.ProgramDimmer", "Popcorn", "", "", 0, 2, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 0, "Manuelle Steuerung", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 1, "Wechselblinker", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 2, "Sägezahn", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 1, "Einfaches Lauflicht", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 2, "Knight Rider", "Information", -1);
 		
 		for ($i = 0; $i <= 5; $i++) {
 			/*
@@ -163,24 +163,48 @@
 			
 			switch($Program) {
 				case "1":
+					// Wechselblinker
 					$Step[0] = array(255, 0, 255, 0, 255, 0);
 					$Step[1] = array(0, 255, 0, 255, 0, 255);
-					$Steps = count($Step);
-					$StepCounter = intval($this->GetBuffer("StepCounter"));
-					If ($StepCounter >= $Steps) {
-						$StepCounter = 0;
-					}
-					
-					$this->SendDebug("SetProgrammedValue", "Steps: ".$Steps." Zaehler: ".$StepCounter, 0);
-					for ($i = 0; $i <= 5; $i++) {
-						$DMXChannel = $DMXStartChannel + $i;
-						$Value = min($IntensityMaster, $Step[$StepCounter][$i]);
-						$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-						SetValueInteger($this->GetIDForIdent("Intensity_".($i + 1)), $Value);
-					}
-					$this->SetBuffer("StepCounter", $StepCounter + 1);
+					break;
+				case "2":
+					// Einfaches Lauflicht
+					$Step[0] = array(255, 0, 0, 0, 0, 0);
+					$Step[1] = array(0, 255, 0, 0, 0, 0);
+					$Step[2] = array(0, 0, 255, 0, 0, 0);
+					$Step[3] = array(0, 0, 0, 255, 0, 0);
+					$Step[4] = array(0, 0, 0, 0, 255, 0);
+					$Step[5] = array(0, 0, 0, 0, 0, 255);
+					break;
+				case "2":
+					// Knght Rider
+					$Step[0] = array(255, 0, 0, 0, 0, 0);
+					$Step[1] = array(0, 255, 0, 0, 0, 0);
+					$Step[2] = array(0, 0, 255, 0, 0, 0);
+					$Step[3] = array(0, 0, 0, 255, 0, 0);
+					$Step[4] = array(0, 0, 0, 0, 255, 0);
+					$Step[5] = array(0, 0, 0, 0, 0, 255);
+					$Step[6] = array(0, 0, 0, 0, 255, 0);
+					$Step[7] = array(0, 0, 0, 255, 0, 0);
+					$Step[8] = array(0, 0, 255, 0, 0, 0);
+					$Step[9] = array(0, 255, 0, 0, 0, 0);
 					break;
 			}
+			
+			// Datenausgabe
+			$Steps = count($Step);
+			$StepCounter = intval($this->GetBuffer("StepCounter"));
+			If ($StepCounter >= $Steps) {
+				$StepCounter = 0;
+			}
+			$this->SendDebug("SetProgrammedValue", "Steps: ".$Steps." Zaehler: ".$StepCounter, 0);
+			for ($i = 0; $i <= 5; $i++) {
+				$DMXChannel = $DMXStartChannel + $i;
+				$Value = min($IntensityMaster, $Step[$StepCounter][$i]);
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
+				SetValueInteger($this->GetIDForIdent("Intensity_".($i + 1)), $Value);
+			}
+			$this->SetBuffer("StepCounter", $StepCounter + 1);
 			
 		}
 	}
