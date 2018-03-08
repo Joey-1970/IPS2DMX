@@ -44,6 +44,8 @@
             	// Diese Zeile nicht löschen
             	parent::ApplyChanges();
 		
+		$this->RegisterProfileFloat("IPS2DMX.TriggerTime", "Popcorn", "", " s", 1.0, 5.0, 0.25, 2);
+		
 		$this->RegisterVariableBoolean("Trigger", "Trigger", "~Switch", 10);
 		$this->DisableAction("Trigger");
 		IPS_SetHidden($this->GetIDForIdent("Trigger"), false);
@@ -52,7 +54,9 @@
 		$this->EnableAction("Status");
 		IPS_SetHidden($this->GetIDForIdent("Status"), false);
 		
-		
+		$this->RegisterVariableFloat("TriggerTime", "Trigger", "IPS2DMX.TriggerTime", 150);
+		$this->EnableAction("TriggerTime");
+		IPS_SetHidden($this->GetIDForIdent("TriggerTime"), false);
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
 		
@@ -72,9 +76,13 @@
 	{
 		switch($Ident) {
 		case "Status":
-			//$this->SetChannelStatus($Value);
+			SetValueBoolean($this->GetIDForIdent($Ident), $Value);
+			$this->SetTriggerStatus($Value);
 			break;
-		
+		case "TriggerTime":
+			SetValueBoolean($this->GetIDForIdent($Ident), $Value);
+			//$this->SetTriggerTime($Value);
+			break;
 		default:
 		    throw new Exception("Invalid Ident");
 		}
@@ -90,8 +98,18 @@
 		}
 	} 
 	
-	
-	    
+	private function SetTriggerStatus(Bool $Value)
+	{ 
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			If ($Value == true) {
+				$this->SetTimerInterval("Timer_1", ($Timer_1 * 1000));
+			}
+			else {
+				$this->SetTimerInterval("Timer_1", 0);
+			}
+		}
+	} 
+	   
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
 	{
 	        if (!IPS_VariableProfileExists($Name))
@@ -107,6 +125,24 @@
 	        IPS_SetVariableProfileIcon($Name, $Icon);
 	        IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
 	        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);    
+	}
+	    
+	private function RegisterProfileFloat($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits)
+	{
+	        if (!IPS_VariableProfileExists($Name))
+	        {
+	            IPS_CreateVariableProfile($Name, 2);
+	        }
+	        else
+	        {
+	            $profile = IPS_GetVariableProfile($Name);
+	            if ($profile['ProfileType'] != 2)
+	                throw new Exception("Variable profile type does not match for profile " . $Name);
+	        }
+	        IPS_SetVariableProfileIcon($Name, $Icon);
+	        IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
+	        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
+	        IPS_SetVariableProfileDigits($Name, $Digits);
 	}    
 	    
 	private function HasActiveParent()
