@@ -29,6 +29,7 @@
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv"); 
  		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");
+		
 		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________"); 
 		$arrayActions = array();
 		$arrayActions[] = array("type" => "Label", "label" => "Diese Funktionen stehen erst nach Eingabe und Übernahme der erforderlichen Daten zur Verfügung!");
@@ -79,7 +80,7 @@
 			break;
 		case "TriggerTime":
 			SetValueFloat($this->GetIDForIdent($Ident), $Value);
-			//$this->SetTriggerTime($Value);
+			$this->SetTriggerTime($Value);
 			break;
 		default:
 		    throw new Exception("Invalid Ident");
@@ -108,7 +109,17 @@
 			}
 		}
 	} 
-	   
+	
+	private function SetTriggerTime(Float $Value)
+	{ 
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$Status = GetValueBoolean($this->GetIDForIdent("Status"));
+			If ($Status == true) {
+				$this->SetTimerInterval("Timer_1", ($Value * 1000));
+			}
+		}
+	} 
+	    
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
 	{
 	        if (!IPS_VariableProfileExists($Name))
