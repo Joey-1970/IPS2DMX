@@ -24,6 +24,7 @@
 			$this->RegisterPropertyInteger("Timer_".($i + 1), 0);
 			$this->RegisterTimer("Timer_".($i + 1), 0, 'I2D24ChRGB_ProgramTimer($_IPS["TARGET"], ($i + 1));');
 		}
+		$this->RegisterPropertyInteger("TriggerID", 0);
         }
  	
 	public function GetConfigurationForm() 
@@ -42,10 +43,12 @@
 		for ($i = 0; $i <= 7; $i++) {
 			$arrayElements[] = array("name" => "Visible_".($i + 1), "type" => "CheckBox",  "caption" => "Kanal ".($i + 1));
 		}
-		
-		
 		 
 		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________"); 
+		$arrayElements[] = array("type" => "Label", "label" => "Trigger-Variable");
+		$arrayElements[] = array("type" => "SelectVariable", "name" => "TriggerID", "caption" => "Trigger"); 
+		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");
+
 		$arrayActions = array();
 		$arrayActions[] = array("type" => "Label", "label" => "Diese Funktionen stehen erst nach Eingabe und Übernahme der erforderlichen Daten zur Verfügung!");
 		
@@ -104,34 +107,34 @@
 		}
 	}
 	
-public function RequestAction($Ident, $Value) 
-{
-	$Parts = explode("_", $Ident);
-	$Source = $Parts[0]; // Steuerelement
-	$Channel = $Parts[1]; // R, G, B bzw. RGB
-	$ChannelArray = ["R" => 0, "G" => 1, "B" => 2];
-	$Group = $Parts[2]; // Gruppe (1-8)
+	public function RequestAction($Ident, $Value) 
+	{
+		$Parts = explode("_", $Ident);
+		$Source = $Parts[0]; // Steuerelement
+		$Channel = $Parts[1]; // R, G, B bzw. RGB
+		$ChannelArray = ["R" => 0, "G" => 1, "B" => 2];
+		$Group = $Parts[2]; // Gruppe (1-8)
 
-	switch($Source) {
-	case "Status":
-		$this->SetChannelStatus($Group, $Value);
-		break;
-	case "Color":
-		//$this->SetOutputPinColor($Group, $Value);
-		break;
-	case "Intensity":
-		SetValueInteger($this->GetIDForIdent($Ident), $Value);
-		$this->SetChannelValue($Group, $ChannelArray[$Channel], $Value);
-		break;
-	case "Program":
-		SetValueInteger($this->GetIDForIdent($Ident), $Value);
-		$this->ProgramSelection($Group, $Value);
-		break;
-	default:
-	    throw new Exception("Invalid Ident");
+		switch($Source) {
+		case "Status":
+			$this->SetChannelStatus($Group, $Value);
+			break;
+		case "Color":
+			//$this->SetOutputPinColor($Group, $Value);
+			break;
+		case "Intensity":
+			SetValueInteger($this->GetIDForIdent($Ident), $Value);
+			$this->SetChannelValue($Group, $ChannelArray[$Channel], $Value);
+			break;
+		case "Program":
+			SetValueInteger($this->GetIDForIdent($Ident), $Value);
+			$this->ProgramSelection($Group, $Value);
+			break;
+		default:
+		    throw new Exception("Invalid Ident");
+		}
+
 	}
-
-}
 	    
 	// Beginn der Funktionen
 	public function SetOutputValue(Int $Channel, Int $Value)
