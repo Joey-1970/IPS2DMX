@@ -43,8 +43,9 @@
 		// Profil anlegen
 		$this->RegisterProfileInteger("IPS2DMX.ProgramDimmer", "Popcorn", "", "", 0, 2, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 0, "Manuelle Steuerung", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 1, "Einfaches Lauflicht", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 2, "Knight Rider", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 1, "Wechselblinker", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 2, "Einfaches Lauflicht", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 3, "Knight Rider", "Information", -1);
 		
 		for ($i = 0; $i <= 5; $i++) {
 			/*
@@ -176,7 +177,7 @@
 					$Step[4] = array(0, 0, 0, 0, 255, 0);
 					$Step[5] = array(0, 0, 0, 0, 0, 255);
 					break;
-				case "2":
+				case "3":
 					// Knght Rider
 					$Step[0] = array(255, 0, 0, 0, 0, 0);
 					$Step[1] = array(0, 255, 0, 0, 0, 0);
