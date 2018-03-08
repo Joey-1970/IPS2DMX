@@ -47,6 +47,8 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 2, "Einfaches Lauflicht", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 3, "Knight Rider", "Information", -1);
 		
+		$this->RegisterProfileFloat("IPS2DMX.FadeTime", "Popcorn", "", " s", 0, 3, 0.25, 0.25);
+		
 		for ($i = 0; $i <= 5; $i++) {
 			/*
 			$this->RegisterVariableBoolean("Status_".($i + 1), "Status ".($i + 1), "~Switch", 10 + ($i * 20));
@@ -65,6 +67,10 @@
 		$this->RegisterVariableInteger("Program_0", "Programm", "IPS2DMX.ProgramDimmer", 140);
 		$this->EnableAction("Program_0");
 		IPS_SetHidden($this->GetIDForIdent("Program_0"), false);
+		
+		$this->RegisterVariableFloat("FadeTime_0", "FadeTime", "IPS2DMX.FadeTime", 150);
+		$this->EnableAction("FadeTime_0");
+		IPS_SetHidden($this->GetIDForIdent("FadeTime_0"), false);
 		
 		
 		
@@ -118,6 +124,9 @@
 				}
 			}
 			break;
+		case "FadeTime":
+			SetValueInteger($this->GetIDForIdent($Ident), $Value);
+			break;
 		default:
 		    throw new Exception("Invalid Ident");
 		}
@@ -161,6 +170,7 @@
 			$Program = GetValueInteger($this->GetIDForIdent("Program_0"));
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
 			$IntensityMaster = GetValueInteger($this->GetIDForIdent("IntensityMaster_0"));
+			$FadeTime = GetValueFloat($this->GetIDForIdent("FadeTime_0"));
 			
 			switch($Program) {
 				case "1":
@@ -202,7 +212,7 @@
 			for ($i = 0; $i <= 5; $i++) {
 				$DMXChannel = $DMXStartChannel + $i;
 				$Value = min($IntensityMaster, $Step[$StepCounter][$i]);
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => $FadeTime, "DelayedSeconds" => 0.0 )));
 				SetValueInteger($this->GetIDForIdent("Intensity_".($i + 1)), $Value);
 			}
 			$this->SetBuffer("StepCounter", $StepCounter + 1);
@@ -243,6 +253,24 @@
 	        IPS_SetVariableProfileIcon($Name, $Icon);
 	        IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
 	        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);    
+	}    
+	
+	private function RegisterProfileFloat($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits)
+	{
+	        if (!IPS_VariableProfileExists($Name))
+	        {
+	            IPS_CreateVariableProfile($Name, 2);
+	        }
+	        else
+	        {
+	            $profile = IPS_GetVariableProfile($Name);
+	            if ($profile['ProfileType'] != 2)
+	                throw new Exception("Variable profile type does not match for profile " . $Name);
+	        }
+	        IPS_SetVariableProfileIcon($Name, $Icon);
+	        IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
+	        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
+	        IPS_SetVariableProfileDigits($Name, $Digits);
 	}    
 	    
 	private function HasActiveParent()
