@@ -16,7 +16,7 @@
             	parent::Create();
  	    	$this->RegisterPropertyBoolean("Open", false);
 		$this->ConnectParent("{B1E43BF6-770A-4FD7-B4FE-6D265F93746B}");
-		$this->RegisterPropertyInteger("Timer_1", 1);
+		$this->RegisterPropertyInteger("Timer_1", 3);
 		$this->RegisterTimer("Timer_1", 0, 'I2DPT_SetTrigger($_IPS["TARGET"]);');
         }
  	
