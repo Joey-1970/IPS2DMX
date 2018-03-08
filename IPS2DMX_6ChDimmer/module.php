@@ -125,7 +125,7 @@
 			}
 			break;
 		case "FadeTime":
-			SetValueInteger($this->GetIDForIdent($Ident), $Value);
+			SetValueFloat($this->GetIDForIdent($Ident), $Value);
 			break;
 		default:
 		    throw new Exception("Invalid Ident");
