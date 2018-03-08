@@ -62,7 +62,7 @@
 		
 			If ($this->ReadPropertyBoolean("Open") == true) {
 				$Timer_1 = $this->ReadPropertyInteger("Timer_1");
-				$this->SetTimerInterval("Timer_1", ($Timer_1 * 1000));
+				//$this->SetTimerInterval("Timer_1", ($Timer_1 * 1000));
 				$this->SetStatus(102);
 			}
 			else {
@@ -102,6 +102,7 @@
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			If ($Value == true) {
+				$Timer_1 = $this->ReadPropertyInteger("Timer_1");
 				$this->SetTimerInterval("Timer_1", ($Timer_1 * 1000));
 			}
 			else {
