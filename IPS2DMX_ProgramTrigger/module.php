@@ -16,7 +16,6 @@
             	parent::Create();
  	    	$this->RegisterPropertyBoolean("Open", false);
 		$this->ConnectParent("{B1E43BF6-770A-4FD7-B4FE-6D265F93746B}");
-		$this->RegisterPropertyInteger("Timer_1", 3);
 		$this->RegisterTimer("Timer_1", 0, 'I2DPT_SetTrigger($_IPS["TARGET"]);');
         }
  	
@@ -30,7 +29,6 @@
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv"); 
  		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");
-		$arrayElements[] = array("type" => "IntervalBox", "name" => "Timer_1",  "caption" => "Timer (sek)"); 
 		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________"); 
 		$arrayActions = array();
 		$arrayActions[] = array("type" => "Label", "label" => "Diese Funktionen stehen erst nach Eingabe und Übernahme der erforderlichen Daten zur Verfügung!");
@@ -80,7 +78,7 @@
 			$this->SetTriggerStatus($Value);
 			break;
 		case "TriggerTime":
-			SetValueBoolean($this->GetIDForIdent($Ident), $Value);
+			SetValueFloat($this->GetIDForIdent($Ident), $Value);
 			//$this->SetTriggerTime($Value);
 			break;
 		default:
@@ -102,7 +100,7 @@
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			If ($Value == true) {
-				$Timer_1 = $this->ReadPropertyInteger("Timer_1");
+				$Timer_1 = GetValueFloat($this->GetIDForIdent("TriggerTime"));
 				$this->SetTimerInterval("Timer_1", ($Timer_1 * 1000));
 			}
 			else {
