@@ -156,13 +156,13 @@
 			$ParentID = $this->GetParentID();
 			
 			If ($Status == true) {
-				DMX_SetBlackOut($ParentID, true);
+				DMX_SetBlackOut($ParentID, $Status);
 				If ($AutoReset > 0) {
 					$this->SetTimerInterval("Timer_2", ($AutoReset * 1000));
 				}	
 			}
 			else {
-				DMX_SetBlackOut($ParentID, true);
+				DMX_SetBlackOut($ParentID, $Status);
 				$this->SetTimerInterval("Timer_2", 0);
 				SetValueBoolean($this->GetIDForIdent("BlackOut"), $Status);
 			}
