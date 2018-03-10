@@ -153,15 +153,16 @@
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetBlackOutStatus", "Ausfuehrung", 0);
 			$AutoReset = 10 * GetValueInteger($this->GetIDForIdent("AutoReset"));
+			$ParentID = $this->GetParentID();
 			
 			If ($Status == true) {
-				DMX_SetBlackOut($this->GetParentID, true);
+				DMX_SetBlackOut($ParentID, true);
 				If ($AutoReset > 0) {
 					$this->SetTimerInterval("Timer_2", ($AutoReset * 1000));
 				}	
 			}
 			else {
-				DMX_SetBlackOut($this->GetParentID, true);
+				DMX_SetBlackOut($ParentID, true);
 				$this->SetTimerInterval("Timer_2", 0);
 			}
 			SetValueBoolean($this->GetIDForIdent("Status"), $Status);
