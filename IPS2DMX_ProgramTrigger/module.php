@@ -7,6 +7,7 @@
 		//Never delete this line!
 		parent::Destroy();
 		$this->SetTimerInterval("Timer_1", 0);
+		$this->SetTimerInterval("Timer_2", 0);
 	}
 	    
 	// Überschreibt die interne IPS_Create($id) Funktion
@@ -17,6 +18,7 @@
  	    	$this->RegisterPropertyBoolean("Open", false);
 		$this->ConnectParent("{B1E43BF6-770A-4FD7-B4FE-6D265F93746B}");
 		$this->RegisterTimer("Timer_1", 0, 'I2DPT_SetTrigger($_IPS["TARGET"]);');
+		$this->RegisterTimer("Timer_2", 0, 'I2DPT_SetBlackOutStatus($_IPS["TARGET"], false);');
         }
  	
 	public function GetConfigurationForm() 
@@ -42,7 +44,19 @@
             	// Diese Zeile nicht löschen
             	parent::ApplyChanges();
 		
+		// Profil anlegen
+		$this->RegisterProfileInteger("IPS2DMX.PTBlackOut", "Clock", "", "", 0, 6, 1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 0, "Aus", "Clock", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 1, "10 sek", "Clock", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 2, "20 sek", "Clock", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 3, "30 sek", "Clock", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 4, "40 sek", "Clock", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 5, "50 sek", "Clock", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 6, "60 sek", "Clock", -1);
+		
 		$this->RegisterProfileFloat("IPS2DMX.TriggerTime", "Popcorn", "", " s", 1.0, 5.0, 0.25, 2);
+		
+		
 		
 		$this->RegisterVariableBoolean("Trigger", "Trigger", "~Switch", 10);
 		$this->DisableAction("Trigger");
@@ -52,9 +66,17 @@
 		$this->EnableAction("Status");
 		IPS_SetHidden($this->GetIDForIdent("Status"), false);
 		
-		$this->RegisterVariableFloat("TriggerTime", "Trigger", "IPS2DMX.TriggerTime", 150);
+		$this->RegisterVariableFloat("TriggerTime", "Trigger", "IPS2DMX.TriggerTime", 30);
 		$this->EnableAction("TriggerTime");
 		IPS_SetHidden($this->GetIDForIdent("TriggerTime"), false);
+		
+		$this->RegisterVariableBoolean("BlackOut", "BlackOut", "~Switch", 40);
+		$this->EnableAction("BlackOut");
+		IPS_SetHidden($this->GetIDForIdent("BlackOut"), false);
+		
+		$this->RegisterVariableInteger("AutoReset", "Auto Reset", "IPS2DMX.PTBlackOut", 50);
+		$this->EnableAction("AutoReset");
+		IPS_SetHidden($this->GetIDForIdent("AutoReset"), false);
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
 		
@@ -80,6 +102,13 @@
 		case "TriggerTime":
 			SetValueFloat($this->GetIDForIdent($Ident), $Value);
 			$this->SetTriggerTime($Value);
+			break;
+		case "BlackOut":
+			SetValueBoolean($this->GetIDForIdent($Ident), $Value);
+			$this->SetBlackOutStatus($Value);
+			break;
+		case "AutoReset":
+			SetValueInteger($this->GetIDForIdent("AutoReset"), $Value);
 			break;
 		default:
 		    throw new Exception("Invalid Ident");
@@ -118,6 +147,26 @@
 			}
 		}
 	} 
+	
+	public function SetBlackOutStatus(Bool $Status)
+	{ 
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->SendDebug("SetBlackOutStatus", "Ausfuehrung", 0);
+			$AutoReset = 10 * GetValueInteger($this->GetIDForIdent("AutoReset"));
+			
+			If ($Status == true) {
+				DMX_SetBlackOut($this->GetParentID, true);
+				If ($AutoReset > 0) {
+					$this->SetTimerInterval("Timer_2", ($AutoReset * 1000));
+				}	
+			}
+			else {
+				DMX_SetBlackOut($this->GetParentID, true);
+				$this->SetTimerInterval("Timer_2", 0);
+			}
+			SetValueBoolean($this->GetIDForIdent("Status"), $Status);
+		}
+	}    
 	    
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
 	{
@@ -152,7 +201,13 @@
 	        IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
 	        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
 	        IPS_SetVariableProfileDigits($Name, $Digits);
-	}    
+	}
+	    
+	private function GetParentID()
+	{
+		$ParentID = (IPS_GetInstance($this->InstanceID)['ConnectionID']);  
+	return $ParentID;
+	}
 	    
 	private function HasActiveParent()
     	{
