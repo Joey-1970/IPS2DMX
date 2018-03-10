@@ -164,8 +164,8 @@
 			else {
 				DMX_SetBlackOut($ParentID, true);
 				$this->SetTimerInterval("Timer_2", 0);
+				SetValueBoolean($this->GetIDForIdent("BlackOut"), $Status);
 			}
-			SetValueBoolean($this->GetIDForIdent("Status"), $Status);
 		}
 	}    
 	    
