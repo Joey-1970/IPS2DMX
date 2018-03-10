@@ -47,12 +47,12 @@
 		// Profil anlegen
 		$this->RegisterProfileInteger("IPS2DMX.PTBlackOut", "Clock", "", "", 0, 6, 1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 0, "Aus", "Clock", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 1, "10 sek", "Clock", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 2, "20 sek", "Clock", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 3, "30 sek", "Clock", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 4, "40 sek", "Clock", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 5, "50 sek", "Clock", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 6, "60 sek", "Clock", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 1, "2 sek", "Clock", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 2, "4 sek", "Clock", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 3, "6 sek", "Clock", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 4, "8 sek", "Clock", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 5, "10 sek", "Clock", -1);
+		
 		
 		$this->RegisterProfileFloat("IPS2DMX.TriggerTime", "Popcorn", "", " s", 1.0, 5.0, 0.25, 2);
 		
@@ -152,7 +152,7 @@
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetBlackOutStatus", "Ausfuehrung", 0);
-			$AutoReset = 10 * GetValueInteger($this->GetIDForIdent("AutoReset"));
+			$AutoReset = 2 * GetValueInteger($this->GetIDForIdent("AutoReset"));
 			$ParentID = $this->GetParentID();
 			
 			If ($Status == true) {
