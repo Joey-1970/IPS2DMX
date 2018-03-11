@@ -81,12 +81,11 @@
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
 		
 			If ($this->ReadPropertyBoolean("Open") == true) {
-				$Timer_1 = $this->ReadPropertyInteger("Timer_1");
-				//$this->SetTimerInterval("Timer_1", ($Timer_1 * 1000));
 				$this->SetStatus(102);
 			}
 			else {
 				$this->SetTimerInterval("Timer_1", 0);
+				$this->SetTimerInterval("Timer_2", 0);
 				$this->SetStatus(104);
 			}
 		}
