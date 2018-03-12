@@ -2,7 +2,8 @@
     // Klassendefinition
     class IPS2DMX_LaserworldEL200RGY extends IPSModule 
     {
-	 // Überschreibt die interne IPS_Create($id) Funktion
+	// https://wiki.dmxcontrol.de/wiki/DDF_DMXC2
+	// Überschreibt die interne IPS_Create($id) Funktion
         public function Create() 
         {
             	// Diese Zeile nicht löschen.
