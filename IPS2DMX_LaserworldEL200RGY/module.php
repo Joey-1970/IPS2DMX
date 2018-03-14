@@ -91,7 +91,7 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYColor", 120, "Originalmuster", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYColor", 160, "Farbwechsel", "Information", -1);
 		
-		$this->RegisterProfileInteger("IPS2DMX.EL200RGYFarbeffekt", "Popcorn", "", "", 0, 2, 0);
+		$this->RegisterProfileInteger("IPS2DMX.EL200RGYFarbeffekt", "Popcorn", "", "", 0, 3, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYFarbeffekt", 0, "Aus", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYFarbeffekt", 1, "Teil des Musters zeichnen", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYFarbeffekt", 80, "Durchlaufend", "Information", -1);
@@ -116,9 +116,17 @@
 		$this->EnableAction("Punktspeed");
 		IPS_SetHidden($this->GetIDForIdent("Punktspeed"), false);
 		
+		
+		
 		$this->RegisterVariableInteger("Color", "Farbe", "IPS2DMX.EL200RGYColor", 80);
 		$this->EnableAction("Color");
 		IPS_SetHidden($this->GetIDForIdent("Color"), false);
+		
+		$this->RegisterVariableBoolean("Reset", "Reset", "~Switch", 90);
+		$this->EnableAction("Reset");
+		IPS_SetHidden($this->GetIDForIdent("Reset"), false);
+		
+		
 		
 		// Reset
 		
