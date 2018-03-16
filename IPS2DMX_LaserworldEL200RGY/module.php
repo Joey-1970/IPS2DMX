@@ -118,7 +118,7 @@
 		
 		
 		
-		$this->RegisterVariableInteger("Color", "Farbe", "IPS2DMX.EL200RGYColor", 80);
+		$this->RegisterVariableInteger("Color", "Farbauswahl", "IPS2DMX.EL200RGYColor", 80);
 		$this->EnableAction("Color");
 		IPS_SetHidden($this->GetIDForIdent("Color"), false);
 		
@@ -126,13 +126,13 @@
 		$this->EnableAction("Reset");
 		IPS_SetHidden($this->GetIDForIdent("Reset"), false);
 		
+		$this->RegisterVariableInteger("ColorEffect", "Farbeffekt", "IPS2DMX.EL200RGYFarbeffekt", 100);
+		$this->EnableAction("ColorEffect");
+		IPS_SetHidden($this->GetIDForIdent("ColorEffect"), false);
 		
 		
-		// Reset
 		
-		$this->RegisterVariableInteger("Farbeffekt", "Farbeffekt", "IPS2DMX.EL200RGYFarbeffekt", 100);
-		$this->EnableAction("Farbeffekt");
-		IPS_SetHidden($this->GetIDForIdent("Farbeffekt"), false);
+		
 		
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
@@ -166,8 +166,13 @@
 		case "Color":
 			$this->SetChannelValue( 7, $Value);
 			break;
-				
-		case "Farbeffekt":
+		case "Reset":
+			$this->SetChannelValue( 8, 255);
+			IPS_Sleep(10);
+			$this->SetChannelValue( 8, 0);
+			SetValueInteger($this->GetIDForIdent($Ident), false);
+			break;
+		case "ColorEffect":
 			$this->SetChannelValue( 9, $Value);
 			break;
 		default:
