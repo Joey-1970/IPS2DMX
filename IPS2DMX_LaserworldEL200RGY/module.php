@@ -147,32 +147,37 @@
 	
 	public function RequestAction($Ident, $Value) 
 	{
-		SetValueInteger($this->GetIDForIdent($Ident), $Value);
-		
 		switch($Ident) {
 		case "Modus":
+			SetValueInteger($this->GetIDForIdent($Ident), $Value);
 			$this->SetChannelValue(0, $Value);
 			break;
 		case "Muster":
+			SetValueInteger($this->GetIDForIdent($Ident), $Value);
 			$this->SetChannelValue(1, $Value);
 			break;
 		case "Strobe":
+			SetValueInteger($this->GetIDForIdent($Ident), $Value);
 			$this->SetChannelValue(2, $Value);
 			break;
 		case "Punktspeed":
+			SetValueInteger($this->GetIDForIdent($Ident), $Value);
 			$this->SetChannelValue(3, $Value);
 			break;
 				
 		case "Color":
+			SetValueInteger($this->GetIDForIdent($Ident), $Value);
 			$this->SetChannelValue( 7, $Value);
 			break;
 		case "Reset":
+			SetValueBoolean($this->GetIDForIdent($Ident), true);
 			$this->SetChannelValue( 8, 255);
 			IPS_Sleep(10);
 			$this->SetChannelValue( 8, 0);
-			SetValueInteger($this->GetIDForIdent($Ident), false);
+			SetValueBoolean($this->GetIDForIdent($Ident), false);
 			break;
 		case "ColorEffect":
+			SetValueInteger($this->GetIDForIdent($Ident), $Value);
 			$this->SetChannelValue( 9, $Value);
 			break;
 		default:
