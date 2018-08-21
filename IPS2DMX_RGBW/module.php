@@ -17,12 +17,6 @@
  	    	$this->RegisterPropertyBoolean("Open", false);
 		$this->ConnectParent("{B1E43BF6-770A-4FD7-B4FE-6D265F93746B}");
  	    	$this->RegisterPropertyInteger("DMXStartChannel", 1);
-		for ($i = 0; $i <= 7; $i++) {
-			$this->RegisterPropertyBoolean("Visible_".($i + 1), true);
-			$this->RegisterPropertyInteger("Timer_".($i + 1), 0);
-			$this->RegisterTimer("Timer_".($i + 1), 0, 'I2D24ChRGB_ProgramTimer($_IPS["TARGET"], ($i + 1));');
-		}
-		$this->RegisterPropertyInteger("TriggerID", 0);
         }
  	
 	public function GetConfigurationForm() 
@@ -35,16 +29,7 @@
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv"); 
  		$arrayElements[] = array("type" => "NumberSpinner", "name" => "DMXStartChannel",  "caption" => "DMX-Start-Kanal");
-		$arrayElements[] = array("type" => "Label", "label" => "Dieses Gerät benötigt 24 DMX-Kanäle");
-		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");
-		$arrayElements[] = array("type" => "Label", "label" => "Angabe der genutzten RGB-Kanäle"); 
-		for ($i = 0; $i <= 7; $i++) {
-			$arrayElements[] = array("name" => "Visible_".($i + 1), "type" => "CheckBox",  "caption" => "Kanal ".($i + 1));
-		}
-		 
-		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________"); 
-		$arrayElements[] = array("type" => "Label", "label" => "Trigger-Variable");
-		$arrayElements[] = array("type" => "SelectVariable", "name" => "TriggerID", "caption" => "Trigger"); 
+		$arrayElements[] = array("type" => "Label", "label" => "Dieses Gerät benötigt 4 DMX-Kanäle");
 		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");
 		$arrayActions = array();
 		$arrayActions[] = array("type" => "Label", "label" => "Diese Funktionen stehen erst nach Eingabe und Übernahme der erforderlichen Daten zur Verfügung!");
@@ -58,40 +43,13 @@
             	// Diese Zeile nicht löschen
             	parent::ApplyChanges();
 		
-		// Profil anlegen
-		$this->RegisterProfileInteger("IPS2DMX.Program", "Popcorn", "", "", 0, 2, 0);
-		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 0, "Manuelle Steuerung", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 1, "Sinus", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 2, "Sägezahn", "Information", -1);
-		
 		//Status-Variablen anlegen
-		for ($i = 0; $i <= 7; $i++) {
-			$Visible = !$this->ReadPropertyBoolean("Visible_".($i + 1));
-			$this->RegisterVariableBoolean("Status_RGB_".($i + 1), "Status RGB ".($i + 1), "~Switch", 10 + ($i * 70));
-			$this->EnableAction("Status_RGB_".($i + 1));
-			IPS_SetHidden($this->GetIDForIdent("Status_RGB_".($i + 1)), $Visible);
-			
-			$this->RegisterVariableInteger("Color_RGB_".($i + 1), "Farbe ".($i + 1), "~HexColor", 20 + ($i * 70));
-			$this->EnableAction("Color_RGB_".($i + 1));
-			IPS_SetHidden($this->GetIDForIdent("Color_RGB_".($i + 1)), $Visible);
-			
-			$this->RegisterVariableInteger("Intensity_R_".($i + 1), "Intensity Rot ".($i + 1), "~Intensity.255", 30 + ($i * 70) );
-			$this->EnableAction("Intensity_R_".($i + 1));
-			IPS_SetHidden($this->GetIDForIdent("Intensity_R_".($i + 1)), $Visible);
-			
-			$this->RegisterVariableInteger("Intensity_G_".($i + 1), "Intensity Grün ".($i + 1), "~Intensity.255", 40 + ($i * 70));
-			$this->EnableAction("Intensity_G_".($i + 1));
-			IPS_SetHidden($this->GetIDForIdent("Intensity_G_".($i + 1)), $Visible);
-			
-			$this->RegisterVariableInteger("Intensity_B_".($i + 1), "Intensity Blau ".($i + 1), "~Intensity.255", 50 + ($i * 70));
-			$this->EnableAction("Intensity_B_".($i + 1));
-			IPS_SetHidden($this->GetIDForIdent("Intensity_B_".($i + 1)), $Visible);
-			
-			$this->RegisterVariableInteger("Program_RGB_".($i + 1), "Programm ".($i + 1), "IPS2DMX.Program", 60 + ($i * 70));
-			$this->EnableAction("Program_RGB_".($i + 1));
-			IPS_SetHidden($this->GetIDForIdent("Program_RGB_".($i + 1)), $Visible);
-		}
-		
+		$this->RegisterVariableBoolean("Status_RGB", "Status RGB", "~Switch", 10);
+		$this->RegisterVariableInteger("Color_RGB", "Farbe", "~HexColor", 20);	
+		$this->RegisterVariableInteger("Intensity_R", "Intensity Rot", "~Intensity.255", 30);	
+		$this->RegisterVariableInteger("Intensity_G", "Intensity Grün", "~Intensity.255", 40);	
+		$this->RegisterVariableInteger("Intensity_B", "Intensity Blau", "~Intensity.255", 50);	
+		$this->RegisterVariableInteger("Intensity_W", "Intensity Weiß", "~Intensity.255", 60);
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
 		
