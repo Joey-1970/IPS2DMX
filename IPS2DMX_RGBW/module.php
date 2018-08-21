@@ -45,7 +45,7 @@
 		
 		//Status-Variablen anlegen
 		$this->RegisterVariableBoolean("State_RGBW", "Status RGBW", "~Switch", 10);
-		$this->EnableAction("Status_RGBW");
+		$this->EnableAction("State_RGBW");
 		$this->RegisterVariableInteger("Color_RGB", "Farbe", "~HexColor", 20);
 		$this->EnableAction("Color_RGB");
 		$this->RegisterVariableInteger("Intensity_R", "Intensity Rot", "~Intensity.255", 30);	
