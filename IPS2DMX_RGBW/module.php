@@ -114,7 +114,7 @@
 		}
 	}
 	    
-	private function SetChannelValue(Int $Channel, Int $Value)
+	public function SetChannelValue(Int $Channel, Int $Value)
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetChannelValue", "Ausfuehrung", 0);
@@ -135,7 +135,8 @@
 			}
 		}
 	}
-	private function SetState(Bool $State)
+	
+	public function SetState(Bool $State)
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetChannelState", "Ausfuehrung", 0);
