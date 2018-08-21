@@ -97,7 +97,7 @@
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetColor", "Ausfuehrung", 0);
-			
+			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
 			$State_RGBW = GetValueBoolean($this->GetIDForIdent("State_RGBW"));
 			// Farbwerte aufsplitten
 			list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($Color);
