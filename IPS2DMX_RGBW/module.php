@@ -45,11 +45,17 @@
 		
 		//Status-Variablen anlegen
 		$this->RegisterVariableBoolean("State_RGBW", "Status RGBW", "~Switch", 10);
-		$this->RegisterVariableInteger("Color_RGB", "Farbe", "~HexColor", 20);	
+		$this->EnableAction("Status_RGBW");
+		$this->RegisterVariableInteger("Color_RGB", "Farbe", "~HexColor", 20);
+		$this->EnableAction("Color_RGB");
 		$this->RegisterVariableInteger("Intensity_R", "Intensity Rot", "~Intensity.255", 30);	
+		$this->EnableAction("Intensity_R");
 		$this->RegisterVariableInteger("Intensity_G", "Intensity Grün", "~Intensity.255", 40);	
-		$this->RegisterVariableInteger("Intensity_B", "Intensity Blau", "~Intensity.255", 50);			
+		$this->EnableAction("Intensity_G");
+		$this->RegisterVariableInteger("Intensity_B", "Intensity Blau", "~Intensity.255", 50);
+		$this->EnableAction("Intensity_B");
 		$this->RegisterVariableInteger("Intensity_W", "Intensity Weiß", "~Intensity.255", 60);
+		$this->EnableAction("Intensity_W");
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
 		
