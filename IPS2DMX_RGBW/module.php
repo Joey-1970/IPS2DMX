@@ -44,12 +44,13 @@
             	parent::ApplyChanges();
 		
 		//Status-Variablen anlegen
-		$this->RegisterVariableBoolean("Status_RGB", "Status RGB", "~Switch", 10);
+		$this->RegisterVariableBoolean("State_RGB", "Status RGB", "~Switch", 10);
 		$this->RegisterVariableInteger("Color_RGB", "Farbe", "~HexColor", 20);	
 		$this->RegisterVariableInteger("Intensity_R", "Intensity Rot", "~Intensity.255", 30);	
 		$this->RegisterVariableInteger("Intensity_G", "Intensity Grün", "~Intensity.255", 40);	
 		$this->RegisterVariableInteger("Intensity_B", "Intensity Blau", "~Intensity.255", 50);	
-		$this->RegisterVariableInteger("Intensity_W", "Intensity Weiß", "~Intensity.255", 60);
+		$this->RegisterVariableBoolean("State_W", "Status Weiß", "~Switch", 60);		
+		$this->RegisterVariableInteger("Intensity_W", "Intensity Weiß", "~Intensity.255", 70);
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
 		
@@ -67,22 +68,18 @@
 		$Parts = explode("_", $Ident);
 		$Source = $Parts[0]; // Steuerelement
 		$Channel = $Parts[1]; // R, G, B bzw. RGB
-		$ChannelArray = ["R" => 0, "G" => 1, "B" => 2];
-		$Group = $Parts[2]; // Gruppe (1-8)
+		$ChannelArray = ["R" => 0, "G" => 1, "B" => 2, "W" => 3];
+	
 		switch($Source) {
-		case "Status":
-			$this->SetChannelStatus($Group, $Value);
+		case "State":
+			$this->SetChannelStatus($Channel, $Value);
 			break;
 		case "Color":
 			//$this->SetOutputPinColor($Group, $Value);
 			break;
 		case "Intensity":
 			SetValueInteger($this->GetIDForIdent($Ident), $Value);
-			$this->SetChannelValue($Group, $ChannelArray[$Channel], $Value);
-			break;
-		case "Program":
-			SetValueInteger($this->GetIDForIdent($Ident), $Value);
-			$this->ProgramSelection($Group, $Value);
+			$this->SetChannelValue($ChannelArray[$Channel], $Value);
 			break;
 		default:
 		    throw new Exception("Invalid Ident");
@@ -98,7 +95,7 @@
 		}
 	}
 	    
-	private function SetChannelValue(Int $Group, Int $Channel, Int $Value)
+	private function SetChannelValue(Int $Channel, Int $Value)
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetChannelValue", "Ausfuehrung", 0);
@@ -118,10 +115,10 @@
 			SetValueInteger($this->GetIDForIdent("Color_RGB_".$Group), $this->RGB2Hex($Value_R, $Value_G, $Value_B));
 		}
 	}
-	private function SetChannelStatus(Int $Group, Bool $Status)
+	private function SetChannelState(Bool $State)
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
-			$this->SendDebug("SetChannelStatus", "Ausfuehrung", 0);
+			$this->SendDebug("SetChannelState", "Ausfuehrung", 0);
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
 			$Value_R = GetValueInteger($this->GetIDForIdent("Intensity_R_".$Group));
 			$Value_G = GetValueInteger($this->GetIDForIdent("Intensity_G_".$Group));
@@ -144,16 +141,6 @@
 			SetValueInteger($this->GetIDForIdent("Color_RGB_".$Group), $this->RGB2Hex($Value_R, $Value_G, $Value_B));
 		}
 	} 
-	
-	private function ProgramSelection(Int $Group, Int $Program)
-	{
-		$this->SendDebug("ProgramSelection", "Ausfuehrung Gruppe: ".$Group." Programm: ".$Program, 0);
-	}
-	    
-	public function ProgramTimer(Int $Timer)
-	{
-		$this->SendDebug("ProgramTimer", "Ausfuehrung Timer: ".$Timer, 0);
-	}
 	    
 	private function Hex2RGB($Hex)
 	{
