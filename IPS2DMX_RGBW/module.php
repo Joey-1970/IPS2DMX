@@ -31,8 +31,10 @@
 		$this->EnableAction("Intensity_B");
 		$this->RegisterVariableInteger("Intensity_W", "Intensity Weiß", "~Intensity.255", 60);
 		$this->EnableAction("Intensity_W");
-		$this->RegisterVariableInteger("Fadetime_RGBW", "Fadezeit", "~Intensity.100", 70);
-		$this->EnableAction("Fadetime_RGBW");
+		$this->RegisterVariableInteger("Fadeintime_RGBW", "Fade-In-Zeit", "~Intensity.100", 70);
+		$this->EnableAction("Fadeintime_RGBW");
+		$this->RegisterVariableInteger("Fadeouttime_RGBW", "Fade-Out-Zeit", "~Intensity.100", 80);
+		$this->EnableAction("Fadeouttime_RGBW");
 		
         }
  	
@@ -91,7 +93,10 @@
 			SetValueInteger($this->GetIDForIdent($Ident), $Value);
 			$this->SetChannelValue($ChannelArray[$Channel], $Value);
 			break;
-		case "Fadetime":
+		case "Fadeintime":
+			SetValueInteger($this->GetIDForIdent($Ident), $Value);
+			break;
+		case "Fadeouttime":
 			SetValueInteger($this->GetIDForIdent($Ident), $Value);
 			break;
 		default:
@@ -105,15 +110,17 @@
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetColor", "Ausfuehrung", 0);
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
+			$Fadeintime = ($this->ReadPropertyInteger("Fadeintime") / 10);
+			$Fadeouttime = ($this->ReadPropertyInteger("Fadeouttime") / 10);
 			$State_RGBW = GetValueBoolean($this->GetIDForIdent("State_RGBW"));
 			// Farbwerte aufsplitten
 			list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($Color);
 			$DMXChannel = $DMXStartChannel;
 			
 			If ($State_RGBW == true) {
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value_R, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 1), "Value" => $Value_G, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 2), "Value" => $Value_B, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value_R, "FadingSeconds" => $Fadeintime, "DelayedSeconds" => $Fadeouttime )));
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 1), "Value" => $Value_G, "FadingSeconds" => $Fadeintime, "DelayedSeconds" => $Fadeouttime )));
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 2), "Value" => $Value_B, "FadingSeconds" => $Fadeintime, "DelayedSeconds" => $Fadeouttime )));
 			}
 			SetValueInteger($this->GetIDForIdent("Intensity_R"), $Value_R);
 			SetValueInteger($this->GetIDForIdent("Intensity_G"), $Value_G);
@@ -126,6 +133,8 @@
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetChannelValue", "Ausfuehrung", 0);
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
+			$Fadeintime = ($this->ReadPropertyInteger("Fadeintime") / 10);
+			$Fadeouttime = ($this->ReadPropertyInteger("Fadeouttime") / 10);
 			
 			$State_RGBW = GetValueBoolean($this->GetIDForIdent("State_RGBW"));
 			$Value_R = GetValueInteger($this->GetIDForIdent("Intensity_R"));
@@ -138,7 +147,7 @@
 			$this->SendDebug("SetChannelValue", "DMXChannel: ".$DMXChannel." Rot: ".$Value_R." Gruen: ".$Value_G." Blau: ".$Value_B, 0);
 			
 			If ($State_RGBW == true) {
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => $Fadeintime, "DelayedSeconds" => $Fadeouttime )));
 				SetValueInteger($this->GetIDForIdent("Color_RGB"), $this->RGB2Hex($Value_R, $Value_G, $Value_B));
 			}
 		}
@@ -149,6 +158,8 @@
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetChannelState", "Ausfuehrung", 0);
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
+			$Fadeintime = ($this->ReadPropertyInteger("Fadeintime") / 10);
+			$Fadeouttime = ($this->ReadPropertyInteger("Fadeouttime") / 10);
 			$Value_R = GetValueInteger($this->GetIDForIdent("Intensity_R"));
 			$Value_G = GetValueInteger($this->GetIDForIdent("Intensity_G"));
 			$Value_B = GetValueInteger($this->GetIDForIdent("Intensity_B"));
@@ -158,16 +169,16 @@
 			$this->SendDebug("SetChannelStatus", "DMXChannel++: ".$DMXChannel." Rot: ".$Value_R." Gruen: ".$Value_G." Blau: ".$Value_B, 0);
 			
 			If ($State == true) {
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value_R, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 1), "Value" => $Value_G, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 2), "Value" => $Value_B, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 3), "Value" => $Value_W, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value_R, "FadingSeconds" => $Fadeintime, "DelayedSeconds" => 0.0 )));
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 1), "Value" => $Value_G, "FadingSeconds" => $Fadeintime, "DelayedSeconds" => 0.0 )));
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 2), "Value" => $Value_B, "FadingSeconds" => $Fadeintime, "DelayedSeconds" => 0.0 )));
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 3), "Value" => $Value_W, "FadingSeconds" => $Fadeintime, "DelayedSeconds" => 0.0 )));
 			}
 			else {
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => 0, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 1), "Value" => 0, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 2), "Value" => 0, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 3), "Value" => 0, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => 0, "FadingSeconds" => 0.0, "DelayedSeconds" => $Fadeouttime )));
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 1), "Value" => 0, "FadingSeconds" => 0.0, "DelayedSeconds" => $Fadeouttime )));
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 2), "Value" => 0, "FadingSeconds" => 0.0, "DelayedSeconds" => $Fadeouttime )));
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 3), "Value" => 0, "FadingSeconds" => 0.0, "DelayedSeconds" => $Fadeouttime )));
 			}
 			SetValueBoolean($this->GetIDForIdent("State_RGBW"), $State);
 			SetValueInteger($this->GetIDForIdent("Color_RGB"), $this->RGB2Hex($Value_R, $Value_G, $Value_B));
