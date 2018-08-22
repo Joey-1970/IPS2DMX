@@ -141,7 +141,6 @@
 			$Value_G = GetValueInteger($this->GetIDForIdent("Intensity_G"));
 			$Value_B = GetValueInteger($this->GetIDForIdent("Intensity_B"));
 			$Value_W = GetValueInteger($this->GetIDForIdent("Intensity_W"));
-			$Fadetime = GetValueInteger($this->GetIDForIdent("Fadetime_RGBW"));
 			
 			$DMXChannel = $DMXStartChannel + $Channel;
 			$this->SendDebug("SetChannelValue", "DMXChannel: ".$DMXChannel." Rot: ".$Value_R." Gruen: ".$Value_G." Blau: ".$Value_B, 0);
