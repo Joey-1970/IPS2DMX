@@ -17,6 +17,23 @@
  	    	$this->RegisterPropertyBoolean("Open", false);
 		$this->ConnectParent("{B1E43BF6-770A-4FD7-B4FE-6D265F93746B}");
  	    	$this->RegisterPropertyInteger("DMXStartChannel", 1);
+		
+		//Status-Variablen anlegen
+		$this->RegisterVariableBoolean("State_RGBW", "Status RGBW", "~Switch", 10);
+		$this->EnableAction("State_RGBW");
+		$this->RegisterVariableInteger("Color_RGB", "Farbe", "~HexColor", 20);
+		$this->EnableAction("Color_RGB");
+		$this->RegisterVariableInteger("Intensity_R", "Intensity Rot", "~Intensity.255", 30);	
+		$this->EnableAction("Intensity_R");
+		$this->RegisterVariableInteger("Intensity_G", "Intensity Grün", "~Intensity.255", 40);	
+		$this->EnableAction("Intensity_G");
+		$this->RegisterVariableInteger("Intensity_B", "Intensity Blau", "~Intensity.255", 50);
+		$this->EnableAction("Intensity_B");
+		$this->RegisterVariableInteger("Intensity_W", "Intensity Weiß", "~Intensity.255", 60);
+		$this->EnableAction("Intensity_W");
+		$this->RegisterVariableInteger("Fadetime_RGBW", "Fadezeit", "~Intensity.100", 70);
+		$this->EnableAction("Fadetime_RGBW");
+		
         }
  	
 	public function GetConfigurationForm() 
@@ -43,19 +60,6 @@
             	// Diese Zeile nicht löschen
             	parent::ApplyChanges();
 		
-		//Status-Variablen anlegen
-		$this->RegisterVariableBoolean("State_RGBW", "Status RGBW", "~Switch", 10);
-		$this->EnableAction("State_RGBW");
-		$this->RegisterVariableInteger("Color_RGB", "Farbe", "~HexColor", 20);
-		$this->EnableAction("Color_RGB");
-		$this->RegisterVariableInteger("Intensity_R", "Intensity Rot", "~Intensity.255", 30);	
-		$this->EnableAction("Intensity_R");
-		$this->RegisterVariableInteger("Intensity_G", "Intensity Grün", "~Intensity.255", 40);	
-		$this->EnableAction("Intensity_G");
-		$this->RegisterVariableInteger("Intensity_B", "Intensity Blau", "~Intensity.255", 50);
-		$this->EnableAction("Intensity_B");
-		$this->RegisterVariableInteger("Intensity_W", "Intensity Weiß", "~Intensity.255", 60);
-		$this->EnableAction("Intensity_W");
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
 		
@@ -86,6 +90,9 @@
 		case "Intensity":
 			SetValueInteger($this->GetIDForIdent($Ident), $Value);
 			$this->SetChannelValue($ChannelArray[$Channel], $Value);
+			break;
+		case "Fadetime":
+			SetValueInteger($this->GetIDForIdent($Ident), $Value);
 			break;
 		default:
 		    throw new Exception("Invalid Ident");
@@ -125,6 +132,7 @@
 			$Value_G = GetValueInteger($this->GetIDForIdent("Intensity_G"));
 			$Value_B = GetValueInteger($this->GetIDForIdent("Intensity_B"));
 			$Value_W = GetValueInteger($this->GetIDForIdent("Intensity_W"));
+			$Fadetime = GetValueInteger($this->GetIDForIdent("Fadetime_RGBW"));
 			
 			$DMXChannel = $DMXStartChannel + $Channel;
 			$this->SendDebug("SetChannelValue", "DMXChannel: ".$DMXChannel." Rot: ".$Value_R." Gruen: ".$Value_G." Blau: ".$Value_B, 0);
