@@ -110,8 +110,8 @@
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetColor", "Ausfuehrung", 0);
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
-			$Fadeintime = ($this->ReadPropertyInteger("Fadeintime") / 10);
-			$Fadeouttime = ($this->ReadPropertyInteger("Fadeouttime") / 10);
+			$Fadeintime = GetValueInteger($this->GetIDForIdent("Fadeintime")) / 10;
+			$Fadeouttime = GetValueInteger($this->GetIDForIdent("Fadeouttime")) / 10;
 			$State_RGBW = GetValueBoolean($this->GetIDForIdent("State_RGBW"));
 			// Farbwerte aufsplitten
 			list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($Color);
@@ -133,8 +133,8 @@
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetChannelValue", "Ausfuehrung", 0);
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
-			$Fadeintime = ($this->ReadPropertyInteger("Fadeintime") / 10);
-			$Fadeouttime = ($this->ReadPropertyInteger("Fadeouttime") / 10);
+			$Fadeintime = GetValueInteger($this->GetIDForIdent("Fadeintime")) / 10;
+			$Fadeouttime = GetValueInteger($this->GetIDForIdent("Fadeouttime")) / 10;
 			
 			$State_RGBW = GetValueBoolean($this->GetIDForIdent("State_RGBW"));
 			$Value_R = GetValueInteger($this->GetIDForIdent("Intensity_R"));
@@ -158,8 +158,8 @@
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetChannelState", "Ausfuehrung", 0);
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
-			$Fadeintime = ($this->ReadPropertyInteger("Fadeintime") / 10);
-			$Fadeouttime = ($this->ReadPropertyInteger("Fadeouttime") / 10);
+			$Fadeintime = GetValueInteger($this->GetIDForIdent("Fadeintime")) / 10;
+			$Fadeouttime = GetValueInteger($this->GetIDForIdent("Fadeouttime")) / 10;
 			$Value_R = GetValueInteger($this->GetIDForIdent("Intensity_R"));
 			$Value_G = GetValueInteger($this->GetIDForIdent("Intensity_G"));
 			$Value_B = GetValueInteger($this->GetIDForIdent("Intensity_B"));
