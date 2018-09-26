@@ -86,8 +86,8 @@
 		
 		$this->RegisterProfileInteger("IPS2DMX.EL200RGYColor", "Popcorn", "", "", 0, 2, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYColor", 1, "Gelb", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYColor", 40, "Rot", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYColor", 80, "Grün", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYColor", 40, "Grün", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYColor", 80, "Rot", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYColor", 120, "Originalmuster", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.EL200RGYColor", 160, "Farbwechsel", "Information", -1);
 		
