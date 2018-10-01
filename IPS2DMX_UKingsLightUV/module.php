@@ -52,15 +52,15 @@
 		$this->EnableAction("Brightness");
 		IPS_SetHidden($this->GetIDForIdent("Brightness"), false);
 		
-		$this->RegisterVariableInteger("Red", "Red", "~Intensity.255", 40);
+		$this->RegisterVariableInteger("Red", "Red", "~Intensity.255", 50);
 		$this->EnableAction("Red");
 		IPS_SetHidden($this->GetIDForIdent("Red"), false);
 		
-		$this->RegisterVariableInteger("Green", "Green", "~Intensity.255", 40);
+		$this->RegisterVariableInteger("Green", "Green", "~Intensity.255", 60);
 		$this->EnableAction("Green");
 		IPS_SetHidden($this->GetIDForIdent("Green"), false);
 		
-		$this->RegisterVariableInteger("Blue", "Blue", "~Intensity.255", 40);
+		$this->RegisterVariableInteger("Blue", "Blue", "~Intensity.255", 70);
 		$this->EnableAction("Blue");
 		IPS_SetHidden($this->GetIDForIdent("Blue"), false);
 		
