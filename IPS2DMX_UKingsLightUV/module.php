@@ -37,7 +37,7 @@
             	parent::ApplyChanges();
 	
 		$this->RegisterVariableInteger("Modus", "Modus", "~Intensity.255", 10);
-		$this->EnableAction("Brightness");
+		$this->EnableAction("Modus");
 		IPS_SetHidden($this->GetIDForIdent("Modus"), false);
 		
 		$this->RegisterVariableInteger("Color", "Color", "~Intensity.255", 20);
