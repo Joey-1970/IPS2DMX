@@ -36,21 +36,34 @@
             	// Diese Zeile nicht löschen
             	parent::ApplyChanges();
 	
-		$this->RegisterVariableInteger("Brightness", "Brightness", "~Intensity.255", 10);
+		$this->RegisterVariableInteger("Modus", "Modus", "~Intensity.255", 10);
+		$this->EnableAction("Brightness");
+		IPS_SetHidden($this->GetIDForIdent("Modus"), false);
+		
+		$this->RegisterVariableInteger("Color", "Color", "~Intensity.255", 20);
+		$this->EnableAction("Color");
+		IPS_SetHidden($this->GetIDForIdent("Color"), false);
+		
+		$this->RegisterVariableInteger("Speed", "Speed", "~Intensity.255", 30);
+		$this->EnableAction("Speed");
+		IPS_SetHidden($this->GetIDForIdent("Speed"), false);
+		
+		$this->RegisterVariableInteger("Brightness", "Brightness", "~Intensity.255", 40);
 		$this->EnableAction("Brightness");
 		IPS_SetHidden($this->GetIDForIdent("Brightness"), false);
 		
-		$this->RegisterVariableInteger("Strobe", "Strobe", "~Intensity.255", 20);
-		$this->EnableAction("Strobe");
-		IPS_SetHidden($this->GetIDForIdent("Strobe"), false);
+		$this->RegisterVariableInteger("Red", "Red", "~Intensity.255", 40);
+		$this->EnableAction("Red");
+		IPS_SetHidden($this->GetIDForIdent("Red"), false);
 		
-		$this->RegisterVariableInteger("AutoPrograms", "AutoPrograms", "~Intensity.255", 30);
-		$this->EnableAction("AutoPrograms");
-		IPS_SetHidden($this->GetIDForIdent("AutoPrograms"), false);
+		$this->RegisterVariableInteger("Green", "Green", "~Intensity.255", 40);
+		$this->EnableAction("Green");
+		IPS_SetHidden($this->GetIDForIdent("Green"), false);
 		
-		$this->RegisterVariableInteger("SoundActive", "SoundActive", "~Intensity.255", 40);
-		$this->EnableAction("SoundActive");
-		IPS_SetHidden($this->GetIDForIdent("SoundActive"), false);
+		$this->RegisterVariableInteger("Blue", "Blue", "~Intensity.255", 40);
+		$this->EnableAction("Blue");
+		IPS_SetHidden($this->GetIDForIdent("Blue"), false);
+		
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
 			If ($this->ReadPropertyBoolean("Open") == true) {
@@ -67,17 +80,26 @@
 		SetValueInteger($this->GetIDForIdent($Ident), $Value);
 		
 		switch($Ident) {
-		case "Brightness":
+		case "Modus":
 			$this->SetChannelValue( 0, $Value);
 			break;
-		case "Strobe":
+		case "Color":
 			$this->SetChannelValue( 1, $Value);
 			break;
-		case "AutoPrograms":
+		case "Speed":
 			$this->SetChannelValue( 2, $Value);
 			break;
-		case "SoundActive":
+		case "Brightness":
 			$this->SetChannelValue( 3, $Value);
+			break;
+		case "Red":
+			$this->SetChannelValue( 4, $Value);
+			break;
+		case "Green":
+			$this->SetChannelValue( 5, $Value);
+			break;
+		case "Blue":
+			$this->SetChannelValue( 6, $Value);
 			break;
 		default:
 		    throw new Exception("Invalid Ident");
