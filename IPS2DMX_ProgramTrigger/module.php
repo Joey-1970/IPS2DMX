@@ -54,7 +54,7 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 5, "10 sek", "Clock", -1);
 		
 		
-		$this->RegisterProfileFloat("IPS2DMX.TriggerTime", "Popcorn", "", " s", 1.0, 5.0, 0.25, 2);
+		$this->RegisterProfileFloat("IPS2DMX.TriggerTime", "Popcorn", "", " s", 0.5, 5.0, 0.25, 2);
 		
 		
 		
