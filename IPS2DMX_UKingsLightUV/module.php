@@ -38,13 +38,11 @@
 		
 		// Profil anlegen
 		$this->RegisterProfileInteger("IPS2DMX.UKingLightUV", "Popcorn", "", "", 0, 2, 0);
-		IPS_SetVariableProfileAssociation("IPS2DMX.UKingLightUV", 0, "Aus", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.UKingLightUV", 0, "Manuell", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.UKingLightUV", 11, "Einfarbig", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.UKingLightUV", 41, "Wechsel", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.UKingLightUV", 71, "Verblassen", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.UKingLightUV", 101, "Sound", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.UKingLightUV", 131, "Strobo", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.UKingLightUV", 161, "Automatik", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.UKingLightUV", 191, "Impuls", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.UKingLightUV", 221, "Rennen", "Information", -1);
 	
@@ -53,10 +51,6 @@
 		$this->EnableAction("Modus");
 		IPS_SetHidden($this->GetIDForIdent("Modus"), false);
 		
-		$this->RegisterVariableInteger("Color", "Color", "~Intensity.255", 20);
-		$this->EnableAction("Color");
-		IPS_SetHidden($this->GetIDForIdent("Color"), false);
-		
 		$this->RegisterVariableInteger("Speed", "Speed", "~Intensity.255", 30);
 		$this->EnableAction("Speed");
 		IPS_SetHidden($this->GetIDForIdent("Speed"), false);
@@ -64,18 +58,6 @@
 		$this->RegisterVariableInteger("Brightness", "Brightness", "~Intensity.255", 40);
 		$this->EnableAction("Brightness");
 		IPS_SetHidden($this->GetIDForIdent("Brightness"), false);
-		
-		$this->RegisterVariableInteger("Red", "Red", "~Intensity.255", 50);
-		$this->EnableAction("Red");
-		IPS_SetHidden($this->GetIDForIdent("Red"), false);
-		
-		$this->RegisterVariableInteger("Green", "Green", "~Intensity.255", 60);
-		$this->EnableAction("Green");
-		IPS_SetHidden($this->GetIDForIdent("Green"), false);
-		
-		$this->RegisterVariableInteger("Blue", "Blue", "~Intensity.255", 70);
-		$this->EnableAction("Blue");
-		IPS_SetHidden($this->GetIDForIdent("Blue"), false);
 		
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
@@ -96,23 +78,14 @@
 		case "Modus":
 			$this->SetChannelValue( 0, $Value);
 			break;
-		case "Color":
-			$this->SetChannelValue( 1, $Value);
-			break;
 		case "Speed":
 			$this->SetChannelValue( 2, $Value);
 			break;
 		case "Brightness":
 			$this->SetChannelValue( 3, $Value);
-			break;
-		case "Red":
-			$this->SetChannelValue( 4, $Value);
-			break;
-		case "Green":
-			$this->SetChannelValue( 5, $Value);
-			break;
-		case "Blue":
-			$this->SetChannelValue( 6, $Value);
+			$this->SetChannelValue( 4, 255);
+			$this->SetChannelValue( 5, 255);
+			$this->SetChannelValue( 6, 255);
 			break;
 		default:
 		    throw new Exception("Invalid Ident");
