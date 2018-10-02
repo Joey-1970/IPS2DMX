@@ -35,8 +35,21 @@
         {
             	// Diese Zeile nicht löschen
             	parent::ApplyChanges();
+		
+		// Profil anlegen
+		$this->RegisterProfileInteger("IPS2DMX.UKingLightUV", "Popcorn", "", "", 0, 2, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.UKingLightUV", 0, "Aus", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.UKingLightUV", 11, "Einfarbig", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.UKingLightUV", 41, "Wechsel", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.UKingLightUV", 71, "Verblassen", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.UKingLightUV", 101, "Sound", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.UKingLightUV", 131, "Strobo", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.UKingLightUV", 161, "Automatik", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.UKingLightUV", 191, "Impuls", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.UKingLightUV", 221, "Rennen", "Information", -1);
 	
-		$this->RegisterVariableInteger("Modus", "Modus", "~Intensity.255", 10);
+		// Statusvariablen anlegen
+		$this->RegisterVariableInteger("Modus", "Modus", "IPS2DMX.UKingLightUV", 10);
 		$this->EnableAction("Modus");
 		IPS_SetHidden($this->GetIDForIdent("Modus"), false);
 		
@@ -107,6 +120,23 @@
 	}
 	    
 	// Beginn der Funktionen
+	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
+	{
+	        if (!IPS_VariableProfileExists($Name))
+	        {
+	            IPS_CreateVariableProfile($Name, 1);
+	        }
+	        else
+	        {
+	            $profile = IPS_GetVariableProfile($Name);
+	            if ($profile['ProfileType'] != 1)
+	                throw new Exception("Variable profile type does not match for profile " . $Name);
+	        }
+	        IPS_SetVariableProfileIcon($Name, $Icon);
+	        IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
+	        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);    
+	}    
+	
 	private function SetChannelValue(Int $Channel, Int $Value)
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
