@@ -73,6 +73,7 @@
 		$this->RegisterVariableInteger("Color_Memory_3", "Memory 3", "~HexColor", 110);
 		$this->RegisterVariableInteger("Color_Memory_4", "Memory 4", "~HexColor", 120);
 		$this->RegisterVariableInteger("Color_Memory_5", "Memory 5", "~HexColor", 130);
+		$this->RegisterVariableString("Color_Memory", "Memory", "", 140);
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
 		
