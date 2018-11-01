@@ -114,6 +114,9 @@
 		case "Fadetime":
 			SetValueInteger($this->GetIDForIdent($Ident), $Value);
 			break;
+		case "Memory":
+			SetValueInteger($this->GetIDForIdent($Ident), $Value);
+			break;
 		default:
 		    throw new Exception("Invalid Ident");
 		}
