@@ -69,17 +69,17 @@
 		
 		$this->RegisterVariableInteger("Memory", "Aktuelle Farbe speichern in Memory:", "IPS2DMX.Memory", 80);
 		$this->EnableAction("Memory");
-		$this->RegisterVariableInteger("Color_Memory_1", "Memory 1", "~HexColor", 90);
-		$this->EnableAction("Color_Memory_1");
-		$this->RegisterVariableInteger("Color_Memory_2", "Memory 2", "~HexColor", 100);
-		$this->EnableAction("Color_Memory_2");
-		$this->RegisterVariableInteger("Color_Memory_3", "Memory 3", "~HexColor", 110);
-		$this->EnableAction("Color_Memory_3");
-		$this->RegisterVariableInteger("Color_Memory_4", "Memory 4", "~HexColor", 120);
-		$this->EnableAction("Color_Memory_4");
-		$this->RegisterVariableInteger("Color_Memory_5", "Memory 5", "~HexColor", 130);
-		$this->EnableAction("Color_Memory_5");
-		$this->RegisterVariableString("Color_Memory", "Memory", "", 140);
+		$this->RegisterVariableInteger("ColorMemory_1", "Memory 1", "~HexColor", 90);
+		$this->EnableAction("ColorMemory_1");
+		$this->RegisterVariableInteger("ColorMemory_2", "Memory 2", "~HexColor", 100);
+		$this->EnableAction("ColorMemory_2");
+		$this->RegisterVariableInteger("ColorMemory_3", "Memory 3", "~HexColor", 110);
+		$this->EnableAction("ColorMemory_3");
+		$this->RegisterVariableInteger("ColorMemory_4", "Memory 4", "~HexColor", 120);
+		$this->EnableAction("ColorMemory_4");
+		$this->RegisterVariableInteger("ColorMemory_5", "Memory 5", "~HexColor", 130);
+		$this->EnableAction("ColorMemory_5");
+		$this->RegisterVariableString("ColorMemory", "Memory", "", 140);
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
 		
