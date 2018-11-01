@@ -60,7 +60,7 @@
             	parent::ApplyChanges();
 		
 		// Profile anlegen
-		$this->RegisterProfileInteger("IPS2DMX.Memory", "Information", "", "", 0, 4, 1);
+		$this->RegisterProfileInteger("IPS2DMX.Memory", "Information", "", "", 1, 5, 1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.Memory", 1, "1", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.Memory", 2, "2", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.Memory", 3, "3", "Information", -1);
@@ -68,11 +68,17 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.Memory", 5, "5", "Information", -1);
 		
 		$this->RegisterVariableInteger("Memory", "Aktuelle Farbe speichern in:", "IPS2DMX.Memory", 80);
+		$this->EnableAction("Memory");
 		$this->RegisterVariableInteger("Color_Memory_1", "Memory 1", "~HexColor", 90);
+		$this->EnableAction("Color_Memory_1");
 		$this->RegisterVariableInteger("Color_Memory_2", "Memory 2", "~HexColor", 100);
+		$this->EnableAction("Color_Memory_2");
 		$this->RegisterVariableInteger("Color_Memory_3", "Memory 3", "~HexColor", 110);
+		$this->EnableAction("Color_Memory_3");
 		$this->RegisterVariableInteger("Color_Memory_4", "Memory 4", "~HexColor", 120);
+		$this->EnableAction("Color_Memory_4");
 		$this->RegisterVariableInteger("Color_Memory_5", "Memory 5", "~HexColor", 130);
+		$this->EnableAction("Color_Memory_5");
 		$this->RegisterVariableString("Color_Memory", "Memory", "", 140);
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
