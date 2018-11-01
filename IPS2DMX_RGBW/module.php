@@ -67,18 +67,18 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.Memory", 4, "4", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.Memory", 5, "5", "Information", -1);
 		
-		$this->RegisterVariableInteger("Memory", "Aktuelle Farbe speichern in Memory:", "IPS2DMX.Memory", 80);
-		$this->EnableAction("Memory");
-		$this->RegisterVariableInteger("ColorMemory_1", "Memory 1", "~HexColor", 90);
-		$this->EnableAction("ColorMemory_1");
-		$this->RegisterVariableInteger("ColorMemory_2", "Memory 2", "~HexColor", 100);
-		$this->EnableAction("ColorMemory_2");
-		$this->RegisterVariableInteger("ColorMemory_3", "Memory 3", "~HexColor", 110);
-		$this->EnableAction("ColorMemory_3");
-		$this->RegisterVariableInteger("ColorMemory_4", "Memory 4", "~HexColor", 120);
-		$this->EnableAction("ColorMemory_4");
-		$this->RegisterVariableInteger("ColorMemory_5", "Memory 5", "~HexColor", 130);
-		$this->EnableAction("ColorMemory_5");
+		$this->RegisterVariableInteger("Memory_RGBW", "Aktuelle Farbe speichern in Memory:", "IPS2DMX.Memory", 80);
+		$this->EnableAction("Memory_RGBW");
+		$this->RegisterVariableInteger("ColorMemory_RGBW_1", "Memory 1", "~HexColor", 90);
+		$this->EnableAction("ColorMemory_RGBW_1");
+		$this->RegisterVariableInteger("ColorMemory_RGBW_2", "Memory 2", "~HexColor", 100);
+		$this->EnableAction("ColorMemory_RGBW_2");
+		$this->RegisterVariableInteger("ColorMemory_RGBW_3", "Memory 3", "~HexColor", 110);
+		$this->EnableAction("ColorMemory_RGBW_3");
+		$this->RegisterVariableInteger("ColorMemory_RGBW_4", "Memory 4", "~HexColor", 120);
+		$this->EnableAction("ColorMemory_RGBW_4");
+		$this->RegisterVariableInteger("ColorMemory_RGBW_5", "Memory 5", "~HexColor", 130);
+		$this->EnableAction("ColorMemory_RGBW_5");
 		$this->RegisterVariableString("ColorMemory", "Memory", "", 140);
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
@@ -115,6 +115,9 @@
 			SetValueInteger($this->GetIDForIdent($Ident), $Value);
 			break;
 		case "Memory":
+			SetValueInteger($this->GetIDForIdent($Ident), $Value);
+			break;
+		case "ColorMemory":
 			SetValueInteger($this->GetIDForIdent($Ident), $Value);
 			break;
 		default:
