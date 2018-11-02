@@ -18,7 +18,22 @@
 		$this->ConnectParent("{B1E43BF6-770A-4FD7-B4FE-6D265F93746B}");
  	    	$this->RegisterPropertyInteger("DMXStartChannel", 1);
 		
-		//Status-Variablen anlegen
+		// Profile anlegen
+		$this->RegisterProfileInteger("IPS2DMX.Memory", "Information", "", "", 1, 5, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.Memory", 1, "1", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.Memory", 2, "2", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.Memory", 3, "3", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.Memory", 4, "4", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.Memory", 5, "5", "Information", -1);
+		
+		$this->RegisterProfileInteger("IPS2DMX.RGBW_".$this->InstanceID, "Information", "", "", 1, 5, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.RGBW_".$this->InstanceID, 1, "0 %", "Information", 0x000000);
+		IPS_SetVariableProfileAssociation("IPS2DMX.RGBW_".$this->InstanceID, 2, "0 %", "Information", 0x000000);
+		IPS_SetVariableProfileAssociation("IPS2DMX.RGBW_".$this->InstanceID, 3, "0 %", "Information", 0x000000);
+		IPS_SetVariableProfileAssociation("IPS2DMX.RGBW_".$this->InstanceID, 4, "0 %", "Information", 0x000000);
+		IPS_SetVariableProfileAssociation("IPS2DMX.RGBW_".$this->InstanceID, 5, "0 %", "Information", 0x000000);
+		
+		// Status-Variablen anlegen
 		$this->RegisterVariableBoolean("State_RGBW", "Status RGBW", "~Switch", 10);
 		$this->EnableAction("State_RGBW");
 		$this->RegisterVariableInteger("Color_RGB", "Farbe", "~HexColor", 20);
@@ -33,6 +48,10 @@
 		$this->EnableAction("Intensity_W");
 		$this->RegisterVariableInteger("Fadetime_RGBW", "Fade-Zeit", "~Intensity.100", 70);
 		$this->EnableAction("Fadetime_RGBW");
+		$this->RegisterVariableInteger("Memory_RGBW", "Aktuelle Farbe speichern in Memory:", "IPS2DMX.Memory", 80);
+		$this->EnableAction("Memory_RGBW");
+		$this->RegisterVariableInteger("ColorMemory_RGBW", "Memory .$i", "IPS2DMX.RGBW_".$this->InstanceID, 90);
+		$this->EnableAction("ColorMemory_RGBW");
         }
  	
 	public function GetConfigurationForm() 
@@ -59,34 +78,7 @@
             	// Diese Zeile nicht löschen
             	parent::ApplyChanges();
 		
-		// Profile anlegen
-		$this->RegisterProfileInteger("IPS2DMX.Memory", "Information", "", "", 1, 5, 0);
-		IPS_SetVariableProfileAssociation("IPS2DMX.Memory", 1, "1", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.Memory", 2, "2", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.Memory", 3, "3", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.Memory", 4, "4", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.Memory", 5, "5", "Information", -1);
-		
-		$this->RegisterProfileInteger("IPS2DMX.RGBW_".$this->InstanceID, "Information", "", "", 1, 5, 0);
-		IPS_SetVariableProfileAssociation("IPS2DMX.RGBW_".$this->InstanceID, 1, "0 %", "Information", 0x000000);
-		IPS_SetVariableProfileAssociation("IPS2DMX.RGBW_".$this->InstanceID, 2, "0 %", "Information", 0x000000);
-		IPS_SetVariableProfileAssociation("IPS2DMX.RGBW_".$this->InstanceID, 3, "0 %", "Information", 0x000000);
-		IPS_SetVariableProfileAssociation("IPS2DMX.RGBW_".$this->InstanceID, 4, "0 %", "Information", 0x000000);
-		IPS_SetVariableProfileAssociation("IPS2DMX.RGBW_".$this->InstanceID, 5, "0 %", "Information", 0x000000);
-		
-		
-		$this->RegisterVariableInteger("Memory_RGBW", "Aktuelle Farbe speichern in Memory:", "IPS2DMX.Memory", 80);
-		$this->EnableAction("Memory_RGBW");
-		
-		
-		$this->RegisterVariableInteger("ColorMemory_RGBW", "Memory .$i", "IPS2DMX.RGBW_".$this->InstanceID, 90);
-		$this->EnableAction("ColorMemory_RGBW");
-		
-		
-		$this->RegisterVariableString("ColorMemory", "Memory", "", 140);
-		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
-		
 			If ($this->ReadPropertyBoolean("Open") == true) {
 				$this->SetStatus(102);
 			}
