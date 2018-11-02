@@ -120,7 +120,7 @@
 			break;
 		case "Memory":
 			SetValueInteger($this->GetIDForIdent($Ident), $Value);
-			$this->SaveColor($Ident);
+			$this->SaveColor($Value);
 			break;
 		case "ColorMemory":
 			SetValueInteger($this->GetIDForIdent($Ident), $Value);
