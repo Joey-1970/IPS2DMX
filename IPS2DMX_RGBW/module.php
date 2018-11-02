@@ -210,7 +210,7 @@
 	private function SaveColor(Int $MemorySlot)
 	{
 		$Color = GetValueInteger($this->GetIDForIdent("Color_RGB"));
-		$Intensity = Intval(GetValueInteger($this->GetIDForIdent("Intensity_W")) / 2.55);
+		$Intensity = round(GetValueInteger($this->GetIDForIdent("Intensity_W")) / 2.55);
 		IPS_SetVariableProfileAssociation("IPS2DMX.RGBW_".$this->InstanceID, $MemorySlot, $Intensity." %", "Information", $Color);
 	}
 	
