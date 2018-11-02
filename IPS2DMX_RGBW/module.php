@@ -67,17 +67,21 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.Memory", 4, "4", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.Memory", 5, "5", "Information", -1);
 		
-		$this->RegisterProfileInteger("IPS2DMX.RGBW", "Information", "", "", 0, 1, 0);
-		IPS_SetVariableProfileAssociation("IPS2DMX.RGBW", 0, "0 %", "Information", 0x000000);
+		$this->RegisterProfileInteger("IPS2DMX.RGBW_".$this->InstanceID, "Information", "", "", 1, 5, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.RGBW_".$this->InstanceID, 1, "0 %", "Information", 0x000000);
+		IPS_SetVariableProfileAssociation("IPS2DMX.RGBW_".$this->InstanceID, 2, "0 %", "Information", 0x000000);
+		IPS_SetVariableProfileAssociation("IPS2DMX.RGBW_".$this->InstanceID, 3, "0 %", "Information", 0x000000);
+		IPS_SetVariableProfileAssociation("IPS2DMX.RGBW_".$this->InstanceID, 4, "0 %", "Information", 0x000000);
+		IPS_SetVariableProfileAssociation("IPS2DMX.RGBW_".$this->InstanceID, 5, "0 %", "Information", 0x000000);
 		
 		
 		$this->RegisterVariableInteger("Memory_RGBW", "Aktuelle Farbe speichern in Memory:", "IPS2DMX.Memory", 80);
 		$this->EnableAction("Memory_RGBW");
 		
-		for ($i = 1; $i <= 5; $i++) {
-		    	$this->RegisterVariableInteger("ColorMemory_RGBW_".$i, "Memory .$i", "IPS2DMX.RGBW", 80 + ($i * 10));
-			$this->EnableAction("ColorMemory_RGBW_".$i);
-		}
+		
+		$this->RegisterVariableInteger("ColorMemory_RGBW", "Memory .$i", "IPS2DMX.RGBW_".$this->InstanceID, 90);
+		$this->EnableAction("ColorMemory_RGBW");
+		
 		
 		$this->RegisterVariableString("ColorMemory", "Memory", "", 140);
 		
