@@ -67,18 +67,18 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.Memory", 4, "4", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.Memory", 5, "5", "Information", -1);
 		
+		$this->RegisterProfileInteger("IPS2DMX.RGBW", "Information", "", "", 0, 1, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.RGBW", 0, "0 %", "Information", 0x000000);
+		
+		
 		$this->RegisterVariableInteger("Memory_RGBW", "Aktuelle Farbe speichern in Memory:", "IPS2DMX.Memory", 80);
 		$this->EnableAction("Memory_RGBW");
-		$this->RegisterVariableInteger("ColorMemory_RGBW_1", "Memory 1", "~HexColor", 90);
-		$this->EnableAction("ColorMemory_RGBW_1");
-		$this->RegisterVariableInteger("ColorMemory_RGBW_2", "Memory 2", "~HexColor", 100);
-		$this->EnableAction("ColorMemory_RGBW_2");
-		$this->RegisterVariableInteger("ColorMemory_RGBW_3", "Memory 3", "~HexColor", 110);
-		$this->EnableAction("ColorMemory_RGBW_3");
-		$this->RegisterVariableInteger("ColorMemory_RGBW_4", "Memory 4", "~HexColor", 120);
-		$this->EnableAction("ColorMemory_RGBW_4");
-		$this->RegisterVariableInteger("ColorMemory_RGBW_5", "Memory 5", "~HexColor", 130);
-		$this->EnableAction("ColorMemory_RGBW_5");
+		
+		for ($i = 1; $i <= 5; $i++) {
+		    	$this->RegisterVariableInteger("ColorMemory_RGBW_".$i, "Memory .$i", "IPS2DMX.RGBW", 80 + ($i * 10));
+			$this->EnableAction("ColorMemory_RGBW_".$i);
+		}
+		
 		$this->RegisterVariableString("ColorMemory", "Memory", "", 140);
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
