@@ -120,6 +120,7 @@
 			break;
 		case "Memory":
 			SetValueInteger($this->GetIDForIdent($Ident), $Value);
+			$this->SaveColor($Ident);
 			break;
 		case "ColorMemory":
 			SetValueInteger($this->GetIDForIdent($Ident), $Value);
@@ -205,7 +206,14 @@
 			SetValueInteger($this->GetIDForIdent("Color_RGB"), $this->RGB2Hex($Value_R, $Value_G, $Value_B));
 		}
 	} 
-	    
+	 
+	private function SaveColor(Int $MemorySlot)
+	{
+		$Color = GetValueInteger($this->GetIDForIdent("Color_RGB"));
+		$Intensity = GetValueInteger($this->GetIDForIdent("Intensity_W"));
+		IPS_SetVariableProfileAssociation("IPS2DMX.RGBW_".$this->InstanceID, $MemorySlot, $Intensity." %", "Information", $Color);
+	}
+	
 	private function Hex2RGB($Hex)
 	{
 		$r = (($Hex >> 16) & 0xFF);
