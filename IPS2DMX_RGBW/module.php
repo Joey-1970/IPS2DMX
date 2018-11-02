@@ -50,7 +50,7 @@
 		$this->EnableAction("Fadetime_RGBW");
 		$this->RegisterVariableInteger("Memory_RGBW", "Aktuelle Farbe speichern in Memory:", "IPS2DMX.Memory", 80);
 		$this->EnableAction("Memory_RGBW");
-		$this->RegisterVariableInteger("ColorMemory_RGBW", "Memory .$i", "IPS2DMX.RGBW_".$this->InstanceID, 90);
+		$this->RegisterVariableInteger("ColorMemory_RGBW", "Memory", "IPS2DMX.RGBW_".$this->InstanceID, 90);
 		$this->EnableAction("ColorMemory_RGBW");
         }
  	
