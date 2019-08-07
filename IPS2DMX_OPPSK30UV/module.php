@@ -10,6 +10,18 @@
  	    	$this->RegisterPropertyBoolean("Open", false);
 		$this->ConnectParent("{B1E43BF6-770A-4FD7-B4FE-6D265F93746B}");
  	    	$this->RegisterPropertyInteger("DMXStartChannel", 1);
+		
+		$this->RegisterVariableInteger("Brightness", "Brightness", "~Intensity.255", 10);
+		$this->EnableAction("Brightness");
+		
+		$this->RegisterVariableInteger("Strobe", "Strobe", "~Intensity.255", 20);
+		$this->EnableAction("Strobe");
+		
+		$this->RegisterVariableInteger("AutoPrograms", "AutoPrograms", "~Intensity.255", 30);
+		$this->EnableAction("AutoPrograms");
+		
+		$this->RegisterVariableInteger("SoundActive", "SoundActive", "~Intensity.255", 40);
+		$this->EnableAction("SoundActive");
         }
  	
 	public function GetConfigurationForm() 
@@ -35,22 +47,6 @@
         {
             	// Diese Zeile nicht löschen
             	parent::ApplyChanges();
-	
-		$this->RegisterVariableInteger("Brightness", "Brightness", "~Intensity.255", 10);
-		$this->EnableAction("Brightness");
-		IPS_SetHidden($this->GetIDForIdent("Brightness"), false);
-		
-		$this->RegisterVariableInteger("Strobe", "Strobe", "~Intensity.255", 20);
-		$this->EnableAction("Strobe");
-		IPS_SetHidden($this->GetIDForIdent("Strobe"), false);
-		
-		$this->RegisterVariableInteger("AutoPrograms", "AutoPrograms", "~Intensity.255", 30);
-		$this->EnableAction("AutoPrograms");
-		IPS_SetHidden($this->GetIDForIdent("AutoPrograms"), false);
-		
-		$this->RegisterVariableInteger("SoundActive", "SoundActive", "~Intensity.255", 40);
-		$this->EnableAction("SoundActive");
-		IPS_SetHidden($this->GetIDForIdent("SoundActive"), false);
 		
 		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
 			If ($this->ReadPropertyBoolean("Open") == true) {
@@ -69,9 +65,13 @@
 		switch($Ident) {
 		case "Brightness":
 			$this->SetChannelValue( 0, $Value);
+			$Strobe = GetValueInteger($this->GetIDForIdent("Strobe"));
+			$this->SetChannelValue( 1, $Strobe);
 			break;
 		case "Strobe":
 			$this->SetChannelValue( 1, $Value);
+			$Brightness = GetValueInteger($this->GetIDForIdent("Brightness"));
+			$this->SetChannelValue( 0, $Brightness);
 			break;
 		case "AutoPrograms":
 			$this->SetChannelValue( 2, $Value);
