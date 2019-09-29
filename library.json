@@ -3,6 +3,9 @@
   "author": "Joachim Päper",
   "name": "IPS2DMX",
   "url": "www.ip-symcon.de",
+  "compatibility": {
+        "version": "5.1"
+  },
   "version": "1.0",
   "build": 0,
   "date": 0
