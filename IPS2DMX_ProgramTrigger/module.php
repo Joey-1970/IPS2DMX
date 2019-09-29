@@ -31,7 +31,10 @@
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv"); 
  		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");
-		
+		$arrayElements[] = array("type" => "Label", "label" => "Test Center"); 
+		$arrayElements[] = array("type" => "TestCenter", "name" => "TestCenter");
+		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");
+
 		$arrayActions = array();
 		$arrayActions[] = array("type" => "Label", "label" => "Diese Funktionen stehen erst nach Eingabe und Übernahme der erforderlichen Daten zur Verfügung!");
 		
@@ -208,17 +211,5 @@
 		$ParentID = (IPS_GetInstance($this->InstanceID)['ConnectionID']);  
 	return $ParentID;
 	}
-	    
-	protected function HasActiveParent()
-    	{
-		$Instance = @IPS_GetInstance($this->InstanceID);
-		if ($Instance['ConnectionID'] > 0)
-		{
-			$Parent = IPS_GetInstance($Instance['ConnectionID']);
-			if ($Parent['InstanceStatus'] == 102)
-			return true;
-		}
-        return false;
-    	}  
 }
 ?>
