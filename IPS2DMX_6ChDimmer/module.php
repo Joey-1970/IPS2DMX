@@ -29,6 +29,10 @@
 		$arrayElements[] = array("type" => "SelectVariable", "name" => "TriggerID", "caption" => "Trigger"); 
 
 		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________"); 
+		$arrayElements[] = array("type" => "Label", "label" => "Test Center"); 
+		$arrayElements[] = array("type" => "TestCenter", "name" => "TestCenter");
+		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");
+		
 		$arrayActions = array();
 		$arrayActions[] = array("type" => "Label", "label" => "Diese Funktionen stehen erst nach Eingabe und Übernahme der erforderlichen Daten zur Verfügung!");
 		
@@ -228,24 +232,6 @@
 			
 		}
 	}
-	 
-	/*
-	private function SetChannelStatus(Int $Channel, Bool $Status)
-	{ 
-		If ($this->ReadPropertyBoolean("Open") == true) {
-			$this->SendDebug("SetChannelStatus", "Ausfuehrung", 0);
-			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
-			
-			If ($Status == true) {
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXStartChannel, "Value" => 255, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-			}
-			else {
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXStartChannel, "Value" => 0, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-			}
-			SetValueBoolean($this->GetIDForIdent("Status"), $Status);
-		}
-	} 
-	*/
 	
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
 	{
@@ -281,17 +267,5 @@
 	        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
 	        IPS_SetVariableProfileDigits($Name, $Digits);
 	}    
-	    
-	protected function HasActiveParent()
-    	{
-		$Instance = @IPS_GetInstance($this->InstanceID);
-		if ($Instance['ConnectionID'] > 0)
-		{
-			$Parent = IPS_GetInstance($Instance['ConnectionID']);
-			if ($Parent['InstanceStatus'] == 102)
-			return true;
-		}
-        return false;
-    	}  
 }
 ?>
