@@ -2,13 +2,6 @@
     // Klassendefinition
     class IPS2DMX_RGBW extends IPSModule 
     {
-	public function Destroy() 
-	{
-		//Never delete this line!
-		parent::Destroy();
-		
-	}
-	    
 	// Überschreibt die interne IPS_Create($id) Funktion
         public function Create() 
         {
