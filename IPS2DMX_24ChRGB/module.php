@@ -2,15 +2,6 @@
     // Klassendefinition
     class IPS2DMX_24ChRGB extends IPSModule 
     {
-	public function Destroy() 
-	{
-		//Never delete this line!
-		parent::Destroy();
-		for ($i = 0; $i <= 7; $i++) {
-			$this->SetTimerInterval("Timer_".($i + 1), 0);
-		}
-	}
-	    
 	// Überschreibt die interne IPS_Create($id) Funktion
         public function Create() 
         {
