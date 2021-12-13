@@ -90,8 +90,7 @@
 		}
 		
 		
-		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
-		
+		If ($this->HasActiveParent() == true) {	
 			If ($this->ReadPropertyBoolean("Open") == true) {
 				$this->SetStatus(102);
 			}
