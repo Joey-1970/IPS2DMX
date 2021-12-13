@@ -132,14 +132,9 @@
 		
 		$this->RegisterVariableInteger("ColorEffect", "Farbeffekt", "IPS2DMX.EL200RGYFarbeffekt", 100);
 		$this->EnableAction("ColorEffect");
-		IPS_SetHidden($this->GetIDForIdent("ColorEffect"), false);
+		IPS_SetHidden($this->GetIDForIdent("ColorEffect"), false);	
 		
-		
-		
-		
-		
-		
-		If ((IPS_GetKernelRunlevel() == 10103) AND ($this->HasActiveParent() == true)) {	
+		If ($this->HasActiveParent() == true) {	
 			If ($this->ReadPropertyBoolean("Open") == true) {
 				$this->SetStatus(102);
 			}
