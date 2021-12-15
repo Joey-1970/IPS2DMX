@@ -75,12 +75,16 @@
 		
 		If ($this->HasActiveParent() == true) {	
 			If ($this->ReadPropertyBoolean("Open") == true) {
-				$this->SetStatus(102);
+				If ($this->GetStatus() <> 102) {
+					$this->SetStatus(102);
+				}
 			}
 			else {
 				$this->SetTimerInterval("Timer_1", 0);
 				$this->SetTimerInterval("Timer_2", 0);
-				$this->SetStatus(104);
+				If ($this->GetStatus() <> 104) {
+					$this->SetStatus(104);
+				}
 			}
 		}
 	}
