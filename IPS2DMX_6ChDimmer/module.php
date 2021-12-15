@@ -82,10 +82,14 @@
 		
 		If ($this->HasActiveParent() == true) {	
 			If ($this->ReadPropertyBoolean("Open") == true) {
-				$this->SetStatus(102);
+				If ($this->GetStatus() <> 102) {
+					$this->SetStatus(102);
+				}
 			}
 			else {
-				$this->SetStatus(104);
+				If ($this->GetStatus() <> 104) {
+					$this->SetStatus(104);
+				}
 			}
 		}
 	}
