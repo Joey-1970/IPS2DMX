@@ -86,9 +86,9 @@
 			$this->EnableAction("Intensity_B_".($i + 1));
 			IPS_SetHidden($this->GetIDForIdent("Intensity_B_".($i + 1)), $Visible);
 			
-			$this->RegisterVariableInteger("ProgramGroup_".($i + 1), "Programmgruppe ".($i + 1), "IPS2DMX.RGBGroup", 60 + ($i * 70));
-			$this->EnableAction("ProgramGroup_".($i + 1));
-			IPS_SetHidden($this->GetIDForIdent("ProgramGroup_".($i + 1)), $Visible);
+			$this->RegisterVariableInteger("Program_Group_".($i + 1), "Programmgruppe ".($i + 1), "IPS2DMX.RGBGroup", 60 + ($i * 70));
+			$this->EnableAction("Program_Group_".($i + 1));
+			IPS_SetHidden($this->GetIDForIdent("Program_Group_".($i + 1)), $Visible);
 		}
 		
 		for ($i = 0; $i <= 7; $i++) {
@@ -175,7 +175,7 @@
 			$this->SendDebug("SetColorValue", "Ausfuehrung", 0);
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
 			
-			$ProgramGroup = $this->GetValue("ProgramGroup_".$Group);
+			$ProgramGroup = $this->GetValue("Program_Group_".$Group);
 			
 			$DMXChannel = $DMXStartChannel + (($Group - 1) * 3);
 			
@@ -185,7 +185,7 @@
 			$this->SendDebug("SetColorValue", "DMXChannel: ".$DMXChannel." Rot: ".$Value_R." Gruen: ".$Value_G." Blau: ".$Value_B, 0);
 			
 			for ($i = 0; $i <= 7; $i++) {
-				If ($this->GetValue("ProgramGroup_".($i + 1)) == $ProgramGroup) {
+				If ($this->GetValue("Program_Group_".($i + 1)) == $ProgramGroup) {
 					$GroupState = $this->GetValue("Status_RGB_".($i + 1));
 					$DMXChannel = $DMXStartChannel + ($i * 3);
 					If ($GroupState == true) {
