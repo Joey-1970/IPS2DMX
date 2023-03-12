@@ -58,6 +58,11 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 1, "Sinus", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 2, "Sägezahn", "Information", -1);
 		
+		$this->RegisterProfileInteger("IPS2DMX.RGBGroup", "Popcorn", "", "", 0, 7, 0);
+		for ($i = 0; $i <= 7; $i++) {
+			IPS_SetVariableProfileAssociation("IPS2DMX.RGBGroup", $i, "Gruppe ".$i, "Network", -1);
+		}
+		
 		//Status-Variablen anlegen
 		for ($i = 0; $i <= 7; $i++) {
 			$Visible = !$this->ReadPropertyBoolean("Visible_".($i + 1));
@@ -81,11 +86,17 @@
 			$this->EnableAction("Intensity_B_".($i + 1));
 			IPS_SetHidden($this->GetIDForIdent("Intensity_B_".($i + 1)), $Visible);
 			
-			$this->RegisterVariableInteger("Program_RGB_".($i + 1), "Programm ".($i + 1), "IPS2DMX.Program", 60 + ($i * 70));
+			$this->RegisterVariableInteger("Program_RGBGroup_".($i + 1), "Gruppe ".($i + 1), "IPS2DMX.RGBGroup", 60 + ($i * 70));
 			$this->EnableAction("Program_RGB_".($i + 1));
 			IPS_SetHidden($this->GetIDForIdent("Program_RGB_".($i + 1)), $Visible);
 		}
 		
+		for ($i = 0; $i <= 7; $i++) {
+			$Visible = !$this->ReadPropertyBoolean("Visible_".($i + 1));
+			$this->RegisterVariableInteger("Program_RGB_".($i + 1), "Programm für Gruppe ".($i + 1), "IPS2DMX.Program", 560 + ($i * 10));
+			$this->EnableAction("Program_RGB_".($i + 1));
+			IPS_SetHidden($this->GetIDForIdent("Program_RGB_".($i + 1)), $Visible);
+		}
 		
 		If ($this->HasActiveParent() == true) {	
 			If ($this->ReadPropertyBoolean("Open") == true) {
