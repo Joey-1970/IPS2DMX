@@ -60,7 +60,7 @@
 		
 		$this->RegisterProfileInteger("IPS2DMX.RGBGroup", "Popcorn", "", "", 0, 7, 0);
 		for ($i = 0; $i <= 7; $i++) {
-			IPS_SetVariableProfileAssociation("IPS2DMX.RGBGroup", $i, "Gruppe ".$i, "Network", -1);
+			IPS_SetVariableProfileAssociation("IPS2DMX.RGBGroup", $i, "Gruppe ".($i + 1), "Network", -1);
 		}
 		
 		//Status-Variablen anlegen
