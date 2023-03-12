@@ -147,9 +147,9 @@
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetChannelStatus", "Ausfuehrung", 0);
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
-			$Value_R = GetValueInteger($this->GetIDForIdent("Intensity_R_".$Group));
-			$Value_G = GetValueInteger($this->GetIDForIdent("Intensity_G_".$Group));
-			$Value_B = GetValueInteger($this->GetIDForIdent("Intensity_B_".$Group));
+			$Value_R = $this->GetValue("Intensity_R_".$Group);
+			$Value_G = $this->GetValue("Intensity_G_".$Group);
+			$Value_B = $this->GetValue("Intensity_B_".$Group);
 			
 			$DMXChannel = $DMXStartChannel + (($Group - 1) * 3);
 			$this->SendDebug("SetChannelStatus", "DMXChannel++: ".$DMXChannel." Rot: ".$Value_R." Gruen: ".$Value_G." Blau: ".$Value_B, 0);
@@ -175,7 +175,8 @@
 			$this->SendDebug("SetColorValue", "Ausfuehrung", 0);
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
 			
-			$GroupState = GetValueBoolean($this->GetIDForIdent("Status_RGB_".$Group));
+			$GroupState = $this->GetValue("Status_RGB_".$Group);
+			$ProgramGroup = $this->GetValue("ProgramGroup_".$Group);
 			
 			$DMXChannel = $DMXStartChannel + (($Group - 1) * 3);
 			
@@ -200,10 +201,11 @@
 			$this->SendDebug("SetChannelValue", "Ausfuehrung", 0);
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
 			
-			$GroupState = GetValueBoolean($this->GetIDForIdent("Status_RGB_".$Group));
-			$Value_R = GetValueInteger($this->GetIDForIdent("Intensity_R_".$Group));
-			$Value_G = GetValueInteger($this->GetIDForIdent("Intensity_G_".$Group));
-			$Value_B = GetValueInteger($this->GetIDForIdent("Intensity_B_".$Group));
+			$GroupState = $this->GetValue("Status_RGB_".$Group);
+			$Value_R = $this->GetValue("Intensity_R_".$Group);
+			$Value_G = $this->GetValue("Intensity_G_".$Group);
+			$Value_B = $this->GetValue("Intensity_B_".$Group);
+			$ProgramGroup = $this->GetValue("ProgramGroup_".$Group);
 			
 			$DMXChannel = $DMXStartChannel + (($Group - 1) * 3) + $Channel;
 			$this->SendDebug("SetChannelValue", "DMXChannel: ".$DMXChannel." Rot: ".$Value_R." Gruen: ".$Value_G." Blau: ".$Value_B, 0);
