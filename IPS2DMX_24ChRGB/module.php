@@ -194,7 +194,9 @@
 						$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 1), "Value" => $Value_G, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
 						$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 2), "Value" => $Value_B, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
 					}
-
+					$this->SetValue("Intensity_R_".($i + 1), $Value_R);
+					$this->SetValue("Intensity_G_".($i + 1), $Value_G);
+					$this->SetValue("Intensity_B_".($i + 1), $Value_B);
 					$this->SetValue("Color_RGB_".($i + 1), $Value);
 				}
 			}
