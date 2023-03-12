@@ -185,7 +185,7 @@
 			$this->SendDebug("SetColorValue", "DMXChannel: ".$DMXChannel." Rot: ".$Value_R." Gruen: ".$Value_G." Blau: ".$Value_B, 0);
 			
 			for ($i = 0; $i <= 7; $i++) {
-				If ($this->GetValue("ProgramGroup_".$i) == $ProgramGroup)
+				If ($this->GetValue("ProgramGroup_".$i) == $ProgramGroup) {
 					$GroupState = $this->GetValue("Status_RGB_".$i);
 					$DMXChannel = $DMXStartChannel + ($i * 3);
 					If ($GroupState == true) {
