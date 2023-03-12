@@ -185,8 +185,8 @@
 			$this->SendDebug("SetColorValue", "DMXChannel: ".$DMXChannel." Rot: ".$Value_R." Gruen: ".$Value_G." Blau: ".$Value_B, 0);
 			
 			for ($i = 0; $i <= 7; $i++) {
-				If ($this->GetValue("ProgramGroup_".$i) == $ProgramGroup) {
-					$GroupState = $this->GetValue("Status_RGB_".$i);
+				If ($this->GetValue("ProgramGroup_".($i + 1)) == $ProgramGroup) {
+					$GroupState = $this->GetValue("Status_RGB_".($i + 1));
 					$DMXChannel = $DMXStartChannel + ($i * 3);
 					If ($GroupState == true) {
 						$this->SendDebug("SetColorValue", "gesendet", 0);
@@ -195,7 +195,7 @@
 						$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 2), "Value" => $Value_B, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
 					}
 
-					$this->SetValue("Color_RGB_".$i, $Value);
+					$this->SetValue("Color_RGB_".($i + 1), $Value);
 				}
 			}
 		}
