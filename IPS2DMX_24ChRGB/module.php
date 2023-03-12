@@ -122,17 +122,17 @@
 
 		switch($Source) {
 		case "Status":
-			$this->SetChannelStatus($Group, $Value);
+			$this->SetChannelState($Group, $Value);
 			break;
 		case "Color":
 			$this->SetColorValue($Group, $Value);
 			break;
 		case "Intensity":
-			SetValueInteger($this->GetIDForIdent($Ident), $Value);
+			$this->SetValue($Ident, $Value);
 			$this->SetChannelValue($Group, $ChannelArray[$Channel], $Value);
 			break;
 		case "Program":
-			SetValueInteger($this->GetIDForIdent($Ident), $Value);
+			$this->SetValue($Ident, $Value);
 			$this->ProgramSelection($Group, $Value);
 			break;
 		default:
@@ -142,63 +142,7 @@
 	}
 	    
 	// Beginn der Funktionen
-	public function SetOutputValue(Int $Channel, Int $Value)
-	{ 
-		If ($this->ReadPropertyBoolean("Open") == true) {
-			$this->SendDebug("SetOutputValue", "Ausfuehrung", 0);
-			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $Channel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-		}
-	}
-	    
-	private function SetChannelValue(Int $Group, Int $Channel, Int $Value)
-	{ 
-		If ($this->ReadPropertyBoolean("Open") == true) {
-			$this->SendDebug("SetChannelValue", "Ausfuehrung", 0);
-			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
-			
-			$GroupStatus = GetValueBoolean($this->GetIDForIdent("Status_RGB_".$Group));
-			$Value_R = GetValueInteger($this->GetIDForIdent("Intensity_R_".$Group));
-			$Value_G = GetValueInteger($this->GetIDForIdent("Intensity_G_".$Group));
-			$Value_B = GetValueInteger($this->GetIDForIdent("Intensity_B_".$Group));
-			
-			$DMXChannel = $DMXStartChannel + (($Group - 1) * 3) + $Channel;
-			$this->SendDebug("SetChannelValue", "DMXChannel: ".$DMXChannel." Rot: ".$Value_R." Gruen: ".$Value_G." Blau: ".$Value_B, 0);
-			If ($GroupStatus == true) {
-				$this->SendDebug("SetChannelValue", "gesendet", 0);
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-			}
-			
-			$this->SetValue("Color_RGB_".$Group, $this->RGB2Hex($Value_R, $Value_G, $Value_B));
-		}
-	}
-	    
-	private function SetColorValue(Int $Group, Int $Value)
-	{ 
-		If ($this->ReadPropertyBoolean("Open") == true) {
-			$this->SendDebug("SetColorValue", "Ausfuehrung", 0);
-			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
-			
-			$GroupStatus = GetValueBoolean($this->GetIDForIdent("Status_RGB_".$Group));
-			
-			$DMXChannel = $DMXStartChannel + (($Group - 1) * 3);
-			
-			// Farbwerte aufsplitten
-			list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($Value);
-			
-			$this->SendDebug("SetColorValue", "DMXChannel: ".$DMXChannel." Rot: ".$Value_R." Gruen: ".$Value_G." Blau: ".$Value_B, 0);
-			If ($GroupStatus == true) {
-				$this->SendDebug("SetColorValue", "gesendet", 0);
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value_R, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 1), "Value" => $Value_G, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 2), "Value" => $Value_B, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-			}
-			
-			$this->SetValue("Color_RGB_".$Group, $Value);
-		}
-	}
-
-
-	private function SetChannelStatus(Int $Group, Bool $Status)
+	private function SetChannelState(Int $Group, Bool $Status)
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetChannelStatus", "Ausfuehrung", 0);
@@ -223,7 +167,54 @@
 			
 			$this->SetValue("Color_RGB_".$Group, $this->RGB2Hex($Value_R, $Value_G, $Value_B));
 		}
-	} 
+	}     
+	
+	 private function SetColorValue(Int $Group, Int $Value)
+	{ 
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->SendDebug("SetColorValue", "Ausfuehrung", 0);
+			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
+			
+			$GroupState = GetValueBoolean($this->GetIDForIdent("Status_RGB_".$Group));
+			
+			$DMXChannel = $DMXStartChannel + (($Group - 1) * 3);
+			
+			// Farbwerte aufsplitten
+			list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($Value);
+			
+			$this->SendDebug("SetColorValue", "DMXChannel: ".$DMXChannel." Rot: ".$Value_R." Gruen: ".$Value_G." Blau: ".$Value_B, 0);
+			If ($GroupState == true) {
+				$this->SendDebug("SetColorValue", "gesendet", 0);
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value_R, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 1), "Value" => $Value_G, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 2), "Value" => $Value_B, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
+			}
+			
+			$this->SetValue("Color_RGB_".$Group, $Value);
+		}
+	}   
+	    
+	private function SetChannelValue(Int $Group, Int $Channel, Int $Value)
+	{ 
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->SendDebug("SetChannelValue", "Ausfuehrung", 0);
+			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
+			
+			$GroupState = GetValueBoolean($this->GetIDForIdent("Status_RGB_".$Group));
+			$Value_R = GetValueInteger($this->GetIDForIdent("Intensity_R_".$Group));
+			$Value_G = GetValueInteger($this->GetIDForIdent("Intensity_G_".$Group));
+			$Value_B = GetValueInteger($this->GetIDForIdent("Intensity_B_".$Group));
+			
+			$DMXChannel = $DMXStartChannel + (($Group - 1) * 3) + $Channel;
+			$this->SendDebug("SetChannelValue", "DMXChannel: ".$DMXChannel." Rot: ".$Value_R." Gruen: ".$Value_G." Blau: ".$Value_B, 0);
+			If ($GroupState == true) {
+				$this->SendDebug("SetChannelValue", "gesendet", 0);
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
+			}
+			
+			$this->SetValue("Color_RGB_".$Group, $this->RGB2Hex($Value_R, $Value_G, $Value_B));
+		}
+	}
 	
 	private function ProgramSelection(Int $Group, Int $Program)
 	{
