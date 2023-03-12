@@ -86,9 +86,9 @@
 			$this->EnableAction("Intensity_B_".($i + 1));
 			IPS_SetHidden($this->GetIDForIdent("Intensity_B_".($i + 1)), $Visible);
 			
-			$this->RegisterVariableInteger("Program_RGBGroup_".($i + 1), "Gruppe ".($i + 1), "IPS2DMX.RGBGroup", 60 + ($i * 70));
-			$this->EnableAction("Program_RGB_".($i + 1));
-			IPS_SetHidden($this->GetIDForIdent("Program_RGB_".($i + 1)), $Visible);
+			$this->RegisterVariableInteger("ProgramGroup_".($i + 1), "Gruppe ".($i + 1), "IPS2DMX.RGBGroup", 60 + ($i * 70));
+			$this->EnableAction("ProgramGroup_".($i + 1));
+			IPS_SetHidden($this->GetIDForIdent("ProgramGroup_".($i + 1)), $Visible);
 		}
 		
 		for ($i = 0; $i <= 7; $i++) {
