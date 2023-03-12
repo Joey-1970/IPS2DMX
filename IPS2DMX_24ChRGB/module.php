@@ -86,7 +86,7 @@
 			$this->EnableAction("Intensity_B_".($i + 1));
 			IPS_SetHidden($this->GetIDForIdent("Intensity_B_".($i + 1)), $Visible);
 			
-			$this->RegisterVariableInteger("ProgramGroup_".($i + 1), "Gruppe ".($i + 1), "IPS2DMX.RGBGroup", 60 + ($i * 70));
+			$this->RegisterVariableInteger("ProgramGroup_".($i + 1), "Programmgruppe ".($i + 1), "IPS2DMX.RGBGroup", 60 + ($i * 70));
 			$this->EnableAction("ProgramGroup_".($i + 1));
 			IPS_SetHidden($this->GetIDForIdent("ProgramGroup_".($i + 1)), $Visible);
 		}
