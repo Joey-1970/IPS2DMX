@@ -179,10 +179,10 @@
 			
 			$GroupStatus = GetValueBoolean($this->GetIDForIdent("Status_RGB_".$Group));
 			
-			$DMXChannel = $DMXStartChannel + (($Group - 1) * 3) + $Channel;
+			$DMXChannel = $DMXStartChannel + (($Group - 1) * 3);
 			
 			// Farbwerte aufsplitten
-			list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($Color);
+			list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($Value);
 			
 			$this->SendDebug("SetColorValue", "DMXChannel: ".$DMXChannel." Rot: ".$Value_R." Gruen: ".$Value_G." Blau: ".$Value_B, 0);
 			If ($GroupStatus == true) {
