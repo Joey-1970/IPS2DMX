@@ -212,7 +212,7 @@
 			$Value_R = $this->GetValue("Intensity_R_".$Group);
 			$Value_G = $this->GetValue("Intensity_G_".$Group);
 			$Value_B = $this->GetValue("Intensity_B_".$Group);
-			$ProgramGroup = $this->GetValue("ProgramGroup_".$Group);
+			$ProgramGroup = $this->GetValue("Program_Group_".$Group);
 			
 			for ($i = 0; $i <= 7; $i++) {
 				If ($this->GetValue("Program_Group_".($i + 1)) == $ProgramGroup) {
