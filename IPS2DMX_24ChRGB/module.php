@@ -131,7 +131,7 @@
 			$this->SetChannelValue($Group, $ChannelArray[$Channel], $Value);
 			break;
 		case "Program":
-			$this-SetValue($Ident, $Value);	
+			$this->SetValue($Ident, $Value);	
 			$this->ProgramSelection($Group, $Value);
 			break;
 		default:
