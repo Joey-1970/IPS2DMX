@@ -131,8 +131,10 @@
 			$this->SetChannelValue($Group, $ChannelArray[$Channel], $Value);
 			break;
 		case "Program":
-			$this->SetValue($Ident, $Value);	
-			$this->ProgramSelection($Group, $Value);
+			If ($Channel == "RGB") {
+				$this->SetValue($Ident, $Value);	
+				$this->ProgramSelection($Group, $Value);
+			}
 			break;
 		default:
 		    throw new Exception("Invalid Ident");
