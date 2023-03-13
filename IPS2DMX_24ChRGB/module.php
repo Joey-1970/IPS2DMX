@@ -131,6 +131,7 @@
 			$this->SetChannelValue($Group, $ChannelArray[$Channel], $Value);
 			break;
 		case "Program":
+			$this-SetValue($Ident, $Value);	
 			$this->ProgramSelection($Group, $Value);
 			break;
 		default:
@@ -240,7 +241,23 @@
 	{
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("ProgramSelection", "Ausfuehrung Gruppe: ".$Group." Programm: ".$Program, 0);
-		
+			$ProgramGroup = $this->GetValue("Program_Group_".$Group);
+			
+			for ($i = 0; $i <= 7; $i++) {
+				If ($this->GetValue("Program_Group_".($i + 1)) == $ProgramGroup) {
+					If ($Program == 0) { //Manuelle Steuerung
+						$this->EnableAction("Color_RGB_".($i + 1));
+						$this->EnableAction("Intensity_R_".($i + 1));
+						$this->EnableAction("Intensity_G_".($i + 1));
+						$this->EnableAction("Intensity_B_".($i + 1));
+					} else {
+						$this->DisableAction("Color_RGB_".($i + 1));
+						$this->DisableAction("Intensity_R_".($i + 1));
+						$this->DisableAction("Intensity_G_".($i + 1));
+						$this->DisableAction("Intensity_B_".($i + 1));
+					}
+				}
+			}
 		}
 		
 	}
