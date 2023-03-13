@@ -128,7 +128,7 @@
 			$this->SetColorValue($Group, $Value);
 			break;
 		case "Intensity":
-			$this->SetValue($Ident, $Value);
+			//$this->SetValue($Ident, $Value);
 			$this->SetChannelValue($Group, $ChannelArray[$Channel], $Value);
 			break;
 		case "Program":
@@ -189,7 +189,7 @@
 					$GroupState = $this->GetValue("Status_RGB_".($i + 1));
 					$DMXChannel = $DMXStartChannel + ($i * 3);
 					If ($GroupState == true) {
-						$this->SendDebug("SetColorValue", "gesendet", 0);
+						$this->SendDebug("SetColorValue", "Gruppe ".($i + 1)."gesendet", 0);
 						$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value_R, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
 						$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 1), "Value" => $Value_G, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
 						$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 2), "Value" => $Value_B, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
@@ -220,9 +220,12 @@
 					$DMXChannel = $DMXStartChannel + ($i * 3) + $Channel;
 					$this->SendDebug("SetChannelValue", "DMXChannel: ".$DMXChannel." Rot: ".$Value_R." Gruen: ".$Value_G." Blau: ".$Value_B, 0);
 					If ($GroupState == true) {
-						$this->SendDebug("SetChannelValue", "gesendet", 0);
+						$this->SendDebug("SetChannelValue", "Gruppe ".($i + 1)."gesendet", 0);
 						$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
 					}
+					$this->SetValue("Intensity_R_".($i + 1), $Value_R);
+					$this->SetValue("Intensity_G_".($i + 1), $Value_G);
+					$this->SetValue("Intensity_B_".($i + 1), $Value_B);
 					$this->SetValue("Color_RGB_".$Group, $this->RGB2Hex($Value_R, $Value_G, $Value_B));
 				}
 			}
