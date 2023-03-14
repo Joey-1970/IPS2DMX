@@ -251,7 +251,7 @@
 			
 			for ($i = 0; $i <= 7; $i++) {
 				$this->SendDebug("ProgramSelection", "Zaehler ".$i." Zugeordnete Programmgruppe ".$this->GetValue("Program_Group_".($i + 1))." gesuchte Gruppe ".$Group, 0);
-				If ($this->GetValue("Program_Group_".($i + 1)) == $Group) {
+				If ($this->GetValue("Program_Group_".($i + 1)) == $Group - 1) {
 					$this->SendDebug("ProgramSelection", "Gruppe ".($i + 1), 0);
 					If ($Program == 0) { //Manuelle Steuerung
 						$this->EnableAction("Color_RGB_".($i + 1));
