@@ -244,9 +244,11 @@
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("ProgramSelection", "Ausfuehrung Gruppe: ".$Group." Programm: ".$Program, 0);
 			$ProgramGroup = $this->GetValue("Program_Group_".$Group);
+			$this->SendDebug("ProgramSelection", "ProgramGroup ".$ProgramGroup, 0);
 			
 			for ($i = 0; $i <= 7; $i++) {
 				If ($this->GetValue("Program_Group_".($i + 1)) == $ProgramGroup) {
+					$this->SendDebug("ProgramSelection", "Gruppe ".($i + 1), 0);
 					If ($Program == 0) { //Manuelle Steuerung
 						$this->EnableAction("Color_RGB_".($i + 1));
 						$this->EnableAction("Intensity_R_".($i + 1));
