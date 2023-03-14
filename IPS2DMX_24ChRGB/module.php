@@ -247,7 +247,7 @@
 			$this->SendDebug("ProgramSelection", "ProgramGroup ".$ProgramGroup, 0);
 			
 			for ($i = 0; $i <= 7; $i++) {
-				If ($this->GetValue("Program_Group_".($i + 1)) == $ProgramGroup) {
+				If ($this->GetValue("Program_Group_".($i + 1)) == $Group) {
 					$this->SendDebug("ProgramSelection", "Gruppe ".($i + 1), 0);
 					If ($Program == 0) { //Manuelle Steuerung
 						$this->EnableAction("Color_RGB_".($i + 1));
