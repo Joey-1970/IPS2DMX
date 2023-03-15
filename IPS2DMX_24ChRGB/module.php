@@ -134,7 +134,11 @@
 			If ($Channel == "RGB") {	
 				$this->ProgramSelection($Group, $Value);
 				$this->SetValue($Ident, $Value);
-			}
+			} 
+			elseif $Channel == "Group") {	
+				$this->GroupSelection($Group, $Value);
+				$this->SetValue($Ident, $Value);
+			} 
 			break;
 		default:
 		    throw new Exception("Invalid Ident");
@@ -241,13 +245,37 @@
 	
 	private function ProgramSelection(Int $Group, Int $Program)
 	{
-		// $Group = Das Programm für Programmgruppe n
-		// $Program = Das Programm 0 = Manuelle Steuerung, 1 = xxx
-		
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("ProgramSelection", "Ausfuehrung Gruppe: ".$Group." Programm: ".$Program, 0);
-			//$ProgramGroup = $this->GetValue("Program_Group_".$Group);
-			//$this->SendDebug("ProgramSelection", "ProgramGroup ".$ProgramGroup, 0);
+			
+			for ($i = 0; $i <= 7; $i++) {
+				$this->SendDebug("ProgramSelection", "Zaehler ".$i." Zugeordnete Programmgruppe ".$this->GetValue("Program_Group_".($i + 1))." gesuchte Gruppe ".$Group, 0);
+				If ($this->GetValue("Program_Group_".($i + 1)) == $Group - 1) {
+					If ($Program == 0) { //Manuelle Steuerung
+						$this->EnableAction("Color_RGB_".($i + 1));
+						$this->EnableAction("Intensity_R_".($i + 1));
+						$this->EnableAction("Intensity_G_".($i + 1));
+						$this->EnableAction("Intensity_B_".($i + 1));
+					} else {
+						$this->DisableAction("Color_RGB_".($i + 1));
+						$this->DisableAction("Intensity_R_".($i + 1));
+						$this->DisableAction("Intensity_G_".($i + 1));
+						$this->DisableAction("Intensity_B_".($i + 1));
+					}
+				}
+			}
+		}
+		
+	}
+	
+	private function GroupSelection(Int $Group, Int $Value)
+	{		
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->SendDebug("GroupSelection", "Ausfuehrung Gruppe: ".$Group." Wert: ".$Value, 0);
+			$SelectedProgramm = $this->GetValue("Program_RGB_".($Value + 1));
+			$this->SendDebug("GroupSelection", "ProgrammWert ".$SelectedProgramm, 0);
+			
+			return;
 			
 			for ($i = 0; $i <= 7; $i++) {
 				$this->SendDebug("ProgramSelection", "Zaehler ".$i." Zugeordnete Programmgruppe ".$this->GetValue("Program_Group_".($i + 1))." gesuchte Gruppe ".$Group, 0);
