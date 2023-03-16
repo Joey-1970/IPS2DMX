@@ -275,24 +275,16 @@
 			$SelectedProgramm = $this->GetValue("Program_RGB_".($Value + 1));
 			$this->SendDebug("GroupSelection", "ProgrammWert ".$SelectedProgramm, 0);
 			
-			return;
-			
-			for ($i = 0; $i <= 7; $i++) {
-				$this->SendDebug("ProgramSelection", "Zaehler ".$i." Zugeordnete Programmgruppe ".$this->GetValue("Program_Group_".($i + 1))." gesuchte Gruppe ".$Group, 0);
-				If ($this->GetValue("Program_Group_".($i + 1)) == $Group - 1) {
-					$this->SendDebug("ProgramSelection", "Gruppe ".($i + 1), 0);
-					If ($Program == 0) { //Manuelle Steuerung
-						$this->EnableAction("Color_RGB_".($i + 1));
-						$this->EnableAction("Intensity_R_".($i + 1));
-						$this->EnableAction("Intensity_G_".($i + 1));
-						$this->EnableAction("Intensity_B_".($i + 1));
-					} else {
-						$this->DisableAction("Color_RGB_".($i + 1));
-						$this->DisableAction("Intensity_R_".($i + 1));
-						$this->DisableAction("Intensity_G_".($i + 1));
-						$this->DisableAction("Intensity_B_".($i + 1));
-					}
-				}
+			If ($SelectedProgramm == 0) { //Manuelle Steuerung
+				$this->EnableAction("Color_RGB_".$Group);
+				$this->EnableAction("Intensity_R_".$Group);
+				$this->EnableAction("Intensity_G_".$Group);
+				$this->EnableAction("Intensity_B_".$Group);
+			} else {
+				$this->DisableAction("Color_RGB_".$Group);
+				$this->DisableAction("Intensity_R_".$Group);
+				$this->DisableAction("Intensity_G_".$Group);
+				$this->DisableAction("Intensity_B_".$Group);
 			}
 		}
 		
