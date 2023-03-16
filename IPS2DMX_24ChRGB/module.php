@@ -135,7 +135,7 @@
 				$this->ProgramSelection($Group, $Value);
 				$this->SetValue($Ident, $Value);
 			} 
-			elseif $Channel == "Group") {	
+			elseif ($Channel == "Group") {	
 				$this->GroupSelection($Group, $Value);
 				$this->SetValue($Ident, $Value);
 			} 
