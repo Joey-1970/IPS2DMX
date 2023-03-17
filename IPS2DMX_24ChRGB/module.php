@@ -342,7 +342,7 @@
 			$this->SendDebug("ProgramJump3", "Ausfuehrung Schrittzähler ".$Stepcounter, 0);
 			
 			// Drei Farben
-			$ColorArray = [#FF0000, #00FF00, #0000FF];
+			//$ColorArray = [#FF0000, #00FF00, #0000FF];
 			
 			
 			If ($Stepcounter < 2) {
