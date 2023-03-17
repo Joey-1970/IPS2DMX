@@ -323,7 +323,10 @@
 			$this->SendDebug("SetProgrammedValue", "RGB Gruppe ".($i + 1)." Programmgruppe ".$Programmgoup." Selektiertes Programm ".$Programm, 0);				
 							
 			If ($Program == 1) { // Jump 3
-				$this->ProgramJump3($Programmgoup);
+				$ColorArray = [0xFF0000, 0x00FF00, 0x0000FF];
+				// Farbwerte aufsplitten
+				$Value_RGB = $ColorArray[$ThreeStepCounter];
+				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($ColorArray[$ThreeStepCounter]);
 			}
 			elseif ($Program == 2) { // Jump 7
 
@@ -334,6 +337,12 @@
 			elseif ($Program == 4) { // Fade 7
 
 			}
+			// Steuerelemente setzen
+			$this->SetValue("Intensity_R_".($i + 1), $Value_R);
+			$this->SetValue("Intensity_G_".($i + 1), $Value_G);
+			$this->SetValue("Intensity_B_".($i + 1), $Value_B);
+			$this->SetValue("Color_RGB_".($i + 1), $Value_RGB);
+			
 		}
 		
 		If ($ThreeStepCounter < 2) {
