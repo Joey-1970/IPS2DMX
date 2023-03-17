@@ -320,7 +320,7 @@
 			$this->SendDebug("SetProgrammedValue", "RGB Gruppe ".($i + 1)." Programmgruppe ".$Programmgoup." Selektiertes Programm ".$Programm, 0);				
 							
 			If ($Program == 1) { // Jump 3
-
+				$this->ProgramJump3($Programmgoup);
 			}
 			elseif ($Program == 2) { // Jump 7
 
@@ -334,7 +334,7 @@
 		}
 	}
 	    
-	private function ProgramJump3()
+	private function ProgramJump3(Int $Programmgoup)
 	{		
 		If ($this->ReadPropertyBoolean("Open") == true) { 
 			$Stepcounter = intval($this->GetBuffer("ProgramJump3"));
