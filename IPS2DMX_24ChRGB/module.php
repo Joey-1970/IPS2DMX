@@ -320,10 +320,12 @@
 			$DMXChannel = $DMXStartChannel + ($i * 3);
 			$Programmgoup = $this->GetValue("Program_Group_".($i + 1));
 			$Program = $this->GetValue("Program_RGB_".($Programmgoup + 1));
+			$GroupState = $this->GetValue("Status_RGB_".($i + 1));
 			
 			$this->SendDebug("SetProgrammedValue", "RGB Gruppe ".($i + 1)." Programmgruppe ".$Programmgoup." Selektiertes Programm ".$Program, 0);				
 							
 			If ($Program == 1) { // Jump 3
+				$Fadetime = 0;
 				$ColorArray = [0xFF0000, 0x00FF00, 0x0000FF];
 				// Farbwerte aufsplitten
 				$Value_RGB = $ColorArray[$ThreeStepCounter];
@@ -332,13 +334,32 @@
 				$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
 			}
 			elseif ($Program == 2) { // Jump 7
-
+				$Fadetime = 0;
+				$ColorArray = [0xFF0000, 0x00FF00, 0x0000FF, 0x00CCFF, 0xFFFFFF, 0xFF9900, 0xFF00FF];
+				// Farbwerte aufsplitten
+				$Value_RGB = $ColorArray[$SevenStepCounter];
+				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($ColorArray[$SevenStepCounter]);
+				$ValuesChanged = true;
+				$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
 			}
 			elseif ($Program == 3) { // Fade 3
-
+				$Fadetime = 2;
+				$ColorArray = [0xFF0000, 0x00FF00, 0x0000FF];
+				// Farbwerte aufsplitten
+				$Value_RGB = $ColorArray[$ThreeStepCounter];
+				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($ColorArray[$ThreeStepCounter]);
+				$ValuesChanged = true;
+				$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
+			
 			}
 			elseif ($Program == 4) { // Fade 7
-
+				$Fadetime = 2;
+				$ColorArray = [0xFF0000, 0x00FF00, 0x0000FF, 0x00CCFF, 0xFFFFFF, 0xFF9900, 0xFF00FF];
+				// Farbwerte aufsplitten
+				$Value_RGB = $ColorArray[$SevenStepCounter];
+				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($ColorArray[$SevenStepCounter]);
+				$ValuesChanged = true;
+				$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
 			}
 			
 			If ($ValuesChanged == true) {
@@ -347,6 +368,14 @@
 				$this->SetValue("Intensity_G_".($i + 1), $Value_G);
 				$this->SetValue("Intensity_B_".($i + 1), $Value_B);
 				$this->SetValue("Color_RGB_".($i + 1), $Value_RGB);
+				
+				If ($GroupState == true) {
+					$this->SendDebug("SetColorValue", "Gruppe ".($i + 1)."gesendet", 0);
+					$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value_R, "FadingSeconds" => $Fadetime, "DelayedSeconds" => 0.0 )));
+					$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 1), "Value" => $Value_G, "FadingSeconds" => $Fadetime, "DelayedSeconds" => 0.0 )));
+					$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => ($DMXChannel + 2), "Value" => $Value_B, "FadingSeconds" => $Fadetime, "DelayedSeconds" => 0.0 )));
+				}
+				
 			}
 			
 		}
