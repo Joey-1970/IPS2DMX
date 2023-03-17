@@ -53,10 +53,12 @@
             	parent::ApplyChanges();
 		
 		// Profil anlegen
-		$this->RegisterProfileInteger("IPS2DMX.Program", "Popcorn", "", "", 0, 2, 0);
+		$this->RegisterProfileInteger("IPS2DMX.Program", "Popcorn", "", "", 0, 4, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 0, "Manuelle Steuerung", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 1, "Sinus", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 2, "Sägezahn", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 1, "Jump 3", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 2, "Jump 7", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 3, "Fade 3", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 4, "Fade 7", "Information", -1);
 		
 		$this->RegisterProfileInteger("IPS2DMX.RGBGroup", "Popcorn", "", "", 0, 7, 0);
 		for ($i = 0; $i <= 7; $i++) {
@@ -103,11 +105,15 @@
 				If ($this->GetStatus() <> 102) {
 					$this->SetStatus(102);
 				}
+				If ($this->ReadPropertyInteger("TriggerID") > 0) {
+					$this->RegisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
+				}
 			}
 			else {
 				If ($this->GetStatus() <> 104) {
 					$this->SetStatus(104);
 				}
+				$this->UnregisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
 			}
 		}
 	}
@@ -256,7 +262,7 @@
 						$this->EnableAction("Intensity_R_".($i + 1));
 						$this->EnableAction("Intensity_G_".($i + 1));
 						$this->EnableAction("Intensity_B_".($i + 1));
-					} else {
+					} else { // Eines der anderen Programme
 						$this->DisableAction("Color_RGB_".($i + 1));
 						$this->DisableAction("Intensity_R_".($i + 1));
 						$this->DisableAction("Intensity_G_".($i + 1));
@@ -287,12 +293,60 @@
 				$this->DisableAction("Intensity_B_".$Group);
 			}
 		}
-		
+	}
+	
+	public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
+    	{
+ 		switch ($Message) {
+			case 10603:
+				// Änderung der Trigger-Variablen
+				If ($SenderID == $this->ReadPropertyInteger("TriggerID")) {
+					$Program = GetValueInteger($this->GetIDForIdent("Program_0"));
+					//$this->SendDebug("MessageSink", "Ausfuehrung - Wert: ".$Data[0]." Programm: ".$Program, 0);
+					If (($Data[0] == 1) AND ($Program > 0)) {
+						$this->SetProgrammedValue();
+					}
+				}
+				break;
+		}
+    	}    
+	
+	private function SetProgrammedValue()
+	{	
+		$this->SendDebug("SetProgrammedValue", "Ausfuehrung", 0);
+		for ($i = 0; $i <= 7; $i++) {
+			If ($Program == 1) { // Jump 3
+
+			}
+			elseif ($Program == 2) { // Jump 7
+
+			}
+			elseif ($Program == 3) { // Fade 3
+
+			}
+			elseif ($Program == 4) { // Fade 7
+
+			}
+		}
 	}
 	    
-	public function ProgramTimer(Int $Timer)
-	{
-		$this->SendDebug("ProgramTimer", "Ausfuehrung Timer: ".$Timer, 0);
+	private function ProgramJump3()
+	{		
+		If ($this->ReadPropertyBoolean("Open") == true) { 
+			$Stepcounter = intval($this->GetBuffer("ProgramJump3"));
+			$this->SendDebug("ProgramJump3", "Ausfuehrung Schrittzähler ".$Stepcounter, 0);
+			
+			// Drei Farben
+			$ColorArray = [#FF0000, #00FF00, #0000FF];
+			
+			
+			If ($Stepcounter < 2) {
+				$Stepcounter = $Stepcounter + 1;
+			}
+			else {
+				$Stepcounter = 0;
+			}
+		}
 	}
 	    
 	private function Hex2RGB($Hex)
