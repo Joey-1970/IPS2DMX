@@ -12,8 +12,6 @@
  	    	$this->RegisterPropertyInteger("DMXStartChannel", 1);
 		for ($i = 0; $i <= 7; $i++) {
 			$this->RegisterPropertyBoolean("Visible_".($i + 1), true);
-			$this->RegisterPropertyInteger("Timer_".($i + 1), 0);
-			$this->RegisterTimer("Timer_".($i + 1), 0, 'I2D24ChRGB_ProgramTimer($_IPS["TARGET"], ($i + 1));');
 		}
 		$this->RegisterPropertyInteger("TriggerID", 0);
         }
@@ -313,7 +311,12 @@
 	private function SetProgrammedValue()
 	{	
 		$this->SendDebug("SetProgrammedValue", "Ausfuehrung", 0);
+		$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
+		$ThreeStepCounter = intval($this->GetBuffer("ThreeStepCounter"));
+		$SevenStepCounter = intval($this->GetBuffer("SevenStepCounter"));
+		
 		for ($i = 0; $i <= 7; $i++) {
+			$DMXChannel = $DMXStartChannel + ($i * 3);
 			$Programmgoup = $this->GetValue("Program_Group_".($i + 1));
 			$Programm = $this->GetValue("Program_RGB_".($Programmgoup + 1));
 			
@@ -332,24 +335,31 @@
 
 			}
 		}
+		
+		If ($ThreeStepCounter < 2) {
+			$ThreeStepCounter = $ThreeStepCounter + 1;
+		}
+		else {
+			$ThreeStepCounter = 0;
+		}
+		If ($SevenStepCounter < 6) {
+			$SevenStepCounter = $SevenStepCounter + 1;
+		}
+		else {
+			$SevenStepCounter = 0;
+		}
+		$this->SetBuffer("ThreeStepCounter", $ThreeStepCounter);
+		$this->SetBuffer("SevenStepCounter", $SevenStepCounter);
 	}
 	    
 	private function ProgramJump3(Int $Programmgoup)
 	{		
 		If ($this->ReadPropertyBoolean("Open") == true) { 
-			$Stepcounter = intval($this->GetBuffer("ProgramJump3"));
 			$this->SendDebug("ProgramJump3", "Ausfuehrung Schrittzähler ".$Stepcounter, 0);
 			
 			// Drei Farben
 			//$ColorArray = [#FF0000, #00FF00, #0000FF];
 			
-			
-			If ($Stepcounter < 2) {
-				$Stepcounter = $Stepcounter + 1;
-			}
-			else {
-				$Stepcounter = 0;
-			}
 		}
 	}
 	    
