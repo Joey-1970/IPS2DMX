@@ -300,6 +300,7 @@
  		switch ($Message) {
 			case 10603:
 				// Änderung der Trigger-Variablen
+				$this->SendDebug("MessageSink", "Trigger empfangen", 0);
 				If ($SenderID == $this->ReadPropertyInteger("TriggerID")) {
 					If ($Data[0] == 1) {
 						$this->SetProgrammedValue();
