@@ -318,9 +318,9 @@
 		for ($i = 0; $i <= 7; $i++) {
 			$DMXChannel = $DMXStartChannel + ($i * 3);
 			$Programmgoup = $this->GetValue("Program_Group_".($i + 1));
-			$Programm = $this->GetValue("Program_RGB_".($Programmgoup + 1));
+			$Program = $this->GetValue("Program_RGB_".($Programmgoup + 1));
 			
-			$this->SendDebug("SetProgrammedValue", "RGB Gruppe ".($i + 1)." Programmgruppe ".$Programmgoup." Selektiertes Programm ".$Programm, 0);				
+			$this->SendDebug("SetProgrammedValue", "RGB Gruppe ".($i + 1)." Programmgruppe ".$Programmgoup." Selektiertes Programm ".$Program, 0);				
 							
 			If ($Program == 1) { // Jump 3
 				$ColorArray = [0xFF0000, 0x00FF00, 0x0000FF];
