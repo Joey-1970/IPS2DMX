@@ -301,9 +301,7 @@
 			case 10603:
 				// Änderung der Trigger-Variablen
 				If ($SenderID == $this->ReadPropertyInteger("TriggerID")) {
-					$Program = GetValueInteger($this->GetIDForIdent("Program_0"));
-					//$this->SendDebug("MessageSink", "Ausfuehrung - Wert: ".$Data[0]." Programm: ".$Program, 0);
-					If (($Data[0] == 1) AND ($Program > 0)) {
+					If ($Data[0] == 1) {
 						$this->SetProgrammedValue();
 					}
 				}
