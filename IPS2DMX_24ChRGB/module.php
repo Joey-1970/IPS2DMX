@@ -316,6 +316,7 @@
 		$SevenStepCounter = intval($this->GetBuffer("SevenStepCounter"));
 		
 		for ($i = 0; $i <= 7; $i++) {
+			$ValuesChanged = false;
 			$DMXChannel = $DMXStartChannel + ($i * 3);
 			$Programmgoup = $this->GetValue("Program_Group_".($i + 1));
 			$Program = $this->GetValue("Program_RGB_".($Programmgoup + 1));
@@ -327,6 +328,7 @@
 				// Farbwerte aufsplitten
 				$Value_RGB = $ColorArray[$ThreeStepCounter];
 				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($ColorArray[$ThreeStepCounter]);
+				$ValuesChanged = true;
 				$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
 			}
 			elseif ($Program == 2) { // Jump 7
@@ -338,11 +340,14 @@
 			elseif ($Program == 4) { // Fade 7
 
 			}
-			// Steuerelemente setzen
-			$this->SetValue("Intensity_R_".($i + 1), $Value_R);
-			$this->SetValue("Intensity_G_".($i + 1), $Value_G);
-			$this->SetValue("Intensity_B_".($i + 1), $Value_B);
-			$this->SetValue("Color_RGB_".($i + 1), $Value_RGB);
+			
+			If ($ValuesChanged == true) {
+				// Steuerelemente setzen
+				$this->SetValue("Intensity_R_".($i + 1), $Value_R);
+				$this->SetValue("Intensity_G_".($i + 1), $Value_G);
+				$this->SetValue("Intensity_B_".($i + 1), $Value_B);
+				$this->SetValue("Color_RGB_".($i + 1), $Value_RGB);
+			}
 			
 		}
 		
