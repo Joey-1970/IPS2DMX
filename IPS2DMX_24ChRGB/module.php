@@ -327,6 +327,7 @@
 				// Farbwerte aufsplitten
 				$Value_RGB = $ColorArray[$ThreeStepCounter];
 				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($ColorArray[$ThreeStepCounter]);
+				$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
 			}
 			elseif ($Program == 2) { // Jump 7
 
