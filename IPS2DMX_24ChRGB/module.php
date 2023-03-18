@@ -160,6 +160,9 @@
 				$this->SetValue($Ident, $Value);
 			} 
 			break;
+		case "FadeTime":
+			$this->SetValue($Ident, $Value);
+			break;
 		default:
 		    throw new Exception("Invalid Ident");
 		}
@@ -330,7 +333,11 @@
 		$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
 		$ThreeStepCounter = intval($this->GetBuffer("ThreeStepCounter"));
 		$SevenStepCounter = intval($this->GetBuffer("SevenStepCounter"));
-		
+		$ThreeStepColorArray = [$this->GetValue("Color_ThreeStep_1"), $this->GetValue("Color_ThreeStep_2"), $this->GetValue("Color_ThreeStep_3")];
+		$SevenStepColorArray = [$this->GetValue("Color_SevenStep_1"), $this->GetValue("Color_SevenStep_2"), $this->GetValue("Color_SevenStep_3"), 
+						$this->GetValue("Color_SevenStep_4"), $this->GetValue("Color_SevenStep_5"), $this->GetValue("Color_SevenStep_6", $this->GetValue("Color_SevenStep_7")];
+		$FadeTime = $this->GetValue("FadeTime")
+																	   
 		for ($i = 0; $i <= 7; $i++) {
 			$ValuesChanged = false;
 			$DMXChannel = $DMXStartChannel + ($i * 3);
@@ -338,42 +345,39 @@
 			$Program = $this->GetValue("Program_RGB_".($Programmgoup + 1));
 			$GroupState = $this->GetValue("Status_RGB_".($i + 1));
 			
+			
 			$this->SendDebug("SetProgrammedValue", "RGB Gruppe ".($i + 1)." Programmgruppe ".$Programmgoup." Selektiertes Programm ".$Program, 0);				
 							
 			If ($Program == 1) { // Jump 3
 				$Fadetime = 0;
-				$ColorArray = [0xFF0000, 0x00FF00, 0x0000FF];
 				// Farbwerte aufsplitten
-				$Value_RGB = $ColorArray[$ThreeStepCounter];
-				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($ColorArray[$ThreeStepCounter]);
+				$Value_RGB = $ThreeStepColorArray[$ThreeStepCounter];
+				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($ThreeStepColorArray[$ThreeStepCounter]);
 				$ValuesChanged = true;
 				$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
 			}
 			elseif ($Program == 2) { // Jump 7
 				$Fadetime = 0;
-				$ColorArray = [0xFF0000, 0x00FF00, 0x0000FF, 0x00CCFF, 0xFFFFFF, 0xFF9900, 0xFF00FF];
 				// Farbwerte aufsplitten
-				$Value_RGB = $ColorArray[$SevenStepCounter];
-				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($ColorArray[$SevenStepCounter]);
+				$Value_RGB = $SevenStepColorArray[$SevenStepCounter];
+				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($SevenStepColorArray[$SevenStepCounter]);
 				$ValuesChanged = true;
 				$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
 			}
 			elseif ($Program == 3) { // Fade 3
 				$Fadetime = 2;
-				$ColorArray = [0xFF0000, 0x00FF00, 0x0000FF];
 				// Farbwerte aufsplitten
-				$Value_RGB = $ColorArray[$ThreeStepCounter];
-				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($ColorArray[$ThreeStepCounter]);
+				$Value_RGB = $ThreeStepColorArray[$ThreeStepCounter];
+				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($ThreeStepColorArray[$ThreeStepCounter]);
 				$ValuesChanged = true;
 				$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
 			
 			}
 			elseif ($Program == 4) { // Fade 7
 				$Fadetime = 2;
-				$ColorArray = [0xFF0000, 0x00FF00, 0x0000FF, 0x00CCFF, 0xFFFFFF, 0xFF9900, 0xFF00FF];
 				// Farbwerte aufsplitten
-				$Value_RGB = $ColorArray[$SevenStepCounter];
-				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($ColorArray[$SevenStepCounter]);
+				$Value_RGB = $SevenStepColorArray[$SevenStepCounter];
+				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($SevenStepColorArray[$SevenStepCounter]);
 				$ValuesChanged = true;
 				$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
 			}
