@@ -334,8 +334,7 @@
 		$ThreeStepCounter = intval($this->GetBuffer("ThreeStepCounter"));
 		$SevenStepCounter = intval($this->GetBuffer("SevenStepCounter"));
 		$ThreeStepColorArray = [$this->GetValue("Color_ThreeStep_1"), $this->GetValue("Color_ThreeStep_2"), $this->GetValue("Color_ThreeStep_3")];
-		$SevenStepColorArray = [$this->GetValue("Color_SevenStep_1"), $this->GetValue("Color_SevenStep_2"), $this->GetValue("Color_SevenStep_3"), 
-						$this->GetValue("Color_SevenStep_4"), $this->GetValue("Color_SevenStep_5"), $this->GetValue("Color_SevenStep_6", $this->GetValue("Color_SevenStep_7")];
+		$SevenStepColorArray = [$this->GetValue("Color_SevenStep_1"), $this->GetValue("Color_SevenStep_2"), $this->GetValue("Color_SevenStep_3"), $this->GetValue("Color_SevenStep_4"), $this->GetValue("Color_SevenStep_5"), $this->GetValue("Color_SevenStep_6", $this->GetValue("Color_SevenStep_7")];
 																	   
 		for ($i = 0; $i <= 7; $i++) {
 			$ValuesChanged = false;
