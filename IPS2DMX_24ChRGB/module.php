@@ -145,7 +145,13 @@
 			$this->SetChannelState($Group, $Value);
 			break;
 		case "Color":
-			$this->SetColorValue($Group, $Value);
+			If ($Channel == "RGB") {
+				$this->SetColorValue($Group, $Value);
+			}
+			elseif (($Channel == "ThreeStep") OR ($Channel == "SevenStep")) {	
+				$this->SetValue($Ident, $Value);
+			}
+			else
 			break;
 		case "Intensity":
 			$this->SetChannelValue($Group, $ChannelArray[$Channel], $Value);
