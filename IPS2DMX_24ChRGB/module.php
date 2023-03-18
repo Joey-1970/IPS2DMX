@@ -63,6 +63,8 @@
 			IPS_SetVariableProfileAssociation("IPS2DMX.RGBGroup", $i, "Gruppe ".($i + 1), "Network", -1);
 		}
 		
+		$this->RegisterProfileFloat("IPS2DMX.FadeTime", "Popcorn", "", " s", 0.0, 3.0, 0.25, 2);
+		
 		//Status-Variablen anlegen
 		for ($i = 0; $i <= 7; $i++) {
 			$Visible = !$this->ReadPropertyBoolean("Visible_".($i + 1));
@@ -97,6 +99,20 @@
 			$this->EnableAction("Program_RGB_".($i + 1));
 			IPS_SetHidden($this->GetIDForIdent("Program_RGB_".($i + 1)), $Visible);
 		}
+		
+		for ($i = 0; $i <= 2; $i++) {
+			$this->RegisterVariableInteger("Color_ThreeStep_".($i + 1), "Farbe ".($i + 1), "~HexColor", 640 + ($i * 10));
+			$this->EnableAction("Color_ThreeStep_".($i + 1));
+		}
+		
+		for ($i = 0; $i <= 7; $i++) {
+			$this->RegisterVariableInteger("Color_SevenStep_".($i + 1), "Farbe ".($i + 1), "~HexColor", 670 + ($i * 10));
+			$this->EnableAction("Color_SevenStep_".($i + 1));
+		}
+		
+		$this->RegisterVariableFloat("FadeTime", "FadeTime", "IPS2DMX.FadeTime", 740);
+		$this->EnableAction("FadeTime");
+		
 		
 		If ($this->HasActiveParent() == true) {	
 			If ($this->ReadPropertyBoolean("Open") == true) {
@@ -436,6 +452,24 @@
 	        IPS_SetVariableProfileIcon($Name, $Icon);
 	        IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
 	        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);    
-	}     
+	} 
+	
+	private function RegisterProfileFloat($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits)
+	{
+	        if (!IPS_VariableProfileExists($Name))
+	        {
+	            IPS_CreateVariableProfile($Name, 2);
+	        }
+	        else
+	        {
+	            $profile = IPS_GetVariableProfile($Name);
+	            if ($profile['ProfileType'] != 2)
+	                throw new Exception("Variable profile type does not match for profile " . $Name);
+	        }
+	        IPS_SetVariableProfileIcon($Name, $Icon);
+	        IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
+	        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
+	        IPS_SetVariableProfileDigits($Name, $Digits);
+	}    
 }
 ?>
