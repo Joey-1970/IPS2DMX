@@ -105,7 +105,7 @@
 			$this->EnableAction("Color_ThreeStep_".($i + 1));
 		}
 		
-		for ($i = 0; $i <= 7; $i++) {
+		for ($i = 0; $i <= 6; $i++) {
 			$this->RegisterVariableInteger("Color_SevenStep_".($i + 1), "Farbe ".($i + 1), "~HexColor", 670 + ($i * 10));
 			$this->EnableAction("Color_SevenStep_".($i + 1));
 		}
