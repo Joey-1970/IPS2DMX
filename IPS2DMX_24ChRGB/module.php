@@ -151,7 +151,6 @@
 			elseif (($Channel == "ThreeStep") OR ($Channel == "SevenStep")) {	
 				$this->SetValue($Ident, $Value);
 			}
-			else
 			break;
 		case "Intensity":
 			$this->SetChannelValue($Group, $ChannelArray[$Channel], $Value);
