@@ -110,8 +110,8 @@
 			$this->EnableAction("Color_SevenStep_".($i + 1));
 		}
 		
-		$this->RegisterVariableFloat("FadeTime", "FadeTime", "IPS2DMX.FadeTime", 740);
-		$this->EnableAction("FadeTime");
+		$this->RegisterVariableFloat("FadeTime_Program_0", "FadeTime", "IPS2DMX.FadeTime", 740);
+		$this->EnableAction("FadeTime_Program_0");
 		
 		
 		If ($this->HasActiveParent() == true) {	
@@ -369,7 +369,7 @@
 			}
 			elseif ($Program == 3) { // Fade 3
 				// Farbwerte aufsplitten
-				$FadeTime = $this->GetValue("FadeTime");
+				$FadeTime = $this->GetValue("FadeTime_Program_0");
 				$Value_RGB = $ThreeStepColorArray[$ThreeStepCounter];
 				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($ThreeStepColorArray[$ThreeStepCounter]);
 				$ValuesChanged = true;
@@ -378,7 +378,7 @@
 			}
 			elseif ($Program == 4) { // Fade 7
 				// Farbwerte aufsplitten
-				$FadeTime = $this->GetValue("FadeTime");
+				$FadeTime = $this->GetValue("FadeTime_Program_0");
 				$Value_RGB = $SevenStepColorArray[$SevenStepCounter];
 				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($SevenStepColorArray[$SevenStepCounter]);
 				$ValuesChanged = true;
