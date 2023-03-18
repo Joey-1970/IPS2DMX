@@ -336,7 +336,6 @@
 		$ThreeStepColorArray = [$this->GetValue("Color_ThreeStep_1"), $this->GetValue("Color_ThreeStep_2"), $this->GetValue("Color_ThreeStep_3")];
 		$SevenStepColorArray = [$this->GetValue("Color_SevenStep_1"), $this->GetValue("Color_SevenStep_2"), $this->GetValue("Color_SevenStep_3"), 
 						$this->GetValue("Color_SevenStep_4"), $this->GetValue("Color_SevenStep_5"), $this->GetValue("Color_SevenStep_6", $this->GetValue("Color_SevenStep_7")];
-		$FadeTime = $this->GetValue("FadeTime")
 																	   
 		for ($i = 0; $i <= 7; $i++) {
 			$ValuesChanged = false;
@@ -349,7 +348,7 @@
 			$this->SendDebug("SetProgrammedValue", "RGB Gruppe ".($i + 1)." Programmgruppe ".$Programmgoup." Selektiertes Programm ".$Program, 0);				
 							
 			If ($Program == 1) { // Jump 3
-				$Fadetime = 0;
+				$FadeTime = 0;
 				// Farbwerte aufsplitten
 				$Value_RGB = $ThreeStepColorArray[$ThreeStepCounter];
 				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($ThreeStepColorArray[$ThreeStepCounter]);
@@ -357,7 +356,7 @@
 				$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
 			}
 			elseif ($Program == 2) { // Jump 7
-				$Fadetime = 0;
+				$FadeTime = 0;
 				// Farbwerte aufsplitten
 				$Value_RGB = $SevenStepColorArray[$SevenStepCounter];
 				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($SevenStepColorArray[$SevenStepCounter]);
@@ -365,8 +364,8 @@
 				$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
 			}
 			elseif ($Program == 3) { // Fade 3
-				$Fadetime = 2;
 				// Farbwerte aufsplitten
+				$FadeTime = $this->GetValue("FadeTime");
 				$Value_RGB = $ThreeStepColorArray[$ThreeStepCounter];
 				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($ThreeStepColorArray[$ThreeStepCounter]);
 				$ValuesChanged = true;
@@ -374,8 +373,8 @@
 			
 			}
 			elseif ($Program == 4) { // Fade 7
-				$Fadetime = 2;
 				// Farbwerte aufsplitten
+				$FadeTime = $this->GetValue("FadeTime");
 				$Value_RGB = $SevenStepColorArray[$SevenStepCounter];
 				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($SevenStepColorArray[$SevenStepCounter]);
 				$ValuesChanged = true;
