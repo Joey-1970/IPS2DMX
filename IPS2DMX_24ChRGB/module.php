@@ -349,7 +349,7 @@
 			$GroupState = $this->GetValue("Status_RGB_".($i + 1));
 			
 			
-			$this->SendDebug("SetProgrammedValue", "RGB Gruppe ".($i + 1)." Programmgruppe ".$Programmgoup." Selektiertes Programm ".$Program, 0);				
+			//$this->SendDebug("SetProgrammedValue", "RGB Gruppe ".($i + 1)." Programmgruppe ".$Programmgoup." Selektiertes Programm ".$Program, 0);				
 							
 			If ($Program == 1) { // Jump 3
 				$FadeTime = 0;
@@ -357,7 +357,7 @@
 				$Value_RGB = $ThreeStepColorArray[$ThreeStepCounter];
 				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($ThreeStepColorArray[$ThreeStepCounter]);
 				$ValuesChanged = true;
-				$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
+				//$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
 			}
 			elseif ($Program == 2) { // Jump 7
 				$FadeTime = 0;
@@ -365,7 +365,7 @@
 				$Value_RGB = $SevenStepColorArray[$SevenStepCounter];
 				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($SevenStepColorArray[$SevenStepCounter]);
 				$ValuesChanged = true;
-				$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
+				//$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
 			}
 			elseif ($Program == 3) { // Fade 3
 				// Farbwerte aufsplitten
@@ -373,8 +373,7 @@
 				$Value_RGB = $ThreeStepColorArray[$ThreeStepCounter];
 				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($ThreeStepColorArray[$ThreeStepCounter]);
 				$ValuesChanged = true;
-				$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
-			
+				//$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
 			}
 			elseif ($Program == 4) { // Fade 7
 				// Farbwerte aufsplitten
@@ -382,7 +381,7 @@
 				$Value_RGB = $SevenStepColorArray[$SevenStepCounter];
 				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($SevenStepColorArray[$SevenStepCounter]);
 				$ValuesChanged = true;
-				$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
+				//$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
 			}
 			
 			If ($ValuesChanged == true) {
