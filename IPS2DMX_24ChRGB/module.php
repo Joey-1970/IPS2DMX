@@ -120,6 +120,9 @@
 		$this->RegisterVariableFloat("FlashTime_Program_0", "FlashTime", "IPS2DMX.FlashTime", 750);
 		$this->EnableAction("FlashTime_Program_0");
 		
+		$this->RegisterVariableInteger("Color_Flash_0", "Farbe"), "~HexColor", 760);
+		$this->EnableAction("Color_Flash_0");
+		
 		
 		If ($this->HasActiveParent() == true) {	
 			If ($this->ReadPropertyBoolean("Open") == true) {
@@ -159,6 +162,9 @@
 				$this->SetColorValue($Group, $Value);
 			}
 			elseif (($Channel == "ThreeStep") OR ($Channel == "SevenStep")) {	
+				$this->SetValue($Ident, $Value);
+			}
+			elseif ($Channel == "Flash") {	
 				$this->SetValue($Ident, $Value);
 			}
 			break;
@@ -438,6 +444,9 @@
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
 			$FlashState = intval($this->GetBuffer("FlashState"));
 			
+			$FlashColor = $this->GetValue("Color_Flash_0");
+			list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($FlashColor);
+			
 			for ($i = 0; $i <= 7; $i++) {
 				$ValuesChanged = false;
 				$DMXChannel = $DMXStartChannel + ($i * 3);
@@ -447,9 +456,9 @@
 				
 				If ($Program == 5) { // Flash
 					$FadeTime = 0;
-					$Value_R = $FlashState * 255;
-					$Value_G = $FlashState * 255;
-					$Value_B = $FlashState * 255;
+					$Value_R = $FlashState * $Value_R;
+					$Value_G = $FlashState * $Value_G;
+					$Value_B = $FlashState * $Value_B;
 					$Value_RGB = $this->RGB2Hex($Value_R, $Value_G, $Value_B);
 					$ValuesChanged = true;
 				}
