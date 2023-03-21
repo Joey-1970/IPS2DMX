@@ -124,7 +124,7 @@
 				If ($this->ReadPropertyInteger("TriggerID") > 0) {
 					$this->RegisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
 				}
-				$this->SetTimerInterval("FlashTimer", (1000));
+				$this->SetTimerInterval("FlashTimer", (500));
 			}
 			else {
 				If ($this->GetStatus() <> 104) {
@@ -440,6 +440,7 @@
 					$Value_R = $FlashState * 255;
 					$Value_G = $FlashState * 255;
 					$Value_B = $FlashState * 255;
+					$Value_RGB = $this->RGB2Hex($Value_R, $Value_G, $Value_B);
 					$ValuesChanged = true;
 				}
 				
