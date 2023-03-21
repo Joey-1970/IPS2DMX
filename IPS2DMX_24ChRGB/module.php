@@ -14,7 +14,7 @@
 			$this->RegisterPropertyBoolean("Visible_".($i + 1), true);
 		}
 		$this->RegisterPropertyInteger("TriggerID", 0);
-		$this->RegisterTimer("FlashTimer", 0, 'I2D_24ChRGB_ProgramFlash($_IPS["TARGET"]);');
+		$this->RegisterTimer("FlashTimer", 0, 'I2D24ChRGB_ProgramFlash($_IPS["TARGET"]);');
         }
  	
 	public function GetConfigurationForm() 
@@ -124,12 +124,14 @@
 				If ($this->ReadPropertyInteger("TriggerID") > 0) {
 					$this->RegisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
 				}
+				$this->SetTimerInterval("FlashTimer", (1000));
 			}
 			else {
 				If ($this->GetStatus() <> 104) {
 					$this->SetStatus(104);
 				}
 				$this->UnregisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
+				$this->SetTimerInterval("FlashTimer", 0);
 			}
 		}
 	}
