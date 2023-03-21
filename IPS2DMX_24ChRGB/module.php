@@ -14,6 +14,7 @@
 			$this->RegisterPropertyBoolean("Visible_".($i + 1), true);
 		}
 		$this->RegisterPropertyInteger("TriggerID", 0);
+		$this->RegisterTimer("FlashTimer", 0, 'I2DPT_ProgramFlash($_IPS["TARGET"]);');
         }
  	
 	public function GetConfigurationForm() 
