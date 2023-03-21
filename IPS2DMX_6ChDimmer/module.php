@@ -48,6 +48,7 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 2, "Einfaches Lauflicht", "Repeat", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 3, "Knight Rider", "Repeat", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 4, "Doppeltes Lauflicht", "Repeat", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 5, "Flash", "Repeat", -1);
 		
 		$this->RegisterProfileFloat("IPS2DMX.FadeTime", "Popcorn", "", " s", 0.0, 3.0, 0.25, 2);
 		
@@ -206,11 +207,16 @@
 					$Step[9] = array(0, 255, 0, 0, 0, 0);
 					break;
 				case "4":
-					// Doppel-Laulichtt
+					// Doppel-Laulicht
 					$Step[0] = array(255, 0, 0, 0, 0, 255);
 					$Step[1] = array(0, 255, 0, 0, 255, 0);
 					$Step[2] = array(0, 0, 255, 255, 0, 0);
 					$Step[3] = array(0, 255, 0, 0, 255, 0);
+					break;
+				case "5":
+					// Flash
+					$Step[0] = array(255, 255, 255, 255, 255, 255);
+					$Step[1] = array(0, 0, 0, 0, 0, 0);
 					break;
 			}
 			
