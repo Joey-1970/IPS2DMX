@@ -14,7 +14,7 @@
 			$this->RegisterPropertyBoolean("Visible_".($i + 1), true);
 		}
 		$this->RegisterPropertyInteger("TriggerID", 0);
-		$this->RegisterTimer("FlashTimer", 0, 'I2D24ChRGB_ProgramFlash($_IPS["TARGET"]);');
+		$this->RegisterTimer("FlashTimer", 300, 'I2D24ChRGB_ProgramFlash($_IPS["TARGET"]);');
         }
  	
 	public function GetConfigurationForm() 
@@ -67,6 +67,8 @@
 		
 		$this->RegisterProfileFloat("IPS2DMX.FadeTime", "Popcorn", "", " s", 0.0, 3.0, 0.25, 2);
 		
+		$this->RegisterProfileFloat("IPS2DMX.FlashTime", "Popcorn", "", " s", 0.3, 3.0, 0.1, 1);
+		
 		//Status-Variablen anlegen
 		for ($i = 0; $i <= 7; $i++) {
 			$Visible = !$this->ReadPropertyBoolean("Visible_".($i + 1));
@@ -115,6 +117,9 @@
 		$this->RegisterVariableFloat("FadeTime_Program_0", "FadeTime", "IPS2DMX.FadeTime", 740);
 		$this->EnableAction("FadeTime_Program_0");
 		
+		$this->RegisterVariableFloat("FlashTime_Program_0", "FlashTime", "IPS2DMX.FlashTime", 750);
+		$this->EnableAction("FlashTime_Program_0");
+		
 		
 		If ($this->HasActiveParent() == true) {	
 			If ($this->ReadPropertyBoolean("Open") == true) {
@@ -124,7 +129,8 @@
 				If ($this->ReadPropertyInteger("TriggerID") > 0) {
 					$this->RegisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
 				}
-				$this->SetTimerInterval("FlashTimer", (500));
+				$FlashTime = $this->GetValue("FlashTime_Program_0");
+				$this->SetTimerInterval("FlashTimer", $FlashTime * 1000);
 			}
 			else {
 				If ($this->GetStatus() <> 104) {
@@ -171,6 +177,10 @@
 			break;
 		case "FadeTime":
 			$this->SetValue($Ident, $Value);
+			break;
+		case "FlashTime":
+			$this->SetValue($Ident, $Value);
+			$this->SetTimerInterval("FlashTimer", $Value * 1000);
 			break;
 		default:
 		    throw new Exception("Invalid Ident");
