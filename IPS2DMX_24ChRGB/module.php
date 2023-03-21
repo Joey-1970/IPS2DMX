@@ -51,12 +51,13 @@
             	parent::ApplyChanges();
 		
 		// Profil anlegen
-		$this->RegisterProfileInteger("IPS2DMX.Program", "Popcorn", "", "", 0, 4, 0);
+		$this->RegisterProfileInteger("IPS2DMX.Program", "Popcorn", "", "", 0, 5, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 0, "Manuelle Steuerung", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 1, "Jump 3", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 2, "Jump 7", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 3, "Fade 3", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 4, "Fade 7", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 5, "Flash", "Information", -1);
 		
 		$this->RegisterProfileInteger("IPS2DMX.RGBGroup", "Popcorn", "", "", 0, 7, 0);
 		for ($i = 0; $i <= 7; $i++) {
@@ -418,14 +419,29 @@
 		$this->SetBuffer("SevenStepCounter", $SevenStepCounter);
 	}
 	    
-	private function ProgramJump3(Int $Programmgoup)
+	public function ProgramFlash()
 	{		
 		If ($this->ReadPropertyBoolean("Open") == true) { 
-			$this->SendDebug("ProgramJump3", "Ausfuehrung Schrittzähler ".$Stepcounter, 0);
+			$this->SendDebug("ProgramFlash", "Ausfuehrung", 0);
+			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
+			$FlashState = intval($this->GetBuffer("FlashState"));
 			
-			// Drei Farben
-			//$ColorArray = [#FF0000, #00FF00, #0000FF];
-			
+			for ($i = 0; $i <= 7; $i++) {
+				$ValuesChanged = false;
+				$DMXChannel = $DMXStartChannel + ($i * 3);
+				$Programmgoup = $this->GetValue("Program_Group_".($i + 1));
+				$Program = $this->GetValue("Program_RGB_".($Programmgoup + 1));
+				$GroupState = $this->GetValue("Status_RGB_".($i + 1));
+				
+				If ($Program == 5) { // Flash
+					$FadeTime = 0;
+					
+					$ValuesChanged = true;
+					
+				}
+				
+				
+			}
 		}
 	}
 	    
