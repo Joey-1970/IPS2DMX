@@ -120,7 +120,7 @@
 		$this->RegisterVariableFloat("FlashTime_Program_0", "FlashTime", "IPS2DMX.FlashTime", 750);
 		$this->EnableAction("FlashTime_Program_0");
 		
-		$this->RegisterVariableInteger("Color_Flash_0", "Farbe"), "~HexColor", 760);
+		$this->RegisterVariableInteger("Color_Flash_0", "Farbe", "~HexColor", 760);
 		$this->EnableAction("Color_Flash_0");
 		
 		
