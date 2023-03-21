@@ -114,13 +114,13 @@
 			$this->EnableAction("Color_SevenStep_".($i + 1));
 		}
 		
-		$this->RegisterVariableFloat("FadeTime_Program_0", "FadeTime", "IPS2DMX.FadeTime", 740);
+		$this->RegisterVariableFloat("FadeTime_Program_0", "Fade Time", "IPS2DMX.FadeTime", 740);
 		$this->EnableAction("FadeTime_Program_0");
 		
-		$this->RegisterVariableFloat("FlashTime_Program_0", "FlashTime", "IPS2DMX.FlashTime", 750);
+		$this->RegisterVariableFloat("FlashTime_Program_0", "Flash Time", "IPS2DMX.FlashTime", 750);
 		$this->EnableAction("FlashTime_Program_0");
 		
-		$this->RegisterVariableInteger("Color_Flash_0", "Farbe", "~HexColor", 760);
+		$this->RegisterVariableInteger("Color_Flash_0", "Flash Farbe", "~HexColor", 760);
 		$this->EnableAction("Color_Flash_0");
 		
 		
