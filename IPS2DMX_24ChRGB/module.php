@@ -455,7 +455,7 @@
 				$GroupState = $this->GetValue("Status_RGB_".($i + 1));
 				
 				If ($Program == 5) { // Flash
-					$FadeTime = 0;
+					$FadeTime = 0.2;
 					$Value_R = $FlashState * $Value_R;
 					$Value_G = $FlashState * $Value_G;
 					$Value_B = $FlashState * $Value_B;
