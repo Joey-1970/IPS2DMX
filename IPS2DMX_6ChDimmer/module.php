@@ -42,13 +42,14 @@
             	parent::ApplyChanges();
 		
 		// Profil anlegen
-		$this->RegisterProfileInteger("IPS2DMX.ProgramDimmer", "Popcorn", "", "", 0, 5, 0);
+		$this->RegisterProfileInteger("IPS2DMX.ProgramDimmer", "Popcorn", "", "", 0, 6, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 0, "Manuelle Steuerung", "Repeat", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 1, "Wechselblinker", "Repeat", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 2, "Einfaches Lauflicht", "Repeat", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 3, "Knight Rider", "Repeat", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 4, "Doppeltes Lauflicht", "Repeat", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 5, "Flash", "Repeat", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.ProgramDimmer", 6, "Random", "Repeat", -1);
 		
 		$this->RegisterProfileFloat("IPS2DMX.FadeTime", "Popcorn", "", " s", 0.0, 3.0, 0.25, 2);
 		
