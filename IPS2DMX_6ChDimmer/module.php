@@ -177,8 +177,8 @@
 			
 			for ($i = 0; $i <= 5; $i++) {
 				$DMXChannel = $DMXStartChannel + $i;
-				$Value = min($IntensityMaster, $this->GetValue("Intensity_".($i + 1)));
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => $FadeTime, "DelayedSeconds" => 0.0 )));
+				$Value = min($Value, $this->GetValue("Intensity_".($i + 1)));
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
 				$this->SetValue("Intensity_".($i + 1), $Value);
 			}
 		}
