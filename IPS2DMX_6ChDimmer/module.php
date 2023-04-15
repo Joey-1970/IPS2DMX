@@ -219,6 +219,10 @@
 					$Step[0] = array(255, 255, 255, 255, 255, 255);
 					$Step[1] = array(0, 0, 0, 0, 0, 0);
 					break;
+				case "6":
+					// Random
+					$Step[0] = array(rand(0, 255), rand(0, 255), rand(0, 255), rand(0, 255), rand(0, 255), rand(0, 255));
+					break;
 			}
 			
 			// Datenausgabe
