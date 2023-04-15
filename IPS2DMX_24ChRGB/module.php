@@ -52,13 +52,14 @@
             	parent::ApplyChanges();
 		
 		// Profil anlegen
-		$this->RegisterProfileInteger("IPS2DMX.Program", "Popcorn", "", "", 0, 5, 0);
+		$this->RegisterProfileInteger("IPS2DMX.Program", "Popcorn", "", "", 0, 6, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 0, "Manuelle Steuerung", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 1, "Jump 3", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 2, "Jump 7", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 3, "Fade 3", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 4, "Fade 7", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 5, "Flash", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.Program", 6, "Random", "Information", -1);
 		
 		$this->RegisterProfileInteger("IPS2DMX.RGBGroup", "Popcorn", "", "", 0, 7, 0);
 		for ($i = 0; $i <= 7; $i++) {
@@ -388,20 +389,28 @@
 				//$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
 			}
 			elseif ($Program == 3) { // Fade 3
-				// Farbwerte aufsplitten
 				$FadeTime = $this->GetValue("FadeTime_Program_0");
+				// Farbwerte aufsplitten
 				$Value_RGB = $ThreeStepColorArray[$ThreeStepCounter];
 				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($ThreeStepColorArray[$ThreeStepCounter]);
 				$ValuesChanged = true;
 				//$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
 			}
 			elseif ($Program == 4) { // Fade 7
-				// Farbwerte aufsplitten
 				$FadeTime = $this->GetValue("FadeTime_Program_0");
+				// Farbwerte aufsplitten
 				$Value_RGB = $SevenStepColorArray[$SevenStepCounter];
 				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($SevenStepColorArray[$SevenStepCounter]);
 				$ValuesChanged = true;
 				//$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
+			}
+			elseif ($Program == 6) { // Random
+				$FadeTime = $this->GetValue("FadeTime_Program_0");
+				// Farbwerte aufsplittenen
+				$Value_R = rand(0,255);
+				$Value_G = rand(0,255);
+				$Value_B = rand(0,255);
+				$ValuesChanged = true;
 			}
 			
 			If ($ValuesChanged == true) {
@@ -461,7 +470,7 @@
 					$Value_B = $FlashState * $Value_B;
 					$Value_RGB = $this->RGB2Hex($Value_R, $Value_G, $Value_B);
 					$ValuesChanged = true;
-				}
+				} 
 				
 				If ($ValuesChanged == true) {
 					// Steuerelemente setzen
