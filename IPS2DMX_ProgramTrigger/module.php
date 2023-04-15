@@ -52,28 +52,24 @@
 		
 		$this->RegisterVariableBoolean("Trigger", "Trigger", "~Switch", 10);
 		$this->DisableAction("Trigger");
-		IPS_SetHidden($this->GetIDForIdent("Trigger"), false);
 		
 		$this->RegisterVariableBoolean("Status", "Status", "~Switch", 20);
-		$this->EnableAction("Status");
-		IPS_SetHidden($this->GetIDForIdent("Status"), false);
 		
 		$this->RegisterVariableFloat("TriggerTime", "Trigger", "IPS2DMX.TriggerTime", 30);
-		$this->EnableAction("TriggerTime");
-		IPS_SetHidden($this->GetIDForIdent("TriggerTime"), false);
 		
 		$this->RegisterVariableBoolean("BlackOut", "BlackOut", "~Switch", 40);
-		$this->EnableAction("BlackOut");
-		IPS_SetHidden($this->GetIDForIdent("BlackOut"), false);
 		
 		$this->RegisterVariableInteger("AutoReset", "Auto Reset", "IPS2DMX.PTBlackOut", 50);
-		$this->EnableAction("AutoReset");
-		IPS_SetHidden($this->GetIDForIdent("AutoReset"), false);
 		
 		If ($this->HasActiveParent() == true) {	
 			If ($this->ReadPropertyBoolean("Open") == true) {
 				If ($this->GetStatus() <> 102) {
 					$this->SetStatus(102);
+				}
+				$Status = $this->GetValue("Status");
+				$TriggerTime = $this->GetValue("TriggerTime");
+				If ($Status == true) {
+					$this->SetTimerInterval("Timer_1", ($TriggerTime * 1000));
 				}
 			}
 			else {
@@ -114,8 +110,8 @@
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetTrigger", "Ausfuehrung", 0);
-			SetValueBoolean($this->GetIDForIdent("Trigger"), true);
-			SetValueBoolean($this->GetIDForIdent("Trigger"), false);
+			$this->SetValue("Trigger", true);
+			$this->SetValue("Trigger", false);
 		}
 	} 
 	
@@ -123,7 +119,7 @@
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			If ($Value == true) {
-				$Timer_1 = GetValueFloat($this->GetIDForIdent("TriggerTime"));
+				$Timer_1 = $this->GetValue("TriggerTime");
 				$this->SetTimerInterval("Timer_1", ($Timer_1 * 1000));
 			}
 			else {
@@ -135,7 +131,7 @@
 	private function SetTriggerTime(Float $Value)
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
-			$Status = GetValueBoolean($this->GetIDForIdent("Status"));
+			$Status = $this->GetValue("Status");
 			If ($Status == true) {
 				$this->SetTimerInterval("Timer_1", ($Value * 1000));
 			}
@@ -146,7 +142,7 @@
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetBlackOutStatus", "Ausfuehrung", 0);
-			$AutoReset = 2 * GetValueInteger($this->GetIDForIdent("AutoReset"));
+			$AutoReset = 2 * $this->GetValue("AutoReset");
 			$ParentID = $this->GetParentID();
 			
 			If ($Status == true) {
@@ -158,7 +154,7 @@
 			else {
 				DMX_SetBlackOut($ParentID, $Status);
 				$this->SetTimerInterval("Timer_2", 0);
-				SetValueBoolean($this->GetIDForIdent("BlackOut"), $Status);
+				$this->SetValue("BlackOut", $Status);
 			}
 		}
 	}    
