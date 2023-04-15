@@ -165,11 +165,11 @@
 			$DMXChannel = $DMXStartChannel + $Channel - 1;
 			$Value = min($IntensityMaster, $Value);
 			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
-			SetValueInteger($this->GetIDForIdent("Intensity_".$Channel), $Value);
+			$this->SetValue("Intensity_".$Channel, $Value);
 		}
 	} 
 	    
-	private function SetMasterValue(Int $Value)
+	private function SetMasterValue(Int $NewValue)
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetMasterValue", "Ausfuehrung", 0);
@@ -177,7 +177,8 @@
 			
 			for ($i = 0; $i <= 5; $i++) {
 				$DMXChannel = $DMXStartChannel + $i;
-				$Value = min($Value, $this->GetValue("Intensity_".($i + 1)));
+				$Value = min($NewValue, $this->GetValue("Intensity_".($i + 1)));
+				$this->SendDebug("SetMasterValue", "Neuer Wert: ".$NewValue." Channel: ".$i." Alter Wert: ".$this->GetValue("Intensity_".($i + 1)), 0);
 				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
 				$this->SetValue("Intensity_".($i + 1), $Value);
 			}
