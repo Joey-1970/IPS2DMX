@@ -402,7 +402,6 @@
 				$Value_RGB = $SevenStepColorArray[$SevenStepCounter];
 				list($Value_R, $Value_G, $Value_B) = $this->Hex2RGB($SevenStepColorArray[$SevenStepCounter]);
 				$ValuesChanged = true;
-				//$this->SendDebug("SetProgrammedValue 1", "Value_RGB ".dechex($Value_RGB), 0);
 			}
 			elseif ($Program == 6) { // Random
 				$FadeTime = $this->GetValue("FadeTime_Program_0");
@@ -410,6 +409,7 @@
 				$Value_R = rand(0,255);
 				$Value_G = rand(0,255);
 				$Value_B = rand(0,255);
+				$Value_RGB = $this->RGB2Hex($Value_R, $Value_G, $Value_B);
 				$ValuesChanged = true;
 			}
 			
