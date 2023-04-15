@@ -361,7 +361,10 @@
 		$SevenStepCounter = intval($this->GetBuffer("SevenStepCounter"));
 		$ThreeStepColorArray = [$this->GetValue("Color_ThreeStep_1"), $this->GetValue("Color_ThreeStep_2"), $this->GetValue("Color_ThreeStep_3")];
 		$SevenStepColorArray = [$this->GetValue("Color_SevenStep_1"), $this->GetValue("Color_SevenStep_2"), $this->GetValue("Color_SevenStep_3"), $this->GetValue("Color_SevenStep_4"), $this->GetValue("Color_SevenStep_5"), $this->GetValue("Color_SevenStep_6"), $this->GetValue("Color_SevenStep_7")];
-																	   
+		$RandomValue_R = rand(0,255);
+		$RandomValue_G = rand(0,255);
+		$RandomValue_B = rand(0,255);
+		
 		for ($i = 0; $i <= 7; $i++) {
 			$ValuesChanged = false;
 			$DMXChannel = $DMXStartChannel + ($i * 3);
@@ -406,9 +409,9 @@
 			elseif ($Program == 6) { // Random
 				$FadeTime = $this->GetValue("FadeTime_Program_0");
 				// Farbwerte aufsplittenen
-				$Value_R = rand(0,255);
-				$Value_G = rand(0,255);
-				$Value_B = rand(0,255);
+				$Value_R = $RandomValue_R;
+				$Value_G = $RandomValue_G;
+				$Value_B = $RandomValue_B;
 				$Value_RGB = $this->RGB2Hex($Value_R, $Value_G, $Value_B);
 				$ValuesChanged = true;
 			}
