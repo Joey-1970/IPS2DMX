@@ -174,10 +174,10 @@
 	{
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetProgrammedValue", "Ausfuehrung", 0);
-			$Program = GetValueInteger($this->GetIDForIdent("Program_0"));
+			$Program = $this->GetValue("Program_0");
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
-			$IntensityMaster = GetValueInteger($this->GetIDForIdent("IntensityMaster_0"));
-			$FadeTime = GetValueFloat($this->GetIDForIdent("FadeTime_0"));
+			$IntensityMaster = $this->GetValue("IntensityMaster_0");
+			$FadeTime = $this->GetValue("FadeTime_0");
 			
 			switch($Program) {
 				case "1":
@@ -221,7 +221,7 @@
 					break;
 				case "6":
 					// Random
-					$Step[0] = array(rand(0, 255), rand(0, 255), rand(0, 255), rand(0, 255), rand(0, 255), rand(0, 255));
+					$Step[0] = array(rand(0, $IntensityMaster), rand(0, $IntensityMaster), rand(0, $IntensityMaster), rand(0, $IntensityMaster), rand(0, $IntensityMaster), rand(0, $IntensityMaster));
 					break;
 			}
 			
