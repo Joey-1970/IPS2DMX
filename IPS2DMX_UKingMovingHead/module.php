@@ -78,8 +78,10 @@
 		$this->RegisterVariableInteger("Gobo", "Gobo", "IPS2DMX.MovingHeadDimming", 80);
 
 		// Channel 8 Lightning ON/OFF (0 - 100%)
+		$this->RegisterVariableInteger("Lightning", "Lightning", "~Intensity.255", 90);
 
 		// Channel 9 Speed (fast-slow / pan & tilt)
+		$this->RegisterVariableInteger("PanTiltSpeed", "Pan Tilt Speed", "~Intensity.255", 100);
 
 		// Channel 10 When Pan & Tilt moving lightinf ON (value 000-069), when Color moving lightning ON (value 090-109), when Gobo moving lightning ON (value 110-209), Rest (value 210-249), Sound Activated (value 250-255)
 
