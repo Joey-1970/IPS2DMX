@@ -68,6 +68,9 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 61, "Building", "Intensity", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 81, "Theatre", "Intensity", -1);
 		
+		$this->RegisterProfileInteger("IPS2DMX.MovingHeadProgram", "Popcorn", "", "", 0, 6, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadProgram", 0, "Manuelle Steuerung", "Repeat", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadProgram", 1, "Dance", "Repeat", -1);
 		
 
 		
@@ -105,6 +108,9 @@
 		// Channel 11 Standard Dimming mode (value 000-020), Stage dimming mode (value 021-040), TV Dimming mode (value 041-060), Building Dimming mode (value 061-080), Theatre Dimming mode (value 081-255)
 		$this->RegisterVariableInteger("DimmingMode", "Dimming Mode", "IPS2DMX.MovingHeadDimmingMode", 120);
 		$this->EnableAction("DimmingMode");
+
+		$this->RegisterVariableInteger("Program", "Program", "IPS2DMX.MovingHeadProgram", 130);
+		$this->EnableAction("Program");
         }
  	
 	public function GetConfigurationForm() 
@@ -192,10 +198,41 @@
 			case "DimmingMode":
 				$this->SetChannelValue( 11, $Value);
 				break;
+			case "Program":
+				$this->SetValue($Ident, $Value);
+				$this->SetBuffer("StepCounter", 0);
+				If ($Value == 0) {
+					If ($this->ReadPropertyInteger("TriggerID") > 0) {
+						$this->UnregisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
+					}
+				}
+				else {
+					// De-Registrierung für die Änderung der Trigger-Variablen
+					If ($this->ReadPropertyInteger("TriggerID") > 0) {
+						$this->RegisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
+					}
+				}
+			break;
 			default:
 			    throw new Exception("Invalid Ident");
 		}
 	}
+
+	public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
+    	{
+ 		switch ($Message) {
+			case 10603:
+				// Änderung der Trigger-Variablen
+				If ($SenderID == $this->ReadPropertyInteger("TriggerID")) {
+					$Program = $this->GetValue("Program");
+					//$this->SendDebug("MessageSink", "Ausfuehrung - Wert: ".$Data[0]." Programm: ".$Program, 0);
+					If (($Data[0] == 1) AND ($Program > 0)) {
+						$this->SetProgrammedValue();
+					}
+				}
+				break;
+		}
+    	}    
 	    
 	// Beginn der Funktionen
 	private function SetChannelValue(Int $Channel, Int $Value)
@@ -208,7 +245,43 @@
 		}
 	}  
 	    
-	
+	private function SetProgrammedValue()
+	{
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->SendDebug("SetProgrammedValue", "Ausfuehrung", 0);
+			$Program = $this->GetValue("Program");
+			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
+
+			// Arrayaufbau: 
+			
+			switch($Program) {
+				case "1":
+					// Dance
+					$Step[0] = array(255, 0, 255, 0, 255, 0);
+					$Step[1] = array(0, 255, 0, 255, 0, 255);
+					break;
+				
+			}
+			
+			// Datenausgabe
+			$Steps = count($Step);
+			$StepCounter = intval($this->GetBuffer("StepCounter"));
+			If ($StepCounter >= $Steps) {
+				$StepCounter = 0;
+			}
+			$this->SendDebug("SetProgrammedValue", "Steps: ".$Steps." Zaehler: ".$StepCounter, 0);
+			/*
+			for ($i = 0; $i <= 5; $i++) {
+				$DMXChannel = $DMXStartChannel + $i;
+				$this->SetValue("Intensity_".($i + 1), $Value);
+				$Value = min($IntensityMaster, $Step[$StepCounter][$i]);
+				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => $FadeTime, "DelayedSeconds" => 0.0 )));
+			}
+			*/
+			$this->SetBuffer("StepCounter", $StepCounter + 1);
+			
+		}
+	}
 	
 	
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
