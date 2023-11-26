@@ -75,13 +75,13 @@
 
 		
 		// Status-Variablen anlegen
-		// Channel 1 Pan Motion 0 - 100%
+		// Channel 1 Pan Motion 0 - 100% - Drehbewegung
 		$this->RegisterVariableInteger("PanMotion", "Pan Motion", "~Intensity.255", 10);
 		$this->EnableAction("PanMotion");
 		// Channel 2 Pan Fine Turning Motion
 		$this->RegisterVariableInteger("PanFineTurningMotion", "Pan Fine Turning Motion", "~Intensity.255", 20);
 		$this->EnableAction("PanFineTurningMotion");
-		// Channel 3 Till Motion 0 - 100%
+		// Channel 3 Till Motion 0 - 100% - Kippbewegung
 		$this->RegisterVariableInteger("TiltMotion", "Tilt Motion", "~Intensity.255", 40);
 		$this->EnableAction("TiltMotion");
 		// Channel 4 Till Fine Turning Motion
