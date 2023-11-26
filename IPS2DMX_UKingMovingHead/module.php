@@ -78,10 +78,10 @@
 		$this->RegisterVariableInteger("PanFineTurningMotion", "Pan Fine Turning Motion", "~Intensity.255", 20);
 		
 		// Channel 3 Till Motion 0 - 100%
-		$this->RegisterVariableInteger("TillMotion", "Till Motion", "~Intensity.255", 40);
+		$this->RegisterVariableInteger("TiltMotion", "Tilt Motion", "~Intensity.255", 40);
 
 		// Channel 4 Till Fine Turning Motion
-		$this->RegisterVariableInteger("TillFineTurningMotion", "Till Fine Turning Motion", "~Intensity.255", 50);
+		$this->RegisterVariableInteger("TiltFineTurningMotion", "Tilt Fine Turning Motion", "~Intensity.255", 50);
 
 		// Channel 5 Color 1-8 (value 000-056), Half Color (value 057-127), Color fast-slow (value 128-189), Color slow-fast (value 190-255)
 		$this->RegisterVariableInteger("Color", "Color", "IPS2DMX.MovingHeadColor", 60);
@@ -147,32 +147,41 @@
 	
 	public function RequestAction($Ident, $Value) 
 	{
-		$Parts = explode("_", $Ident);
-		$Source = $Parts[0]; // Steuerelement
-		$Channel = $Parts[1]; // R, G, B bzw. RGB
-		$ChannelArray = ["R" => 0, "G" => 1, "B" => 2, "W" => 3];
-	
-		switch($Source) {
-		case "State":
-			$this->SetState($Value);
+		SetValueInteger($this->GetIDForIdent($Ident), $Value);
+		
+		switch($Ident) {
+		case "PanMotion":
+			$this->SetChannelValue( 1, $Value);
+			break;
+		case "PanFineTurningMotion":
+			$this->SetChannelValue( 2, $Value);
+			break;
+		case "TillMotion":
+			$this->SetChannelValue( 3, $Value);
+			break;
+		case "TiltFineTurningMotion":
+			$this->SetChannelValue( 4, $Value);
 			break;
 		case "Color":
-			SetValueInteger($this->GetIDForIdent($Ident), $Value);
-			$this->SetColor($Value);
+			$this->SetChannelValue( 5, $Value);
 			break;
-		case "Intensity":
-			SetValueInteger($this->GetIDForIdent($Ident), $Value);
-			$this->SetChannelValue($ChannelArray[$Channel], $Value);
+		case "Gobo":
+			$this->SetChannelValue( 6, $Value);
 			break;
-		case "Fadetime":
-			SetValueInteger($this->GetIDForIdent($Ident), $Value);
+		case "Dimming":
+			$this->SetChannelValue( 7, $Value);
 			break;
-		case "Memory":
-			SetValueInteger($this->GetIDForIdent($Ident), $Value);
-			$this->SaveColor($Value);
+		case "Lightning":
+			$this->SetChannelValue( 8, $Value);
 			break;
-		case "ColorMemory":
-			SetValueInteger($this->GetIDForIdent($Ident), $Value);
+		case "PanTiltSpeed":
+			$this->SetChannelValue( 9, $Value);
+			break;
+		case "LightningMode":
+			$this->SetChannelValue( 10, $Value);
+			break;
+		case "DimmingMode":
+			$this->SetChannelValue( 11, $Value);
 			break;
 		default:
 		    throw new Exception("Invalid Ident");
