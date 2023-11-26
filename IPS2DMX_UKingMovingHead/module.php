@@ -45,13 +45,13 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 128, "Gobo-Fast-Slow-Stop", "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 190, "Gobo-Slow-Fast", "Paintbrush", -1);
 
-		$this->RegisterProfileInteger("IPS2DMX.MovingHeadDimming", "Paintbrush", "", "", 0, 240, 0);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 0, "On", "Paintbrush", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 8, "Off, "Paintbrush", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 16, "Dimming-Slow-Fast", "Paintbrush", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 140, "Fast On - Slow Off", "Paintbrush", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 190, "Fast Off - Slow On", "Paintbrush", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 240, "Dimming", "Paintbrush", -1);
+		$this->RegisterProfileInteger("IPS2DMX.MovingHeadDimming", "Intensity", "", "", 0, 240, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 0, "On", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 8, "Off, "Intensity", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 16, "Dimming-Slow-Fast", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 140, "Fast On - Slow Off", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 190, "Fast Off - Slow On", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 240, "Dimming", "Intensity", -1);
 
 		$this->RegisterProfileInteger("IPS2DMX.LightningMode", "Lightning", "", "", 0, 250, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.LightningMode", 0, "When Pan & Tilt Moving", "Lightning", -1);
@@ -60,12 +60,12 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.LightningMode", 210, "Rest", "Lightning", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.LightningMode", 250, "Sound Activated", "Lightning", -1);
 		
-		$this->RegisterProfileInteger("IPS2DMX.MovingHeadDimmingMode", "Paintbrush", "", "", 0, 81, 0);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 0, "Standard", "Paintbrush", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 21, "Stage, "Paintbrush", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 41, "TV", "Paintbrush", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 61, "Building", "Paintbrush", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 81, "Theatre", "Paintbrush", -1);
+		$this->RegisterProfileInteger("IPS2DMX.MovingHeadDimmingMode", "Intensity", "", "", 0, 81, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 0, "Standard", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 21, "Stage, "Intensity", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 41, "TV", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 61, "Building", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 81, "Theatre", "Intensity", -1);
 		
 		
 
