@@ -12,7 +12,7 @@
  	    	$this->RegisterPropertyInteger("DMXStartChannel", 1);
 		
 		// Profile anlegen
-		$this->RegisterProfileInteger("IPS2DMX.MovingHeadColor", "Information", "", "", 1, 5, 0);
+		$this->RegisterProfileInteger("IPS2DMX.MovingHeadColor", "Paintbrush", "", "", 0, 190, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 0, "Color 1", "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 8, "Color 2", "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 15, "Color 3", "Paintbrush", -1);
@@ -24,6 +24,27 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 57, "Half Color", "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 128, "Color-Fast-Slow-Stop", "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 190, "Color-Slow-Fast", "Paintbrush", -1);
+
+		$this->RegisterProfileInteger("IPS2DMX.MovingHeadGobo", "Information", "", "", 1, 5, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 0, "Gobo 1", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 8, "Gobo 2", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 16, "Gobo 3", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 24, "Gobo 4", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 32, "Gobo 5", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 40, "Gobo 6", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 48, "Gobo 7", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 56, "Gobo 8", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 64, "Gobo 1 Jitter", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 72, "Gobo 2 Jitter", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 80, "Gobo 3 Jitter", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 88, "Gobo 4 Jitter", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 96, "Gobo 5 Jitter", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 104, "Gobo 6 Jitter", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 112, "Gobo 7 Jitter", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 120, "Gobo 8 Jitter", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 128, "Gobo-Fast-Slow-Stop", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 190, "Gobo-Slow-Fast", "Paintbrush", -1);
+		
 		
 		// Status-Variablen anlegen
 		// Channel 1 Pan Motion 0 - 100%
@@ -42,6 +63,7 @@
 		$this->RegisterVariableInteger("Color", "Color", "IPS2DMX.MovingHeadColor", 60);
 
 		// Channel 6 Gobo 1-8 (value 000-063), Gobo Shake 1-8 (value 064-127), Gobo fast-slow (value 128-189), Gobo slow-fast (value 190-255)
+		$this->RegisterVariableInteger("Gobo", "Gobo", "IPS2DMX.MovingHeadGobo", 70);
 
 		// Channel 7 Diming ON (value 000-007), Diming OFF (value 008-015), Diming slow-fast (value 016-139), Diming fast-slow (value 140-189), Diming close quickly and open slowly (value 190-239), Diming close slowly and open quickly (value 240-255)
 
