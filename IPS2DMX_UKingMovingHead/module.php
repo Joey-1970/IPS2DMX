@@ -165,7 +165,7 @@
 			case "PanFineTurningMotion":
 				$this->SetChannelValue( 2, $Value);
 				break;
-			case "TillMotion":
+			case "TiltMotion":
 				$this->SetChannelValue( 3, $Value);
 				break;
 			case "TiltFineTurningMotion":
