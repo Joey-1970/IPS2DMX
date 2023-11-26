@@ -25,7 +25,7 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 128, "Color-Fast-Slow-Stop", "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 190, "Color-Slow-Fast", "Paintbrush", -1);
 
-		$this->RegisterProfileInteger("IPS2DMX.MovingHeadGobo", "Information", "", "", 1, 5, 0);
+		$this->RegisterProfileInteger("IPS2DMX.MovingHeadGobo", "Information", "", "", 0, 190, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 0, "Gobo 1", "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 8, "Gobo 2", "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 16, "Gobo 3", "Paintbrush", -1);
@@ -45,13 +45,28 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 128, "Gobo-Fast-Slow-Stop", "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 190, "Gobo-Slow-Fast", "Paintbrush", -1);
 
-		$this->RegisterProfileInteger("IPS2DMX.MovingHeadDimming", "Paintbrush", "", "", 0, 190, 0);
+		$this->RegisterProfileInteger("IPS2DMX.MovingHeadDimming", "Paintbrush", "", "", 0, 240, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 0, "On", "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 8, "Off, "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 16, "Dimming-Slow-Fast", "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 140, "Fast On - Slow Off", "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 190, "Fast Off - Slow On", "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 240, "Dimming", "Paintbrush", -1);
+
+		$this->RegisterProfileInteger("IPS2DMX.LightningMode", "Lightning", "", "", 0, 250, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.LightningMode", 0, "When Pan & Tilt Moving", "Lightning", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.LightningMode", 90, "When Color Moving", "Lightning", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.LightningMode", 110, "When Gobo Moving", "Lightning", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.LightningMode", 210, "Rest", "Lightning", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.LightningMode", 250, "Sound Activated", "Lightning", -1);
+		
+		$this->RegisterProfileInteger("IPS2DMX.MovingHeadDimmingMode", "Paintbrush", "", "", 0, 81, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 0, "Standard", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 21, "Stage, "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 41, "TV", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 61, "Building", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 81, "Theatre", "Paintbrush", -1);
+		
 		
 
 		
@@ -75,7 +90,7 @@
 		$this->RegisterVariableInteger("Gobo", "Gobo", "IPS2DMX.MovingHeadGobo", 70);
 
 		// Channel 7 Diming ON (value 000-007), Diming OFF (value 008-015), Diming slow-fast (value 016-139), Diming fast-slow (value 140-189), Diming close quickly and open slowly (value 190-239), Diming close slowly and open quickly (value 240-255)
-		$this->RegisterVariableInteger("Gobo", "Gobo", "IPS2DMX.MovingHeadDimming", 80);
+		$this->RegisterVariableInteger("Dimming", "Dimming", "IPS2DMX.MovingHeadDimming", 80);
 
 		// Channel 8 Lightning ON/OFF (0 - 100%)
 		$this->RegisterVariableInteger("Lightning", "Lightning", "~Intensity.255", 90);
@@ -83,10 +98,11 @@
 		// Channel 9 Speed (fast-slow / pan & tilt)
 		$this->RegisterVariableInteger("PanTiltSpeed", "Pan Tilt Speed", "~Intensity.255", 100);
 
-		// Channel 10 When Pan & Tilt moving lightinf ON (value 000-069), when Color moving lightning ON (value 090-109), when Gobo moving lightning ON (value 110-209), Rest (value 210-249), Sound Activated (value 250-255)
-
-		// Channel 11 Standard Dimming mode (value 000-020), Stage dimming mode (value 021-040), TV Dimming mode (value 041-060), Building Dimming mode (value 061-080), Theatre Dimming mode (value 081-255)
+		// Channel 10 When Pan & Tilt moving lighting ON (value 000-069), when Color moving lightning ON (value 090-109), when Gobo moving lightning ON (value 110-209), Rest (value 210-249), Sound Activated (value 250-255)
+		$this->RegisterVariableInteger("LightningMode", "Lightning Mode", "IPS2DMX.LightningMode", 110);
 		
+		// Channel 11 Standard Dimming mode (value 000-020), Stage dimming mode (value 021-040), TV Dimming mode (value 041-060), Building Dimming mode (value 061-080), Theatre Dimming mode (value 081-255)
+		$this->RegisterVariableInteger("DimmingMode", "Dimming Mode", "IPS2DMX.MovingHeadDimmingMode", 120);
 
         }
  	
