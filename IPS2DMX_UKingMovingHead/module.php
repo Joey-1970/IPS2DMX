@@ -12,7 +12,12 @@
  	    	$this->RegisterPropertyInteger("DMXStartChannel", 1);
 		
 		// Profile anlegen
-		
+		$this->RegisterProfileInteger("IPS2DMX.MovingHeadColor", "Information", "", "", 1, 5, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 0, "Color 1", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 2, "Color 2", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 3, "Color 3", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 4, "Color 4", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 5, "Color 5", "Paintbrush", -1);
 		
 		// Status-Variablen anlegen
 		// Channel 1 Pan Motion 0 - 100%
