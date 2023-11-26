@@ -16,12 +16,16 @@
 		
 		// Status-Variablen anlegen
 		// Channel 1 Pan Motion 0 - 100%
+		$this->RegisterVariableInteger("PanMotion", "Pan Motion", "~Intensity.255", 10);
 
-		// Channel 2 Pan Fine Tunning Motion
-
+		// Channel 2 Pan Fine Turning Motion
+		$this->RegisterVariableInteger("PanFineTurningMotion", "Pan Fine Turning Motion", "~Intensity.255", 20);
+		
 		// Channel 3 Till Motion 0 - 100%
+		$this->RegisterVariableInteger("TillMotion", "Till Motion", "~Intensity.255", 40);
 
-		// Channel 4 Till Fine Tunning Motion
+		// Channel 4 Till Fine Turning Motion
+		$this->RegisterVariableInteger("TillFineTurningMotion", "Till Fine Turning Motion", "~Intensity.255", 50);
 
 		// Channel 5 Color 1-8 (value 000-056), Half Color (value 057-127), Color fast-slow (value 128-189), Color slow-fast (value 190-255)
 
