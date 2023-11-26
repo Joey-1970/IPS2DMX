@@ -108,7 +108,7 @@
 		// Channel 11 Standard Dimming mode (value 000-020), Stage dimming mode (value 021-040), TV Dimming mode (value 041-060), Building Dimming mode (value 061-080), Theatre Dimming mode (value 081-255)
 		$this->RegisterVariableInteger("DimmingMode", "Dimming Mode", "IPS2DMX.MovingHeadDimmingMode", 120);
 		$this->EnableAction("DimmingMode");
-
+		// Programmauswahl
 		$this->RegisterVariableInteger("Program", "Program", "IPS2DMX.MovingHeadProgram", 130);
 		$this->EnableAction("Program");
         }
