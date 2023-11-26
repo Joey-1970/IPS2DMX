@@ -14,10 +14,16 @@
 		// Profile anlegen
 		$this->RegisterProfileInteger("IPS2DMX.MovingHeadColor", "Information", "", "", 1, 5, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 0, "Color 1", "Paintbrush", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 2, "Color 2", "Paintbrush", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 3, "Color 3", "Paintbrush", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 4, "Color 4", "Paintbrush", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 5, "Color 5", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 8, "Color 2", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 15, "Color 3", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 22, "Color 4", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 29, "Color 5", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 36, "Color 6", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 43, "Color 7", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 50, "Color 8", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 57, "Half Color", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 128, "Color-Fast-Slow-Stop", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 190, "Color-Slow-Fast", "Paintbrush", -1);
 		
 		// Status-Variablen anlegen
 		// Channel 1 Pan Motion 0 - 100%
@@ -33,6 +39,7 @@
 		$this->RegisterVariableInteger("TillFineTurningMotion", "Till Fine Turning Motion", "~Intensity.255", 50);
 
 		// Channel 5 Color 1-8 (value 000-056), Half Color (value 057-127), Color fast-slow (value 128-189), Color slow-fast (value 190-255)
+		$this->RegisterVariableInteger("Color", "Color", "IPS2DMX.MovingHeadColor", 60);
 
 		// Channel 6 Gobo 1-8 (value 000-063), Gobo Shake 1-8 (value 064-127), Gobo fast-slow (value 128-189), Gobo slow-fast (value 190-255)
 
