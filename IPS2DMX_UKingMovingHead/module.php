@@ -10,6 +10,7 @@
  	    	$this->RegisterPropertyBoolean("Open", false);
 		$this->ConnectParent("{B1E43BF6-770A-4FD7-B4FE-6D265F93746B}");
  	    	$this->RegisterPropertyInteger("DMXStartChannel", 1);
+		$this->RegisterPropertyInteger("TriggerID", 0);
 		
 		// Profile anlegen
 		$this->RegisterProfileInteger("IPS2DMX.MovingHeadColor", "Paintbrush", "", "", 0, 190, 0);
@@ -73,37 +74,37 @@
 		// Status-Variablen anlegen
 		// Channel 1 Pan Motion 0 - 100%
 		$this->RegisterVariableInteger("PanMotion", "Pan Motion", "~Intensity.255", 10);
-
+		$this->EnableAction("PanMotion");
 		// Channel 2 Pan Fine Turning Motion
 		$this->RegisterVariableInteger("PanFineTurningMotion", "Pan Fine Turning Motion", "~Intensity.255", 20);
-		
+		$this->EnableAction("PanFineTurningMotion");
 		// Channel 3 Till Motion 0 - 100%
 		$this->RegisterVariableInteger("TiltMotion", "Tilt Motion", "~Intensity.255", 40);
-
+		$this->EnableAction("TiltMotion");
 		// Channel 4 Till Fine Turning Motion
 		$this->RegisterVariableInteger("TiltFineTurningMotion", "Tilt Fine Turning Motion", "~Intensity.255", 50);
-
+		$this->EnableAction("TiltFineTurningMotion");
 		// Channel 5 Color 1-8 (value 000-056), Half Color (value 057-127), Color fast-slow (value 128-189), Color slow-fast (value 190-255)
 		$this->RegisterVariableInteger("Color", "Color", "IPS2DMX.MovingHeadColor", 60);
-
+		$this->EnableAction("Color");
 		// Channel 6 Gobo 1-8 (value 000-063), Gobo Shake 1-8 (value 064-127), Gobo fast-slow (value 128-189), Gobo slow-fast (value 190-255)
 		$this->RegisterVariableInteger("Gobo", "Gobo", "IPS2DMX.MovingHeadGobo", 70);
-
+		$this->EnableAction("Gobo");
 		// Channel 7 Diming ON (value 000-007), Diming OFF (value 008-015), Diming slow-fast (value 016-139), Diming fast-slow (value 140-189), Diming close quickly and open slowly (value 190-239), Diming close slowly and open quickly (value 240-255)
 		$this->RegisterVariableInteger("Dimming", "Dimming", "IPS2DMX.MovingHeadDimming", 80);
-
+		$this->EnableAction("Dimming");
 		// Channel 8 Lightning ON/OFF (0 - 100%)
 		$this->RegisterVariableInteger("Lightning", "Lightning", "~Intensity.255", 90);
-
+		$this->EnableAction("Status_RGB_".($i + 1));
 		// Channel 9 Speed (fast-slow / pan & tilt)
 		$this->RegisterVariableInteger("PanTiltSpeed", "Pan Tilt Speed", "~Intensity.255", 100);
-
+		$this->EnableAction("Lightning");
 		// Channel 10 When Pan & Tilt moving lighting ON (value 000-069), when Color moving lightning ON (value 090-109), when Gobo moving lightning ON (value 110-209), Rest (value 210-249), Sound Activated (value 250-255)
 		$this->RegisterVariableInteger("LightningMode", "Lightning Mode", "IPS2DMX.LightningMode", 110);
-		
+		$this->EnableAction("LightningMode");
 		// Channel 11 Standard Dimming mode (value 000-020), Stage dimming mode (value 021-040), TV Dimming mode (value 041-060), Building Dimming mode (value 061-080), Theatre Dimming mode (value 081-255)
 		$this->RegisterVariableInteger("DimmingMode", "Dimming Mode", "IPS2DMX.MovingHeadDimmingMode", 120);
-
+		$this->EnableAction("DimmingMode");
         }
  	
 	public function GetConfigurationForm() 
@@ -118,10 +119,14 @@
  		$arrayElements[] = array("type" => "NumberSpinner", "name" => "DMXStartChannel",  "caption" => "DMX-Start-Kanal");
 		$arrayElements[] = array("type" => "Label", "label" => "Dieses Gerät benötigt 11 DMX-Kanäle");
 		
+		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________"); 
+		$arrayElements[] = array("type" => "Label", "label" => "Trigger-Variable");
+		$arrayElements[] = array("type" => "SelectVariable", "name" => "TriggerID", "caption" => "Trigger"); 
+		
 		$arrayActions = array();
 		$arrayActions[] = array("type" => "Label", "label" => "Test Center"); 
 		$arrayActions[] = array("type" => "TestCenter", "name" => "TestCenter");
-		
+				
  		return JSON_encode(array("status" => $arrayStatus, "elements" => $arrayElements, "actions" => $arrayActions)); 		 
  	}       
 	   
@@ -136,11 +141,15 @@
 				If ($this->GetStatus() <> 102) {
 					$this->SetStatus(102);
 				}
+				If ($this->ReadPropertyInteger("TriggerID") > 0) {
+					$this->RegisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
+				}
 			}
 			else {
 				If ($this->GetStatus() <> 104) {
 					$this->SetStatus(104);
 				}
+				$this->UnregisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
 			}
 		}
 	}
