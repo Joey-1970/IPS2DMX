@@ -1,0 +1,14 @@
+{
+  "id": "{EBF15A7E-CE16-EC92-BDDE-85E833A949EF}",
+  "name": "IPS2DMX_UKingMovingHead",
+  "type": 3,
+  "vendor": "JP-IPS-Modules",
+  "aliases":
+  [
+    "IPS2DMX_UKingMovingHead"
+  ],
+  "parentRequirements": ["{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}"],
+  "childRequirements": [],
+  "implemented": ["{311686E9-E1C5-4247-931B-EB8FF396638F}"],
+  "prefix": "I2DUKMH"
+}
