@@ -150,41 +150,41 @@
 		SetValueInteger($this->GetIDForIdent($Ident), $Value);
 		
 		switch($Ident) {
-		case "PanMotion":
-			$this->SetChannelValue( 1, $Value);
-			break;
-		case "PanFineTurningMotion":
-			$this->SetChannelValue( 2, $Value);
-			break;
-		case "TillMotion":
-			$this->SetChannelValue( 3, $Value);
-			break;
-		case "TiltFineTurningMotion":
-			$this->SetChannelValue( 4, $Value);
-			break;
-		case "Color":
-			$this->SetChannelValue( 5, $Value);
-			break;
-		case "Gobo":
-			$this->SetChannelValue( 6, $Value);
-			break;
-		case "Dimming":
-			$this->SetChannelValue( 7, $Value);
-			break;
-		case "Lightning":
-			$this->SetChannelValue( 8, $Value);
-			break;
-		case "PanTiltSpeed":
-			$this->SetChannelValue( 9, $Value);
-			break;
-		case "LightningMode":
-			$this->SetChannelValue( 10, $Value);
-			break;
-		case "DimmingMode":
-			$this->SetChannelValue( 11, $Value);
-			break;
-		default:
-		    throw new Exception("Invalid Ident");
+			case "PanMotion":
+				$this->SetChannelValue( 1, $Value);
+				break;
+			case "PanFineTurningMotion":
+				$this->SetChannelValue( 2, $Value);
+				break;
+			case "TillMotion":
+				$this->SetChannelValue( 3, $Value);
+				break;
+			case "TiltFineTurningMotion":
+				$this->SetChannelValue( 4, $Value);
+				break;
+			case "Color":
+				$this->SetChannelValue( 5, $Value);
+				break;
+			case "Gobo":
+				$this->SetChannelValue( 6, $Value);
+				break;
+			case "Dimming":
+				$this->SetChannelValue( 7, $Value);
+				break;
+			case "Lightning":
+				$this->SetChannelValue( 8, $Value);
+				break;
+			case "PanTiltSpeed":
+				$this->SetChannelValue( 9, $Value);
+				break;
+			case "LightningMode":
+				$this->SetChannelValue( 10, $Value);
+				break;
+			case "DimmingMode":
+				$this->SetChannelValue( 11, $Value);
+				break;
+			default:
+			    throw new Exception("Invalid Ident");
 		}
 	}
 	    
