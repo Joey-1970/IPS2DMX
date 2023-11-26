@@ -95,10 +95,10 @@
 		$this->EnableAction("Dimming");
 		// Channel 8 Lightning ON/OFF (0 - 100%)
 		$this->RegisterVariableInteger("Lightning", "Lightning", "~Intensity.255", 90);
-		$this->EnableAction("Status_RGB_".($i + 1));
+		$this->EnableAction("Lightning");
 		// Channel 9 Speed (fast-slow / pan & tilt)
 		$this->RegisterVariableInteger("PanTiltSpeed", "Pan Tilt Speed", "~Intensity.255", 100);
-		$this->EnableAction("Lightning");
+		$this->EnableAction("PanTiltSpeed");
 		// Channel 10 When Pan & Tilt moving lighting ON (value 000-069), when Color moving lightning ON (value 090-109), when Gobo moving lightning ON (value 110-209), Rest (value 210-249), Sound Activated (value 250-255)
 		$this->RegisterVariableInteger("LightningMode", "Lightning Mode", "IPS2DMX.LightningMode", 110);
 		$this->EnableAction("LightningMode");
