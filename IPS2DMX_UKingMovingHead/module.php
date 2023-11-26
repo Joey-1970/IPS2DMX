@@ -44,7 +44,16 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 120, "Gobo 8 Jitter", "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 128, "Gobo-Fast-Slow-Stop", "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 190, "Gobo-Slow-Fast", "Paintbrush", -1);
+
+		$this->RegisterProfileInteger("IPS2DMX.MovingHeadDimming", "Paintbrush", "", "", 0, 190, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 0, "On", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 8, "Off, "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 16, "Dimming-Slow-Fast", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 140, "Fast On - Slow Off", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 190, "Fast Off - Slow On", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 240, "Dimming", "Paintbrush", -1);
 		
+
 		
 		// Status-Variablen anlegen
 		// Channel 1 Pan Motion 0 - 100%
@@ -66,6 +75,7 @@
 		$this->RegisterVariableInteger("Gobo", "Gobo", "IPS2DMX.MovingHeadGobo", 70);
 
 		// Channel 7 Diming ON (value 000-007), Diming OFF (value 008-015), Diming slow-fast (value 016-139), Diming fast-slow (value 140-189), Diming close quickly and open slowly (value 190-239), Diming close slowly and open quickly (value 240-255)
+		$this->RegisterVariableInteger("Gobo", "Gobo", "IPS2DMX.MovingHeadDimming", 80);
 
 		// Channel 8 Lightning ON/OFF (0 - 100%)
 
