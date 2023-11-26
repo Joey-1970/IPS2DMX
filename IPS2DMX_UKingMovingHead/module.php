@@ -62,7 +62,7 @@
 		
 		$this->RegisterProfileInteger("IPS2DMX.MovingHeadDimmingMode", "Intensity", "", "", 0, 81, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 0, "Standard", "Intensity", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 21, "Stage, "Intensity", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 21, "Stage", "Intensity", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 41, "TV", "Intensity", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 61, "Building", "Intensity", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 81, "Theatre", "Intensity", -1);
