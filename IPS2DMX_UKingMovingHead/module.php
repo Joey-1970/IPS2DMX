@@ -15,7 +15,29 @@
 		
 		
 		// Status-Variablen anlegen
-	
+		// Channel 1 Pan Motion 0 - 100%
+
+		// Channel 2 Pan Fine Tunning Motion
+
+		// Channel 3 Till Motion 0 - 100%
+
+		// Channel 4 Till Fine Tunning Motion
+
+		// Channel 5 Color 1-8 (value 000-056), Half Color (value 057-127), Color fast-slow (value 128-189), Color slow-fast (value 190-255)
+
+		// Channel 6 Gobo 1-8 (value 000-063), Gobo Shake 1-8 (value 064-127), Gobo fast-slow (value 128-189), Gobo slow-fast (value 190-255)
+
+		// Channel 7 Diming ON (value 000-007), Diming OFF (value 008-015), Diming slow-fast (value 016-139), Diming fast-slow (value 140-189), Diming close quickly and open slowly (value 190-239), Diming close slowly and open quickly (value 240-255)
+
+		// Channel 8 Lightning ON/OFF (0 - 100%)
+
+		// Channel 9 Speed (fast-slow / pan & tilt)
+
+		// Channel 10 When Pan & Tilt moving lightinf ON (value 000-069), when Color moving lightning ON (value 090-109), when Gobo moving lightning ON (value 110-209), Rest (value 210-249), Sound Activated (value 250-255)
+
+		// Channel 11 Standard Dimming mode (value 000-020), Stage dimming mode (value 021-040), TV Dimming mode (value 041-060), Building Dimming mode (value 061-080), Theatre Dimming mode (value 081-255)
+		
+
         }
  	
 	public function GetConfigurationForm() 
@@ -28,7 +50,7 @@
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv"); 
  		$arrayElements[] = array("type" => "NumberSpinner", "name" => "DMXStartChannel",  "caption" => "DMX-Start-Kanal");
-		$arrayElements[] = array("type" => "Label", "label" => "Dieses Gerät benötigt 4 DMX-Kanäle");
+		$arrayElements[] = array("type" => "Label", "label" => "Dieses Gerät benötigt 11 DMX-Kanäle");
 		
 		$arrayActions = array();
 		$arrayActions[] = array("type" => "Label", "label" => "Test Center"); 
