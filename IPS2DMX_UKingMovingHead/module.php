@@ -277,13 +277,14 @@
 			// Till
 			$this->SetValue("TillMotion", $Step[$StepCounter][1]);
 			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel + 2, "Value" => $Value, "FadingSeconds" => 0, "DelayedSeconds" => 0.0 )));
+			/*
 			// Color
 			$this->SetValue("Color", $Step[$StepCounter][2]);
 			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel + 4, "Value" => $Value, "FadingSeconds" => 0, "DelayedSeconds" => 0.0 )));
 			// Gobo
 			$this->SetValue("Gobo $Step[$StepCounter][3]);
 			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel + 5, "Value" => $Value, "FadingSeconds" => 0, "DelayedSeconds" => 0.0 )));
-
+			*/
 			
 			$this->SetBuffer("StepCounter", $StepCounter + 1);
 			
