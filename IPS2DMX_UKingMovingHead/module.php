@@ -280,8 +280,8 @@
 			$this->SetValue("TiltMotion", $Step[$StepCounter][1]);
 			$this->SetChannelValue( 3, $Step[$StepCounter][1]);
 			// Color
-			$this->SetValue("Color", $Step[$StepCounter][2]);
-			$this->SetChannelValue( 5, $Step[$StepCounter][2]);
+			$this->SetValue("Color", $Color[$Step[$StepCounter][2]]);
+			$this->SetChannelValue( 5, $Color[$Step[$StepCounter][2]]);
 			/*
    			// Gobo
 			$this->SetValue("Gobo $Step[$StepCounter][3]);
