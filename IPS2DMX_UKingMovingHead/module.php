@@ -81,10 +81,10 @@
 		// Channel 2 Pan Fine Turning Motion
 		$this->RegisterVariableInteger("PanFineTurningMotion", "Pan Fine Turning Motion", "~Intensity.255", 20);
 		$this->EnableAction("PanFineTurningMotion");
-		// Channel 3 Till Motion 0 - 100% - Kippbewegung
+		// Channel 3 Tilt Motion 0 - 100% - Kippbewegung
 		$this->RegisterVariableInteger("TiltMotion", "Tilt Motion", "~Intensity.255", 40);
 		$this->EnableAction("TiltMotion");
-		// Channel 4 Till Fine Turning Motion
+		// Channel 4 Tilt Fine Turning Motion
 		$this->RegisterVariableInteger("TiltFineTurningMotion", "Tilt Fine Turning Motion", "~Intensity.255", 50);
 		$this->EnableAction("TiltFineTurningMotion");
 		// Channel 5 Color 1-8 (value 000-056), Half Color (value 057-127), Color fast-slow (value 128-189), Color slow-fast (value 190-255)
@@ -275,7 +275,7 @@
 			$this->SetValue("PanMotion", $Step[$StepCounter][0]);
 			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel + 0, "Value" => $Value, "FadingSeconds" => 0, "DelayedSeconds" => 0.0 )));
 			// Till
-			$this->SetValue("TillMotion", $Step[$StepCounter][1]);
+			$this->SetValue("TiltMotion", $Step[$StepCounter][1]);
 			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel + 2, "Value" => $Value, "FadingSeconds" => 0, "DelayedSeconds" => 0.0 )));
 			/*
 			// Color
