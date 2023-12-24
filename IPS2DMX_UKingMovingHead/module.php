@@ -270,12 +270,20 @@
 			}
 			$this->SendDebug("SetProgrammedValue", "Steps: ".$Steps." Zaehler: ".$StepCounter, 0);
 			
-			for ($i = 0; $i <= 5; $i++) {
-				$DMXChannel = $DMXStartChannel + $i;
-				$this->SetValue("Intensity_".($i + 1), $Value);
-				$Value = min($IntensityMaster, $Step[$StepCounter][$i]);
-				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => $FadeTime, "DelayedSeconds" => 0.0 )));
-			}
+			$DMXChannel = $DMXStartChannel;
+			// Pan
+			$this->SetValue("PanMotion", $Step[$StepCounter][0]);
+			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel + 0, "Value" => $Value, "FadingSeconds" => 0, "DelayedSeconds" => 0.0 )));
+			// Till
+			$this->SetValue("TillMotion", $Step[$StepCounter][1]);
+			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel + 2, "Value" => $Value, "FadingSeconds" => 0, "DelayedSeconds" => 0.0 )));
+			// Color
+			$this->SetValue("Color", $Step[$StepCounter][2]);
+			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel + 4, "Value" => $Value, "FadingSeconds" => 0, "DelayedSeconds" => 0.0 )));
+			// Gobo
+			$this->SetValue("Gobo $Step[$StepCounter][3]);
+			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel + 5, "Value" => $Value, "FadingSeconds" => 0, "DelayedSeconds" => 0.0 )));
+
 			
 			$this->SetBuffer("StepCounter", $StepCounter + 1);
 			
