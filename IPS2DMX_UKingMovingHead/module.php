@@ -252,7 +252,7 @@
 			$Program = $this->GetValue("Program");
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
 			
-			// Arrayaufbau: Pan, Till, Color, Gobo
+			// Arrayaufbau: Pan, Tilt, Color, Gobo
 			
 			switch($Program) {
 				case "1":
@@ -273,10 +273,10 @@
 			$DMXChannel = $DMXStartChannel;
 			// Pan
 			$this->SetValue("PanMotion", $Step[$StepCounter][0]);
-			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel + 0, "Value" => $Value, "FadingSeconds" => 0, "DelayedSeconds" => 0.0 )));
+			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel + 0, "Value" => $Step[$StepCounter][0], "FadingSeconds" => 0, "DelayedSeconds" => 0.0 )));
 			// Till
 			$this->SetValue("TiltMotion", $Step[$StepCounter][1]);
-			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel + 2, "Value" => $Value, "FadingSeconds" => 0, "DelayedSeconds" => 0.0 )));
+			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel + 2, "Value" => $Step[$StepCounter][1], "FadingSeconds" => 0, "DelayedSeconds" => 0.0 )));
 			/*
 			// Color
 			$this->SetValue("Color", $Step[$StepCounter][2]);
