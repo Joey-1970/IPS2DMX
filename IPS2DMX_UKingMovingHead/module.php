@@ -251,14 +251,13 @@
 			$this->SendDebug("SetProgrammedValue", "Ausfuehrung", 0);
 			$Program = $this->GetValue("Program");
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
-
-			// Arrayaufbau: 
+			
+			// Arrayaufbau: Pan, Till, Color, Gobo
 			
 			switch($Program) {
 				case "1":
 					// Dance
-					$Step[0] = array(255, 0, 255, 0, 255, 0);
-					$Step[1] = array(0, 255, 0, 255, 0, 255);
+					$Step[0] = array(rand(0, 255), rand(0, 255), rand(0, 190), rand(0, 190));
 					break;
 				
 			}
@@ -270,14 +269,14 @@
 				$StepCounter = 0;
 			}
 			$this->SendDebug("SetProgrammedValue", "Steps: ".$Steps." Zaehler: ".$StepCounter, 0);
-			/*
+			
 			for ($i = 0; $i <= 5; $i++) {
 				$DMXChannel = $DMXStartChannel + $i;
 				$this->SetValue("Intensity_".($i + 1), $Value);
 				$Value = min($IntensityMaster, $Step[$StepCounter][$i]);
 				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => $FadeTime, "DelayedSeconds" => 0.0 )));
 			}
-			*/
+			
 			$this->SetBuffer("StepCounter", $StepCounter + 1);
 			
 		}
