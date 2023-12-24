@@ -25,7 +25,7 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 57, "Half Color", "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 128, "Color-Fast-Slow-Stop", "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 190, "Color-Slow-Fast", "Paintbrush", -1);
-
+		
 		$this->RegisterProfileInteger("IPS2DMX.MovingHeadGobo", "Information", "", "", 0, 190, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 0, "Gobo 1", "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 8, "Gobo 2", "Paintbrush", -1);
@@ -251,13 +251,15 @@
 			$this->SendDebug("SetProgrammedValue", "Ausfuehrung", 0);
 			$Program = $this->GetValue("Program");
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
+
+			$Color = array(0, 8, 15, 22, 29, 36, 43, 50, 57, 128, 190);
 			
 			// Arrayaufbau: Pan, Tilt, Color, Gobo
 			
 			switch($Program) {
 				case "1":
 					// Dance
-					$Step[0] = array(rand(0, 255), rand(0, 255), rand(0, 190), rand(0, 190));
+					$Step[0] = array(rand(0, 255), rand(0, 255), rand(0, count($Color)), rand(0, 190));
 					break;
 				
 			}
@@ -274,16 +276,14 @@
 			// Pan
 			$this->SetValue("PanMotion", $Step[$StepCounter][0]);
 			$this->SetChannelValue( 1, $Step[$StepCounter][0]);
-			//$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel + 0, "Value" => $Step[$StepCounter][0], "FadingSeconds" => 0, "DelayedSeconds" => 0.0 )));
 			// Tilt
 			$this->SetValue("TiltMotion", $Step[$StepCounter][1]);
 			$this->SetChannelValue( 3, $Step[$StepCounter][1]);
-			//$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel + 2, "Value" => $Step[$StepCounter][1], "FadingSeconds" => 0, "DelayedSeconds" => 0.0 )));
-			/*
 			// Color
 			$this->SetValue("Color", $Step[$StepCounter][2]);
-			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel + 4, "Value" => $Value, "FadingSeconds" => 0, "DelayedSeconds" => 0.0 )));
-			// Gobo
+			$this->SetChannelValue( 5, $Step[$StepCounter][2]);
+			/*
+   			// Gobo
 			$this->SetValue("Gobo $Step[$StepCounter][3]);
 			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel + 5, "Value" => $Value, "FadingSeconds" => 0, "DelayedSeconds" => 0.0 )));
 			*/
