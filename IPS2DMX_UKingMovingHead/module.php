@@ -45,7 +45,7 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 120, "Gobo 8 Jitter", "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 128, "Gobo-Fast-Slow-Stop", "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 190, "Gobo-Slow-Fast", "Paintbrush", -1);
-
+		
 		$this->RegisterProfileInteger("IPS2DMX.MovingHeadDimming", "Intensity", "", "", 0, 240, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 0, "On", "Intensity", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 8, "Off", "Intensity", -1);
@@ -253,13 +253,13 @@
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
 
 			$Color = array(0, 8, 15, 22, 29, 36, 43, 50, 57, 128, 190);
-			
+			$Gobo = array(0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 190);
 			// Arrayaufbau: Pan, Tilt, Color, Gobo
 			
 			switch($Program) {
 				case "1":
 					// Dance
-					$Step[0] = array(rand(0, 255), rand(0, 255), rand(0, count($Color)), rand(0, 190));
+					$Step[0] = array(rand(0, 255), rand(0, 255), rand(0, count($Color)), rand(0, count($Gobo)));
 					break;
 				
 			}
@@ -282,11 +282,10 @@
 			// Color
 			$this->SetValue("Color", $Color[$Step[$StepCounter][2]]);
 			$this->SetChannelValue( 5, $Color[$Step[$StepCounter][2]]);
-			/*
    			// Gobo
-			$this->SetValue("Gobo $Step[$StepCounter][3]);
-			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel + 5, "Value" => $Value, "FadingSeconds" => 0, "DelayedSeconds" => 0.0 )));
-			*/
+      			$this->SetValue("Color", $Gobo[$Step[$StepCounter][3]]);
+			$this->SetChannelValue( 6, $Gobo[$Step[$StepCounter][3]]);
+			
 			
 			$this->SetBuffer("StepCounter", $StepCounter + 1);
 			
