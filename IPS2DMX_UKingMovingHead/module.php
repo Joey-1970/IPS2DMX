@@ -283,7 +283,7 @@
 			$this->SetValue("Color", $Color[$Step[$StepCounter][2]]);
 			$this->SetChannelValue( 5, $Color[$Step[$StepCounter][2]]);
    			// Gobo
-      			$this->SetValue("Color", $Gobo[$Step[$StepCounter][3]]);
+      			$this->SetValue("Gobo", $Gobo[$Step[$StepCounter][3]]);
 			$this->SetChannelValue( 6, $Gobo[$Step[$StepCounter][3]]);
 			
 			
