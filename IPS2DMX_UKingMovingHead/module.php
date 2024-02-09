@@ -259,7 +259,7 @@
 			switch($Program) {
 				case "1":
 					// Dance
-					$Step[0] = array(rand(0, 255), rand(0, 255), rand(0, count($Color)), rand(0, count($Gobo)));
+					$Step[0] = array(rand(0, 255), rand(0, 255), rand(0, count($Color) - 1), rand(0, count($Gobo) - 1));
 					break;
 				
 			}
