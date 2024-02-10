@@ -9,8 +9,14 @@
             	parent::Create();
  	    	$this->RegisterPropertyBoolean("Open", false);
 		$this->ConnectParent("{B1E43BF6-770A-4FD7-B4FE-6D265F93746B}");
-		$this->RegisterTimer("Timer_1", 0, 'I2DPT_SetTrigger($_IPS["TARGET"]);');
-		$this->RegisterTimer("Timer_2", 0, 'I2DPT_SetBlackOutStatus($_IPS["TARGET"], false);');
+		$this->RegisterPropertyInteger("UKingMovingHeadInstanceID_1", 0);
+		$this->RegisterPropertyBoolean("UKingMovingHeadActive_1", false);
+		$this->RegisterPropertyInteger("UKingMovingHeadInstanceID_2", 0);
+		$this->RegisterPropertyBoolean("UKingMovingHeadActive_2", false);
+		$this->RegisterPropertyInteger("UKingMovingHeadInstanceID_3", 0);
+		$this->RegisterPropertyBoolean("UKingMovingHeadActive_3", false);
+		$this->RegisterPropertyInteger("UKingMovingHeadInstanceID_4", 0);
+		$this->RegisterPropertyBoolean("UKingMovingHeadActive_4", false);
         }
  	
 	public function GetConfigurationForm() 
@@ -22,7 +28,28 @@
 				
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv"); 
- 		
+
+		$ArrayRowLayout = array();
+		$ArrayRowLayout[] = array("name" => "UKingMovingHeadActive_1", "type" => "CheckBox",  "caption" => "Aktiv"); 
+		$ArrayRowLayout[] = array("type": "SelectInstance", "name": "UKingMovingHeadInstanceID_1", "caption": "UKing Moving Head 1" }
+		$arrayElements[] = array("type" => "RowLayout", "items" => $ArrayRowLayout);
+
+		$ArrayRowLayout = array();
+		$ArrayRowLayout[] = array("name" => "UKingMovingHeadActive_2", "type" => "CheckBox",  "caption" => "Aktiv"); 
+		$ArrayRowLayout[] = array("type": "SelectInstance", "name": "UKingMovingHeadInstanceID_2", "caption": "UKing Moving Head 2" }
+		$arrayElements[] = array("type" => "RowLayout", "items" => $ArrayRowLayout);
+
+		$ArrayRowLayout = array();
+		$ArrayRowLayout[] = array("name" => "UKingMovingHeadActive_3", "type" => "CheckBox",  "caption" => "Aktiv"); 
+		$ArrayRowLayout[] = array("type": "SelectInstance", "name": "UKingMovingHeadInstanceID_3", "caption": "UKing Moving Head 3" }
+		$arrayElements[] = array("type" => "RowLayout", "items" => $ArrayRowLayout);
+
+		$ArrayRowLayout = array();
+		$ArrayRowLayout[] = array("name" => "UKingMovingHeadActive_4", "type" => "CheckBox",  "caption" => "Aktiv"); 
+		$ArrayRowLayout[] = array("type": "SelectInstance", "name": "UKingMovingHeadInstanceID_4", "caption": "UKing Moving Head 4" }
+		$arrayElements[] = array("type" => "RowLayout", "items" => $ArrayRowLayout);
+
+		
 		$arrayActions = array();
 		$arrayActions[] = array("type" => "Label", "label" => "Test Center"); 
 		$arrayActions[] = array("type" => "TestCenter", "name" => "TestCenter");
@@ -37,29 +64,11 @@
             	parent::ApplyChanges();
 		
 		// Profil anlegen
-		$this->RegisterProfileInteger("IPS2DMX.PTBlackOut", "Clock", "", "", 0, 6, 1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 0, "Aus", "Clock", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 1, "2 sek", "Clock", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 2, "4 sek", "Clock", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 3, "6 sek", "Clock", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 4, "8 sek", "Clock", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.PTBlackOut", 5, "10 sek", "Clock", -1);
-		
-		
-		$this->RegisterProfileFloat("IPS2DMX.TriggerTime", "Popcorn", "", " s", 0.5, 5.0, 0.25, 2);
 		
 		
 		
-		$this->RegisterVariableBoolean("Trigger", "Trigger", "~Switch", 10);
-		$this->DisableAction("Trigger");
 		
-		$this->RegisterVariableBoolean("Status", "Status", "~Switch", 20);
 		
-		$this->RegisterVariableFloat("TriggerTime", "Trigger", "IPS2DMX.TriggerTime", 30);
-		
-		$this->RegisterVariableBoolean("BlackOut", "BlackOut", "~Switch", 40);
-		
-		$this->RegisterVariableInteger("AutoReset", "Auto Reset", "IPS2DMX.PTBlackOut", 50);
 		
 		If ($this->HasActiveParent() == true) {	
 			If ($this->ReadPropertyBoolean("Open") == true) {
@@ -67,14 +76,10 @@
 					$this->SetStatus(102);
 				}
 				$Status = $this->GetValue("Status");
-				$TriggerTime = $this->GetValue("TriggerTime");
-				If ($Status == true) {
-					$this->SetTimerInterval("Timer_1", ($TriggerTime * 1000));
-				}
+				
 			}
 			else {
-				$this->SetTimerInterval("Timer_1", 0);
-				$this->SetTimerInterval("Timer_2", 0);
+				
 				If ($this->GetStatus() <> 104) {
 					$this->SetStatus(104);
 				}
@@ -85,79 +90,19 @@
 	public function RequestAction($Ident, $Value) 
 	{
 		switch($Ident) {
-		case "Status":
-			SetValueBoolean($this->GetIDForIdent($Ident), $Value);
-			$this->SetTriggerStatus($Value);
-			break;
-		case "TriggerTime":
-			SetValueFloat($this->GetIDForIdent($Ident), $Value);
-			$this->SetTriggerTime($Value);
-			break;
-		case "BlackOut":
-			SetValueBoolean($this->GetIDForIdent($Ident), $Value);
-			$this->SetBlackOutStatus($Value);
-			break;
-		case "AutoReset":
-			SetValueInteger($this->GetIDForIdent("AutoReset"), $Value);
-			break;
+		
 		default:
 		    throw new Exception("Invalid Ident");
 		}
 	}
 	    
 	// Beginn der Funktionen
-	public function SetTrigger()
-	{ 
-		If ($this->ReadPropertyBoolean("Open") == true) {
-			$this->SendDebug("SetTrigger", "Ausfuehrung", 0);
-			$this->SetValue("Trigger", true);
-			$this->SetValue("Trigger", false);
-		}
-	} 
 	
-	private function SetTriggerStatus(Bool $Value)
-	{ 
-		If ($this->ReadPropertyBoolean("Open") == true) {
-			If ($Value == true) {
-				$Timer_1 = $this->GetValue("TriggerTime");
-				$this->SetTimerInterval("Timer_1", ($Timer_1 * 1000));
-			}
-			else {
-				$this->SetTimerInterval("Timer_1", 0);
-			}
-		}
-	} 
 	
-	private function SetTriggerTime(Float $Value)
-	{ 
-		If ($this->ReadPropertyBoolean("Open") == true) {
-			$Status = $this->GetValue("Status");
-			If ($Status == true) {
-				$this->SetTimerInterval("Timer_1", ($Value * 1000));
-			}
-		}
-	} 
 	
-	public function SetBlackOutStatus(Bool $Status)
-	{ 
-		If ($this->ReadPropertyBoolean("Open") == true) {
-			$this->SendDebug("SetBlackOutStatus", "Ausfuehrung", 0);
-			$AutoReset = 2 * $this->GetValue("AutoReset");
-			$ParentID = $this->GetParentID();
-			
-			If ($Status == true) {
-				DMX_SetBlackOut($ParentID, $Status);
-				If ($AutoReset > 0) {
-					$this->SetTimerInterval("Timer_2", ($AutoReset * 1000));
-				}	
-			}
-			else {
-				DMX_SetBlackOut($ParentID, $Status);
-				$this->SetTimerInterval("Timer_2", 0);
-				$this->SetValue("BlackOut", $Status);
-			}
-		}
-	}    
+	
+	
+	
 	    
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
 	{
