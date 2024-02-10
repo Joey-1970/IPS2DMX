@@ -153,7 +153,7 @@
 			for ($i = 1; $i <= 4; $i++) {
 				$UKingMovingHeadInstanceID = $this->ReadPropertyInteger("UKingMovingHeadInstanceID_".$i);
 				$UKingMovingHeadActive = $this->ReadPropertyBoolean("UKingMovingHeadActive_".$i);
-				If ($UKingMovingHeadInstanceID > 0) AND ($UKingMovingHeadActive = true) {
+				If (($UKingMovingHeadInstanceID > 0) AND ($UKingMovingHeadActive = true)) {
 					
 				}
 			}
