@@ -31,22 +31,22 @@
 
 		$ArrayRowLayout = array();
 		$ArrayRowLayout[] = array("name" => "UKingMovingHeadActive_1", "type" => "CheckBox",  "caption" => "Aktiv"); 
-		$ArrayRowLayout[] = array("type" => "SelectInstance", "name" => "UKingMovingHeadInstanceID_1", "caption" => "UKing Moving Head 1" }
+		$ArrayRowLayout[] = array("type" => "SelectInstance", "name" => "UKingMovingHeadInstanceID_1", "caption" => "UKing Moving Head 1");
 		$arrayElements[] = array("type" => "RowLayout", "items" => $ArrayRowLayout);
 
 		$ArrayRowLayout = array();
 		$ArrayRowLayout[] = array("name" => "UKingMovingHeadActive_2", "type" => "CheckBox",  "caption" => "Aktiv"); 
-		$ArrayRowLayout[] = array("type" => "SelectInstance", "name" => "UKingMovingHeadInstanceID_2", "caption" => "UKing Moving Head 2" }
+		$ArrayRowLayout[] = array("type" => "SelectInstance", "name" => "UKingMovingHeadInstanceID_2", "caption" => "UKing Moving Head 2");
 		$arrayElements[] = array("type" => "RowLayout", "items" => $ArrayRowLayout);
 
 		$ArrayRowLayout = array();
 		$ArrayRowLayout[] = array("name" => "UKingMovingHeadActive_3", "type" => "CheckBox",  "caption" => "Aktiv"); 
-		$ArrayRowLayout[] = array("type" => "SelectInstance", "name" => "UKingMovingHeadInstanceID_3", "caption" => "UKing Moving Head 3" }
+		$ArrayRowLayout[] = array("type" => "SelectInstance", "name" => "UKingMovingHeadInstanceID_3", "caption" => "UKing Moving Head 3");
 		$arrayElements[] = array("type" => "RowLayout", "items" => $ArrayRowLayout);
 
 		$ArrayRowLayout = array();
 		$ArrayRowLayout[] = array("name" => "UKingMovingHeadActive_4", "type" => "CheckBox",  "caption" => "Aktiv"); 
-		$ArrayRowLayout[] = array("type" => "SelectInstance", "name" => "UKingMovingHeadInstanceID_4", "caption" => "UKing Moving Head 4" }
+		$ArrayRowLayout[] = array("type" => "SelectInstance", "name" => "UKingMovingHeadInstanceID_4", "caption" => "UKing Moving Head 4");
 		$arrayElements[] = array("type" => "RowLayout", "items" => $ArrayRowLayout);
 
 		
