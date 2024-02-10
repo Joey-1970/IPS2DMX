@@ -127,7 +127,6 @@
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetProgrammedValue", "Ausfuehrung", 0);
 			$Program = $this->GetValue("Program");
-			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
 
 			$ColorArray = array(0, 8, 15, 22, 29, 36, 43, 50, 57, 128, 190);
 			$GoboArray = array(0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 190);
@@ -136,7 +135,7 @@
 			switch($Program) {
 				case "1":
 					// Farbe und Bewegung synchronisieren
-					$Step[0] = array(rand(0, 255), rand(0, 255), rand(0, count($Color) - 1), rand(0, count($Gobo) - 1));
+					$Step[0] = array(rand(0, 255), rand(0, 255), rand(0, count($ColorArray) - 1), rand(0, count($GoboArray) - 1));
 					break;
 				
 			}
