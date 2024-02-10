@@ -291,7 +291,11 @@
 			
 		}
 	}
-	
+
+	public function UKingMovingHeadSequenzer(int $Pan, int $Tilt, int $Color, int $Gobo)
+	{
+
+	}
 	
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
 	{
