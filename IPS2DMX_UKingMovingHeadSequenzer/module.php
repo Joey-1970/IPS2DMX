@@ -31,22 +31,22 @@
 
 		$ArrayRowLayout = array();
 		$ArrayRowLayout[] = array("name" => "UKingMovingHeadActive_1", "type" => "CheckBox",  "caption" => "Moving Head 1 aktivieren"); 
-		$ArrayRowLayout[] = array("type" => "SelectInstance", "name" => "UKingMovingHeadInstanceID_1", "caption" => "Instanz ID UKing Moving Head 1", "validModules" => "EBF15A7E-CE16-EC92-BDDE-85E833A949EF");
+		$ArrayRowLayout[] = array("type" => "SelectInstance", "name" => "UKingMovingHeadInstanceID_1", "caption" => "Instanz ID UKing Moving Head 1", "validModules" => "{EBF15A7E-CE16-EC92-BDDE-85E833A949EF}");
 		$arrayElements[] = array("type" => "RowLayout", "items" => $ArrayRowLayout);
 
 		$ArrayRowLayout = array();
 		$ArrayRowLayout[] = array("name" => "UKingMovingHeadActive_2", "type" => "CheckBox",  "caption" => "Moving Head 2 aktivieren"); 
-		$ArrayRowLayout[] = array("type" => "SelectInstance", "name" => "UKingMovingHeadInstanceID_2", "caption" => "Instanz ID UKing Moving Head 2", "validModules" => "EBF15A7E-CE16-EC92-BDDE-85E833A949EF");
+		$ArrayRowLayout[] = array("type" => "SelectInstance", "name" => "UKingMovingHeadInstanceID_2", "caption" => "Instanz ID UKing Moving Head 2", "validModules" => "{EBF15A7E-CE16-EC92-BDDE-85E833A949EF}");
 		$arrayElements[] = array("type" => "RowLayout", "items" => $ArrayRowLayout);
 
 		$ArrayRowLayout = array();
 		$ArrayRowLayout[] = array("name" => "UKingMovingHeadActive_3", "type" => "CheckBox",  "caption" => "Moving Head 3 aktivieren"); 
-		$ArrayRowLayout[] = array("type" => "SelectInstance", "name" => "UKingMovingHeadInstanceID_3", "caption" => "Instanz ID UKing Moving Head 3", "validModules" => "EBF15A7E-CE16-EC92-BDDE-85E833A949EF");
+		$ArrayRowLayout[] = array("type" => "SelectInstance", "name" => "UKingMovingHeadInstanceID_3", "caption" => "Instanz ID UKing Moving Head 3", "validModules" => "{EBF15A7E-CE16-EC92-BDDE-85E833A949EF}");
 		$arrayElements[] = array("type" => "RowLayout", "items" => $ArrayRowLayout);
 
 		$ArrayRowLayout = array();
 		$ArrayRowLayout[] = array("name" => "UKingMovingHeadActive_4", "type" => "CheckBox",  "caption" => "Moving Head 4 aktivieren"); 
-		$ArrayRowLayout[] = array("type" => "SelectInstance", "name" => "UKingMovingHeadInstanceID_4", "caption" => "Instanz ID UKing Moving Head 4", "validModules" => "EBF15A7E-CE16-EC92-BDDE-85E833A949EF");
+		$ArrayRowLayout[] = array("type" => "SelectInstance", "name" => "UKingMovingHeadInstanceID_4", "caption" => "Instanz ID UKing Moving Head 4", "validModules" => "{EBF15A7E-CE16-EC92-BDDE-85E833A949EF}");
 		$arrayElements[] = array("type" => "RowLayout", "items" => $ArrayRowLayout);
 
 		
