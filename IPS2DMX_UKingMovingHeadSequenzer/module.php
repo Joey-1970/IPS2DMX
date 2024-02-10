@@ -99,7 +99,21 @@
 	public function RequestAction($Ident, $Value) 
 	{
 		switch($Ident) {
-		
+			case "Program":
+				$this->SetValue($Ident, $Value);
+				$this->SetBuffer("StepCounter", 0);
+				If ($Value == 0) {
+					If ($this->ReadPropertyInteger("TriggerID") > 0) {
+						$this->UnregisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
+					}
+				}
+				else {
+					// De-Registrierung für die Änderung der Trigger-Variablen
+					If ($this->ReadPropertyInteger("TriggerID") > 0) {
+						$this->RegisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
+					}
+				}
+			break;
 		default:
 		    throw new Exception("Invalid Ident");
 		}
