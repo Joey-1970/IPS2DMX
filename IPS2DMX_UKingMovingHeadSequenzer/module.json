@@ -1,5 +1,5 @@
 {
-  "id": "{EBF15A7E-CE16-EC92-BDDE-85E833A949EF}",
+  "id": "{DAF41F0E-2DC2-B2A9-703C-5431C92D492A}",
   "name": "IPS2DMX_UKingMovingHeadSequenzer",
   "type": 3,
   "vendor": "JP-IPS-Modules",
@@ -7,8 +7,8 @@
   [
     "IPS2DMX_UKingMovingHeadSequenzer"
   ],
-  "parentRequirements": [],
+  "parentRequirements": ["{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}"],
   "childRequirements": [],
-  "implemented": [],
+  "implemented": ["{311686E9-E1C5-4247-931B-EB8FF396638F}"],
   "prefix": "I2DUKMHS"
 }
