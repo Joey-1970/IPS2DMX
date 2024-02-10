@@ -154,7 +154,11 @@
 				$UKingMovingHeadInstanceID = $this->ReadPropertyInteger("UKingMovingHeadInstanceID_".$i);
 				$UKingMovingHeadActive = $this->ReadPropertyBoolean("UKingMovingHeadActive_".$i);
 				If (($UKingMovingHeadInstanceID > 0) AND ($UKingMovingHeadActive = true)) {
-					
+					$Pan = $Step[$StepCounter][0];
+					$Tilt = $Step[$StepCounter][1]
+					$Color = $Color[$Step[$StepCounter][2]];
+					$Gobo = $Gobo[$Step[$StepCounter][3]];
+					I2DUKMH_UKingMovingHeadSequenzer($UKingMovingHeadInstanceID, $Pan, $Tilt, $Color, $Gobo);
 				}
 			}
 			$this->SetBuffer("StepCounter", $StepCounter + 1);
