@@ -9,6 +9,7 @@
             	parent::Create();
  	    	$this->RegisterPropertyBoolean("Open", false);
 		$this->ConnectParent("{B1E43BF6-770A-4FD7-B4FE-6D265F93746B}");
+		$this->RegisterPropertyInteger("TriggerID", 0);
 		$this->RegisterPropertyInteger("UKingMovingHeadInstanceID_1", 0);
 		$this->RegisterPropertyBoolean("UKingMovingHeadActive_1", false);
 		$this->RegisterPropertyInteger("UKingMovingHeadInstanceID_2", 0);
@@ -28,6 +29,9 @@
 				
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv"); 
+
+		$arrayElements[] = array("type" => "Label", "label" => "Trigger-Variable");
+		$arrayElements[] = array("type" => "SelectVariable", "name" => "TriggerID", "caption" => "Trigger"); 
 
 		$ArrayRowLayout = array();
 		$ArrayRowLayout[] = array("name" => "UKingMovingHeadActive_1", "type" => "CheckBox",  "caption" => "Moving Head 1 aktivieren"); 
@@ -64,10 +68,13 @@
             	parent::ApplyChanges();
 		
 		// Profil anlegen
+		$this->RegisterProfileInteger("IPS2DMX.MovingHeadSequenzerProgram", "Popcorn", "", "", 0, 6, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadSequenzerProgram", 0, "Manuelle Steuerung", "Repeat", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadSequenzerProgram", 1, "Farbe und Bewegung synchronisieren", "Repeat", -1);
 		
-		
-		
-		
+		// Status-Variablen anlegen
+		$this->RegisterVariableInteger("Program", "Program", "IPS2DMX.MovingHeadSequenzerProgram", 10);
+		$this->EnableAction("Program");
 		
 		
 		If ($this->HasActiveParent() == true) {	
@@ -75,14 +82,16 @@
 				If ($this->GetStatus() <> 102) {
 					$this->SetStatus(102);
 				}
-				$Status = $this->GetValue("Status");
+				If ($this->ReadPropertyInteger("TriggerID") > 0) {
+					$this->RegisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
+				}
 				
 			}
 			else {
-				
 				If ($this->GetStatus() <> 104) {
 					$this->SetStatus(104);
 				}
+				$this->UnregisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
 			}
 		}
 	}
@@ -98,7 +107,21 @@
 	    
 	// Beginn der Funktionen
 	
-	
+	public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
+    	{
+ 		switch ($Message) {
+			case 10603:
+				// Änderung der Trigger-Variablen
+				If ($SenderID == $this->ReadPropertyInteger("TriggerID")) {
+					$Program = $this->GetValue("Program");
+					
+					If (($Data[0] == 1) AND ($Program > 0)) {
+						//$this->SetProgrammedValue();
+					}
+				}
+				break;
+		}
+    	}    
 	
 	
 	
