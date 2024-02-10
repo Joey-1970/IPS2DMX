@@ -129,8 +129,8 @@
 			$Program = $this->GetValue("Program");
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
 
-			$Color = array(0, 8, 15, 22, 29, 36, 43, 50, 57, 128, 190);
-			$Gobo = array(0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 190);
+			$ColorArray = array(0, 8, 15, 22, 29, 36, 43, 50, 57, 128, 190);
+			$GoboArray = array(0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 190);
 			// Arrayaufbau: Pan, Tilt, Color, Gobo
 			
 			switch($Program) {
@@ -156,8 +156,8 @@
 				If (($UKingMovingHeadInstanceID > 0) AND ($UKingMovingHeadActive = true)) {
 					$Pan = $Step[$StepCounter][0];
 					$Tilt = $Step[$StepCounter][1]
-					$Color = $Color[$Step[$StepCounter][2]];
-					$Gobo = $Gobo[$Step[$StepCounter][3]];
+					$Color = $ColorArray[$Step[$StepCounter][2]];
+					$Gobo = $GoboArray[$Step[$StepCounter][3]];
 					I2DUKMH_UKingMovingHeadSequenzer($UKingMovingHeadInstanceID, $Pan, $Tilt, $Color, $Gobo);
 				}
 			}
