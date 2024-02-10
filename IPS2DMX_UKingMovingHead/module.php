@@ -294,7 +294,20 @@
 
 	public function UKingMovingHeadSequenzer(int $Pan, int $Tilt, int $Color, int $Gobo)
 	{
-
+		If ($this->ReadPropertyBoolean("Open") == true) {	
+			// Pan
+			$this->SetValue("PanMotion", $Pan);
+			$this->SetChannelValue( 1, $Pan);
+			// Tilt
+			$this->SetValue("TiltMotion", $Tilt);
+			$this->SetChannelValue( 3, $Tilt);
+			// Color
+			$this->SetValue("Color", $Color);
+			$this->SetChannelValue( 5, $Color);
+   			// Gobo
+      			$this->SetValue("Gobo", $Gobo);
+			$this->SetChannelValue( 6, $Gobo);
+		}
 	}
 	
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
