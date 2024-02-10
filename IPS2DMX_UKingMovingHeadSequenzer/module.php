@@ -154,7 +154,7 @@
 				$UKingMovingHeadActive = $this->ReadPropertyBoolean("UKingMovingHeadActive_".$i);
 				If (($UKingMovingHeadInstanceID > 0) AND ($UKingMovingHeadActive = true)) {
 					$Pan = $Step[$StepCounter][0];
-					$Tilt = $Step[$StepCounter][1]
+					$Tilt = $Step[$StepCounter][1];
 					$Color = $ColorArray[$Step[$StepCounter][2]];
 					$Gobo = $GoboArray[$Step[$StepCounter][3]];
 					I2DUKMH_UKingMovingHeadSequenzer($UKingMovingHeadInstanceID, $Pan, $Tilt, $Color, $Gobo);
