@@ -19,7 +19,7 @@
 		$this->RegisterPropertyInteger("UKingMovingHeadInstanceID_4", 0);
 		$this->RegisterPropertyBoolean("UKingMovingHeadActive_4", false);
 
-				// Profile anlegen
+		// Profile anlegen
 		$this->RegisterProfileInteger("IPS2DMX.MovingHeadColor", "Paintbrush", "", "", 0, 190, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 0, "Color 1", "Paintbrush", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 8, "Color 2", "Paintbrush", -1);
