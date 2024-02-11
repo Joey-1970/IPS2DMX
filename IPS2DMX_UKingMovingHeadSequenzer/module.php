@@ -142,6 +142,8 @@
 			$this->SendDebug("SetProgrammedValue", "Ausfuehrung", 0);
 			$Program = $this->GetValue("Program");
 
+
+			
 			$ColorArray = array(0, 8, 15, 22, 29, 36, 43, 50, 57, 128, 190);
 			$GoboArray = array(0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 190);
 			// Arrayaufbau: Pan, Tilt, Color, Gobo
@@ -150,18 +152,23 @@
 				case "1":
 					// Farbe und Bewegung synchronisieren
 					$Step[0] = array(rand(0, 255), rand(0, 255), rand(0, count($ColorArray) - 1), rand(0, count($GoboArray) - 1));
+					// StepCounter prüfeng
+					$StepCounter = $this->ResetCounter(count($Step));
+					
 					break;
 				
 			}
 			
 			// Datenausgabe
+			/*
 			$Steps = count($Step);
 			$StepCounter = intval($this->GetBuffer("StepCounter"));
 			If ($StepCounter >= $Steps) {
 				$StepCounter = 0;
 			}
 			$this->SendDebug("SetProgrammedValue", "Steps: ".$Steps." Zaehler: ".$StepCounter, 0);
-
+			*/
+			
 			// Daten senden
 			for ($i = 1; $i <= 4; $i++) {
 				$UKingMovingHeadInstanceID = $this->ReadPropertyInteger("UKingMovingHeadInstanceID_".$i);
@@ -179,7 +186,16 @@
 		}
 	}
 	
-	
+	private function ResetCounter(int $Steps)
+	{
+		$StepCounter = intval($this->GetBuffer("StepCounter"));
+		If ($StepCounter >= $Steps) {
+			$StepCounter = 0;
+		}
+		$this->SendDebug("SetProgrammedValue", "Steps: ".$Steps." Zaehler: ".$StepCounter, 0);
+		
+	return $StepCounter;
+	}
 	    
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
 	{
