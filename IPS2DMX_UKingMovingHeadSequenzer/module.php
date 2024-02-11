@@ -71,6 +71,7 @@
 		$this->RegisterProfileInteger("IPS2DMX.MovingHeadSequenzerProgram", "Popcorn", "", "", 0, 6, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadSequenzerProgram", 0, "Manuelle Steuerung", "Repeat", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadSequenzerProgram", 1, "Farbe und Bewegung synchronisieren", "Repeat", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadSequenzerProgram", 1, "Bewegung synchronisieren, Farbe individuell", "Repeat", -1);
 		
 		// Status-Variablen anlegen
 		$this->RegisterVariableInteger("Program", "Program", "IPS2DMX.MovingHeadSequenzerProgram", 10);
@@ -151,12 +152,35 @@
 			switch($Program) {
 				case "1":
 					// Farbe und Bewegung synchronisieren
-					$Step[0] = array(rand(0, 255), rand(0, 255), rand(0, count($ColorArray) - 1), rand(0, count($GoboArray) - 1));
-					// StepCounter prüfeng
-					$StepCounter = $this->ResetCounter(count($Step));
-					
+					$Pan = rand(0, 255);
+					$Tilt = rand(0, 255);
+					$Color = $ColorArray[rand(0, count($ColorArray) - 1)];
+					$Gobo = $GoboArray[rand(0, count($GoboArray) - 1)];
+
+					// Daten senden
+					for ($i = 1; $i <= 4; $i++) {
+						$UKingMovingHeadInstanceID = $this->ReadPropertyInteger("UKingMovingHeadInstanceID_".$i);
+						$UKingMovingHeadActive = $this->ReadPropertyBoolean("UKingMovingHeadActive_".$i);
+						If (($UKingMovingHeadInstanceID > 0) AND ($UKingMovingHeadActive = true)) {
+							I2DUKMH_UKingMovingHeadSequenzer($UKingMovingHeadInstanceID, $Pan, $Tilt, $Color, $Gobo);
+						}
+					}
 					break;
-				
+				case "2":
+					// Bewegung synchronisieren, Farbe individuell
+					$Pan = rand(0, 255);
+					$Tilt = rand(0, 255);
+					
+					for ($i = 1; $i <= 4; $i++) {
+						$UKingMovingHeadInstanceID = $this->ReadPropertyInteger("UKingMovingHeadInstanceID_".$i);
+						$UKingMovingHeadActive = $this->ReadPropertyBoolean("UKingMovingHeadActive_".$i);
+						If (($UKingMovingHeadInstanceID > 0) AND ($UKingMovingHeadActive = true)) {
+							$Color = $ColorArray[rand(0, count($ColorArray) - 1)];
+							$Gobo = $GoboArray[rand(0, count($GoboArray) - 1)];
+							I2DUKMH_UKingMovingHeadSequenzer($UKingMovingHeadInstanceID, $Pan, $Tilt, $Color, $Gobo);
+						}
+					}
+					break;
 			}
 			
 			// Datenausgabe
@@ -167,7 +191,7 @@
 				$StepCounter = 0;
 			}
 			$this->SendDebug("SetProgrammedValue", "Steps: ".$Steps." Zaehler: ".$StepCounter, 0);
-			*/
+			
 			
 			// Daten senden
 			for ($i = 1; $i <= 4; $i++) {
@@ -181,6 +205,7 @@
 					I2DUKMH_UKingMovingHeadSequenzer($UKingMovingHeadInstanceID, $Pan, $Tilt, $Color, $Gobo);
 				}
 			}
+			*/
 			$this->SetBuffer("StepCounter", $StepCounter + 1);
 			
 		}
