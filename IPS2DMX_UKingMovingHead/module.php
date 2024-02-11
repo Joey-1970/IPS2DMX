@@ -10,7 +10,9 @@
  	    	$this->RegisterPropertyBoolean("Open", false);
 		$this->ConnectParent("{B1E43BF6-770A-4FD7-B4FE-6D265F93746B}");
  	    	$this->RegisterPropertyInteger("DMXStartChannel", 1);
+		/*
 		$this->RegisterPropertyInteger("TriggerID", 0);
+  		*/
 		
 		// Profile anlegen
 		$this->RegisterProfileInteger("IPS2DMX.MovingHeadColor", "Paintbrush", "", "", 0, 190, 0);
@@ -67,11 +69,12 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 41, "TV", "Intensity", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 61, "Building", "Intensity", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 81, "Theatre", "Intensity", -1);
-		
+
+		/*
 		$this->RegisterProfileInteger("IPS2DMX.MovingHeadProgram", "Popcorn", "", "", 0, 6, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadProgram", 0, "Manuelle Steuerung", "Repeat", -1);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadProgram", 1, "Dance", "Repeat", -1);
-		
+		*/
 
 		
 		// Status-Variablen anlegen
@@ -108,9 +111,11 @@
 		// Channel 11 Standard Dimming mode (value 000-020), Stage dimming mode (value 021-040), TV Dimming mode (value 041-060), Building Dimming mode (value 061-080), Theatre Dimming mode (value 081-255)
 		$this->RegisterVariableInteger("DimmingMode", "Dimming Mode", "IPS2DMX.MovingHeadDimmingMode", 120);
 		$this->EnableAction("DimmingMode");
+		/*
 		// Programmauswahl
 		$this->RegisterVariableInteger("Program", "Program", "IPS2DMX.MovingHeadProgram", 130);
 		$this->EnableAction("Program");
+		*/
         }
  	
 	public function GetConfigurationForm() 
@@ -125,9 +130,11 @@
  		$arrayElements[] = array("type" => "NumberSpinner", "name" => "DMXStartChannel",  "caption" => "DMX-Start-Kanal");
 		$arrayElements[] = array("type" => "Label", "label" => "Dieses Gerät benötigt 11 DMX-Kanäle");
 		
+		/*
 		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________"); 
 		$arrayElements[] = array("type" => "Label", "label" => "Trigger-Variable");
 		$arrayElements[] = array("type" => "SelectVariable", "name" => "TriggerID", "caption" => "Trigger"); 
+		*/
 		
 		$arrayActions = array();
 		$arrayActions[] = array("type" => "Label", "label" => "Test Center"); 
@@ -147,15 +154,19 @@
 				If ($this->GetStatus() <> 102) {
 					$this->SetStatus(102);
 				}
+				/*
 				If ($this->ReadPropertyInteger("TriggerID") > 0) {
 					$this->RegisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
 				}
+    				*/
 			}
 			else {
 				If ($this->GetStatus() <> 104) {
 					$this->SetStatus(104);
 				}
+				/*
 				$this->UnregisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
+    				*/
 			}
 		}
 	}
@@ -198,6 +209,7 @@
 			case "DimmingMode":
 				$this->SetChannelValue( 11, $Value);
 				break;
+			/*
 			case "Program":
 				$this->SetValue($Ident, $Value);
 				$this->SetBuffer("StepCounter", 0);
@@ -213,11 +225,13 @@
 					}
 				}
 			break;
+			*/
 			default:
 			    throw new Exception("Invalid Ident");
 		}
 	}
 
+	/*
 	public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
     	{
  		switch ($Message) {
@@ -233,9 +247,10 @@
 				break;
 		}
     	}    
+	*/
 	    
 	// Beginn der Funktionen
-	private function SetChannelValue(Int $Channel, Int $Value)
+	public function SetChannelValue(Int $Channel, Int $Value)
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetChannelValue", "Ausfuehrung: Channel - ".$Channel." - Value - ".$Value, 0);
@@ -244,7 +259,8 @@
 			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
 		}
 	}  
-	    
+
+	/*
 	private function SetProgrammedValue()
 	{
 		If ($this->ReadPropertyBoolean("Open") == true) {
@@ -291,7 +307,8 @@
 			
 		}
 	}
-
+	*/
+	    
 	public function UKingMovingHeadSequenzer(int $Pan, int $Tilt, int $Color, int $Gobo)
 	{
 		If ($this->ReadPropertyBoolean("Open") == true) {	
