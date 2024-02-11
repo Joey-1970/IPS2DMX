@@ -173,41 +173,41 @@
 	
 	public function RequestAction($Ident, $Value) 
 	{
-		SetValueInteger($this->GetIDForIdent($Ident), $Value);
+		// SetValueInteger($this->GetIDForIdent($Ident), $Value);
 		
 		switch($Ident) {
 			case "PanMotion":
-				$this->SetChannelValue( 1, $Value);
+				$this->SetChannelValue( 1, $Value, $Ident);
 				break;
 			case "PanFineTurningMotion":
-				$this->SetChannelValue( 2, $Value);
+				$this->SetChannelValue( 2, $Value, $Ident);
 				break;
 			case "TiltMotion":
-				$this->SetChannelValue( 3, $Value);
+				$this->SetChannelValue( 3, $Value, $Ident);
 				break;
 			case "TiltFineTurningMotion":
-				$this->SetChannelValue( 4, $Value);
+				$this->SetChannelValue( 4, $Value, $Ident);
 				break;
 			case "Color":
-				$this->SetChannelValue( 5, $Value);
+				$this->SetChannelValue( 5, $Value, $Ident);
 				break;
 			case "Gobo":
-				$this->SetChannelValue( 6, $Value);
+				$this->SetChannelValue( 6, $Value, $Ident);
 				break;
 			case "Dimming":
-				$this->SetChannelValue( 7, $Value);
+				$this->SetChannelValue( 7, $Value, $Ident);
 				break;
 			case "Lightning":
-				$this->SetChannelValue( 8, $Value);
+				$this->SetChannelValue( 8, $Value, $Ident);
 				break;
 			case "PanTiltSpeed":
-				$this->SetChannelValue( 9, $Value);
+				$this->SetChannelValue( 9, $Value, $Ident);
 				break;
 			case "LightningMode":
-				$this->SetChannelValue( 10, $Value);
+				$this->SetChannelValue( 10, $Value, $Ident);
 				break;
 			case "DimmingMode":
-				$this->SetChannelValue( 11, $Value);
+				$this->SetChannelValue( 11, $Value, $Ident);
 				break;
 			/*
 			case "Program":
@@ -250,13 +250,14 @@
 	*/
 	    
 	// Beginn der Funktionen
-	public function SetChannelValue(Int $Channel, Int $Value)
+	public function SetChannelValue(Int $Channel, Int $Value, string $Ident)
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetChannelValue", "Ausfuehrung: Channel - ".$Channel." - Value - ".$Value, 0);
 			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
 			$DMXChannel = $DMXStartChannel + ($Channel - 1); 
 			$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => 0.0, "DelayedSeconds" => 0.0 )));
+			SetValueInteger($this->GetIDForIdent($Ident), $Value);
 		}
 	}  
 
