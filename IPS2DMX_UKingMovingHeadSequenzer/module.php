@@ -187,31 +187,31 @@
 		
 		switch($Ident) {
 			case "PanMotion":
-				//$this->SetChannelValue( 1, $Value);
+				$this->SetChannelValue( 1, $Value);
 				break;
 			case "TiltMotion":
-				//$this->SetChannelValue( 3, $Value);
+				$this->SetChannelValue( 3, $Value);
 				break;
 			case "Color":
-				//$this->SetChannelValue( 5, $Value);
+				$this->SetChannelValue( 5, $Value);
 				break;
 			case "Gobo":
-				//$this->SetChannelValue( 6, $Value);
+				$this->SetChannelValue( 6, $Value);
 				break;
 			case "Dimming":
-				//$this->SetChannelValue( 7, $Value);
+				$this->SetChannelValue( 7, $Value);
 				break;
 			case "Lightning":
-				//$this->SetChannelValue( 8, $Value);
+				$this->SetChannelValue( 8, $Value);
 				break;
 			case "PanTiltSpeed":
-				//$this->SetChannelValue( 9, $Value);
+				$this->SetChannelValue( 9, $Value);
 				break;
 			case "LightningMode":
-				//$this->SetChannelValue( 10, $Value);
+				$this->SetChannelValue( 10, $Value);
 				break;
 			case "DimmingMode":
-				//$this->SetChannelValue( 11, $Value);
+				$this->SetChannelValue( 11, $Value);
 				break;
 			case "Program":
 				$this->SetValue($Ident, $Value);
@@ -349,6 +349,20 @@
 		
 	return $StepCounter;
 	}
+
+	private function SetChannelValue(Int $Channel, Int $Value)
+	{ 
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->SendDebug("SetChannelValue", "Ausfuehrung: Channel - ".$Channel." - Value - ".$Value, 0);
+			for ($i = 1; $i <= 4; $i++) {
+				$UKingMovingHeadInstanceID = $this->ReadPropertyInteger("UKingMovingHeadInstanceID_".$i);
+				$UKingMovingHeadActive = $this->ReadPropertyBoolean("UKingMovingHeadActive_".$i);
+				If (($UKingMovingHeadInstanceID > 0) AND ($UKingMovingHeadActive = true)) {
+					I2DUKMH_SetChannelValue($UKingMovingHeadInstanceID, $Channel, $Value);
+				}
+			}
+		}
+	}  
 	    
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
 	{
