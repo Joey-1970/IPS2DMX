@@ -183,35 +183,35 @@
 	
 	public function RequestAction($Ident, $Value) 
 	{
-		SetValueInteger($this->GetIDForIdent($Ident), $Value);
+		// SetValueInteger($this->GetIDForIdent($Ident), $Value);
 		
 		switch($Ident) {
 			case "PanMotion":
-				$this->SetChannelValue( 1, $Value);
+				$this->SetChannelValue( 1, $Value, $Ident);
 				break;
 			case "TiltMotion":
-				$this->SetChannelValue( 3, $Value);
+				$this->SetChannelValue( 3, $Value, $Ident);
 				break;
 			case "Color":
-				$this->SetChannelValue( 5, $Value);
+				$this->SetChannelValue( 5, $Value, $Ident);
 				break;
 			case "Gobo":
-				$this->SetChannelValue( 6, $Value);
+				$this->SetChannelValue( 6, $Value, $Ident);
 				break;
 			case "Dimming":
-				$this->SetChannelValue( 7, $Value);
+				$this->SetChannelValue( 7, $Value, $Ident);
 				break;
 			case "Lightning":
-				$this->SetChannelValue( 8, $Value);
+				$this->SetChannelValue( 8, $Value, $Ident);
 				break;
 			case "PanTiltSpeed":
-				$this->SetChannelValue( 9, $Value);
+				$this->SetChannelValue( 9, $Value, $Ident);
 				break;
 			case "LightningMode":
-				$this->SetChannelValue( 10, $Value);
+				$this->SetChannelValue( 10, $Value, $Ident);
 				break;
 			case "DimmingMode":
-				$this->SetChannelValue( 11, $Value);
+				$this->SetChannelValue( 11, $Value, $Ident);
 				break;
 			case "Program":
 				$this->SetValue($Ident, $Value);
@@ -350,7 +350,7 @@
 	return $StepCounter;
 	}
 
-	private function SetChannelValue(Int $Channel, Int $Value)
+	private function SetChannelValue(Int $Channel, Int $Value, string $Ident)
 	{ 
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("SetChannelValue", "Ausfuehrung: Channel - ".$Channel." - Value - ".$Value, 0);
@@ -358,9 +358,10 @@
 				$UKingMovingHeadInstanceID = $this->ReadPropertyInteger("UKingMovingHeadInstanceID_".$i);
 				$UKingMovingHeadActive = $this->ReadPropertyBoolean("UKingMovingHeadActive_".$i);
 				If (($UKingMovingHeadInstanceID > 0) AND ($UKingMovingHeadActive = true)) {
-					I2DUKMH_SetChannelValue($UKingMovingHeadInstanceID, $Channel, $Value);
+					I2DUKMH_SetChannelValue($UKingMovingHeadInstanceID, $Channel, $Value, $Ident);
 				}
 			}
+			SetValueInteger($this->GetIDForIdent($Ident), $Value);
 		}
 	}  
 	    
