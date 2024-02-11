@@ -18,6 +18,100 @@
 		$this->RegisterPropertyBoolean("UKingMovingHeadActive_3", false);
 		$this->RegisterPropertyInteger("UKingMovingHeadInstanceID_4", 0);
 		$this->RegisterPropertyBoolean("UKingMovingHeadActive_4", false);
+
+				// Profile anlegen
+		$this->RegisterProfileInteger("IPS2DMX.MovingHeadColor", "Paintbrush", "", "", 0, 190, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 0, "Color 1", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 8, "Color 2", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 15, "Color 3", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 22, "Color 4", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 29, "Color 5", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 36, "Color 6", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 43, "Color 7", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 50, "Color 8", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 57, "Half Color", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 128, "Color-Fast-Slow-Stop", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadColor", 190, "Color-Slow-Fast", "Paintbrush", -1);
+		
+		$this->RegisterProfileInteger("IPS2DMX.MovingHeadGobo", "Information", "", "", 0, 190, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 0, "Gobo 1", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 8, "Gobo 2", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 16, "Gobo 3", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 24, "Gobo 4", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 32, "Gobo 5", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 40, "Gobo 6", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 48, "Gobo 7", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 56, "Gobo 8", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 64, "Gobo 1 Jitter", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 72, "Gobo 2 Jitter", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 80, "Gobo 3 Jitter", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 88, "Gobo 4 Jitter", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 96, "Gobo 5 Jitter", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 104, "Gobo 6 Jitter", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 112, "Gobo 7 Jitter", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 120, "Gobo 8 Jitter", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 128, "Gobo-Fast-Slow-Stop", "Paintbrush", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadGobo", 190, "Gobo-Slow-Fast", "Paintbrush", -1);
+		
+		$this->RegisterProfileInteger("IPS2DMX.MovingHeadDimming", "Intensity", "", "", 0, 240, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 0, "On", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 8, "Off", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 16, "Dimming-Slow-Fast", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 140, "Fast On - Slow Off", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 190, "Fast Off - Slow On", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimming", 240, "Dimming", "Intensity", -1);
+
+		$this->RegisterProfileInteger("IPS2DMX.LightningMode", "Lightning", "", "", 0, 250, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.LightningMode", 0, "When Pan & Tilt Moving", "Lightning", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.LightningMode", 90, "When Color Moving", "Lightning", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.LightningMode", 110, "When Gobo Moving", "Lightning", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.LightningMode", 210, "Rest", "Lightning", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.LightningMode", 250, "Sound Activated", "Lightning", -1);
+		
+		$this->RegisterProfileInteger("IPS2DMX.MovingHeadDimmingMode", "Intensity", "", "", 0, 81, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 0, "Standard", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 21, "Stage", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 41, "TV", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 61, "Building", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadDimmingMode", 81, "Theatre", "Intensity", -1);
+
+		$this->RegisterProfileInteger("IPS2DMX.MovingHeadSequenzerProgram", "Popcorn", "", "", 0, 6, 0);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadSequenzerProgram", 0, "Manuelle Steuerung", "Repeat", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadSequenzerProgram", 1, "Bewegung und Farbe synchronisieren", "Repeat", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadSequenzerProgram", 2, "Bewegung synchronisieren, Farbe individuell", "Repeat", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadSequenzerProgram", 3, "Bewegung individuell, Farbe synchronisieren", "Repeat", -1);
+		
+		// Status-Variablen anlegen
+		$this->RegisterVariableInteger("Program", "Program", "IPS2DMX.MovingHeadSequenzerProgram", 10);
+		$this->EnableAction("Program");
+
+				// Channel 1 Pan Motion 0 - 100% - Drehbewegung
+		$this->RegisterVariableInteger("PanMotion", "Pan Motion", "~Intensity.255", 10);
+		$this->EnableAction("PanMotion");
+		// Channel 3 Tilt Motion 0 - 100% - Kippbewegung
+		$this->RegisterVariableInteger("TiltMotion", "Tilt Motion", "~Intensity.255", 40);
+		$this->EnableAction("TiltMotion");
+		// Channel 5 Color 1-8 (value 000-056), Half Color (value 057-127), Color fast-slow (value 128-189), Color slow-fast (value 190-255)
+		$this->RegisterVariableInteger("Color", "Color", "IPS2DMX.MovingHeadColor", 60);
+		$this->EnableAction("Color");
+		// Channel 6 Gobo 1-8 (value 000-063), Gobo Shake 1-8 (value 064-127), Gobo fast-slow (value 128-189), Gobo slow-fast (value 190-255)
+		$this->RegisterVariableInteger("Gobo", "Gobo", "IPS2DMX.MovingHeadGobo", 70);
+		$this->EnableAction("Gobo");
+		// Channel 7 Diming ON (value 000-007), Diming OFF (value 008-015), Diming slow-fast (value 016-139), Diming fast-slow (value 140-189), Diming close quickly and open slowly (value 190-239), Diming close slowly and open quickly (value 240-255)
+		$this->RegisterVariableInteger("Dimming", "Dimming", "IPS2DMX.MovingHeadDimming", 80);
+		$this->EnableAction("Dimming");
+		// Channel 8 Lightning ON/OFF (0 - 100%)
+		$this->RegisterVariableInteger("Lightning", "Lightning", "~Intensity.255", 90);
+		$this->EnableAction("Lightning");
+		// Channel 9 Speed (fast-slow / pan & tilt)
+		$this->RegisterVariableInteger("PanTiltSpeed", "Pan Tilt Speed", "~Intensity.255", 100);
+		$this->EnableAction("PanTiltSpeed");
+		// Channel 10 When Pan & Tilt moving lighting ON (value 000-069), when Color moving lightning ON (value 090-109), when Gobo moving lightning ON (value 110-209), Rest (value 210-249), Sound Activated (value 250-255)
+		$this->RegisterVariableInteger("LightningMode", "Lightning Mode", "IPS2DMX.LightningMode", 110);
+		$this->EnableAction("LightningMode");
+		// Channel 11 Standard Dimming mode (value 000-020), Stage dimming mode (value 021-040), TV Dimming mode (value 041-060), Building Dimming mode (value 061-080), Theatre Dimming mode (value 081-255)
+		$this->RegisterVariableInteger("DimmingMode", "Dimming Mode", "IPS2DMX.MovingHeadDimmingMode", 120);
+		$this->EnableAction("DimmingMode");
         }
  	
 	public function GetConfigurationForm() 
@@ -67,16 +161,6 @@
             	// Diese Zeile nicht löschen
             	parent::ApplyChanges();
 		
-		// Profil anlegen
-		$this->RegisterProfileInteger("IPS2DMX.MovingHeadSequenzerProgram", "Popcorn", "", "", 0, 6, 0);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadSequenzerProgram", 0, "Manuelle Steuerung", "Repeat", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadSequenzerProgram", 1, "Bewegung und Farbe synchronisieren", "Repeat", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadSequenzerProgram", 2, "Bewegung synchronisieren, Farbe individuell", "Repeat", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadSequenzerProgram", 3, "Bewegung individuell, Farbe synchronisieren", "Repeat", -1);
-		
-		// Status-Variablen anlegen
-		$this->RegisterVariableInteger("Program", "Program", "IPS2DMX.MovingHeadSequenzerProgram", 10);
-		$this->EnableAction("Program");
 		
 		
 		If ($this->HasActiveParent() == true) {	
@@ -100,7 +184,36 @@
 	
 	public function RequestAction($Ident, $Value) 
 	{
+		SetValueInteger($this->GetIDForIdent($Ident), $Value);
+		
 		switch($Ident) {
+			case "PanMotion":
+				//$this->SetChannelValue( 1, $Value);
+				break;
+			case "TiltMotion":
+				//$this->SetChannelValue( 3, $Value);
+				break;
+			case "Color":
+				//$this->SetChannelValue( 5, $Value);
+				break;
+			case "Gobo":
+				//$this->SetChannelValue( 6, $Value);
+				break;
+			case "Dimming":
+				//$this->SetChannelValue( 7, $Value);
+				break;
+			case "Lightning":
+				//$this->SetChannelValue( 8, $Value);
+				break;
+			case "PanTiltSpeed":
+				//$this->SetChannelValue( 9, $Value);
+				break;
+			case "LightningMode":
+				//$this->SetChannelValue( 10, $Value);
+				break;
+			case "DimmingMode":
+				//$this->SetChannelValue( 11, $Value);
+				break;
 			case "Program":
 				$this->SetValue($Ident, $Value);
 				$this->SetBuffer("StepCounter", 0);
