@@ -70,8 +70,9 @@
 		// Profil anlegen
 		$this->RegisterProfileInteger("IPS2DMX.MovingHeadSequenzerProgram", "Popcorn", "", "", 0, 6, 0);
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadSequenzerProgram", 0, "Manuelle Steuerung", "Repeat", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadSequenzerProgram", 1, "Farbe und Bewegung synchronisieren", "Repeat", -1);
-		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadSequenzerProgram", 1, "Bewegung synchronisieren, Farbe individuell", "Repeat", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadSequenzerProgram", 1, "Bewegung und Farbe synchronisieren", "Repeat", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadSequenzerProgram", 2, "Bewegung synchronisieren, Farbe individuell", "Repeat", -1);
+		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadSequenzerProgram", 3, "Bewegung individuell, Farbe synchronisieren", "Repeat", -1);
 		
 		// Status-Variablen anlegen
 		$this->RegisterVariableInteger("Program", "Program", "IPS2DMX.MovingHeadSequenzerProgram", 10);
@@ -177,6 +178,21 @@
 						If (($UKingMovingHeadInstanceID > 0) AND ($UKingMovingHeadActive = true)) {
 							$Color = $ColorArray[rand(0, count($ColorArray) - 1)];
 							$Gobo = $GoboArray[rand(0, count($GoboArray) - 1)];
+							I2DUKMH_UKingMovingHeadSequenzer($UKingMovingHeadInstanceID, $Pan, $Tilt, $Color, $Gobo);
+						}
+					}
+					break;
+				case "3":
+					// Farbe synchronisieren, Bewegung individuell
+					$Color = $ColorArray[rand(0, count($ColorArray) - 1)];
+					$Gobo = $GoboArray[rand(0, count($GoboArray) - 1)];
+				
+					for ($i = 1; $i <= 4; $i++) {
+						$UKingMovingHeadInstanceID = $this->ReadPropertyInteger("UKingMovingHeadInstanceID_".$i);
+						$UKingMovingHeadActive = $this->ReadPropertyBoolean("UKingMovingHeadActive_".$i);
+						If (($UKingMovingHeadInstanceID > 0) AND ($UKingMovingHeadActive = true)) {
+							$Pan = rand(0, 255);
+							$Tilt = rand(0, 255);
 							I2DUKMH_UKingMovingHeadSequenzer($UKingMovingHeadInstanceID, $Pan, $Tilt, $Color, $Gobo);
 						}
 					}
