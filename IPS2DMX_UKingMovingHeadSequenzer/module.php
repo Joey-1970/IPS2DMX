@@ -84,8 +84,7 @@
 		// Status-Variablen anlegen
 		$this->RegisterVariableInteger("Program", "Program", "IPS2DMX.MovingHeadSequenzerProgram", 10);
 		$this->EnableAction("Program");
-
-				// Channel 1 Pan Motion 0 - 100% - Drehbewegung
+		// Channel 1 Pan Motion 0 - 100% - Drehbewegung
 		$this->RegisterVariableInteger("PanMotion", "Pan Motion", "~Intensity.255", 10);
 		$this->EnableAction("PanMotion");
 		// Channel 3 Tilt Motion 0 - 100% - Kippbewegung
