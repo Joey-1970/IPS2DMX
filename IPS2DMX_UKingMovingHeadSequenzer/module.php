@@ -82,7 +82,7 @@
 		IPS_SetVariableProfileAssociation("IPS2DMX.MovingHeadSequenzerProgram", 3, "Bewegung individuell, Farbe synchronisieren", "Repeat", -1);
 		
 		// Status-Variablen anlegen
-		$this->RegisterVariableInteger("Program", "Program", "IPS2DMX.MovingHeadSequenzerProgram", 10);
+		$this->RegisterVariableInteger("Program", "Program", "IPS2DMX.MovingHeadSequenzerProgram", 5);
 		$this->EnableAction("Program");
 		// Channel 1 Pan Motion 0 - 100% - Drehbewegung
 		$this->RegisterVariableInteger("PanMotion", "Pan Motion", "~Intensity.255", 10);
@@ -159,8 +159,19 @@
         {
             	// Diese Zeile nicht löschen
             	parent::ApplyChanges();
-		
-		
+
+		$Program = $this->GetValue("Program");
+		If ($Program == 0) {
+			$this->EnableAction("PanMotion");
+			$this->EnableAction("TiltMotion");
+			$this->EnableAction("Color");
+			$this->EnableAction("Gobo");
+		} else {
+			$this->DisableAction("PanMotion");
+			$this->DisableAction("TiltMotion");
+			$this->DisableAction("Color");
+			$this->DisableAction("Gobo");
+		}
 		
 		If ($this->HasActiveParent() == true) {	
 			If ($this->ReadPropertyBoolean("Open") == true) {
@@ -220,12 +231,20 @@
 					If ($this->ReadPropertyInteger("TriggerID") > 0) {
 						$this->UnregisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
 					}
+					$this->EnableAction("PanMotion");
+					$this->EnableAction("TiltMotion");
+					$this->EnableAction("Color");
+					$this->EnableAction("Gobo");
 				}
 				else {
 					// De-Registrierung für die Änderung der Trigger-Variablen
 					If ($this->ReadPropertyInteger("TriggerID") > 0) {
 						$this->RegisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
 					}
+					$this->DisableAction("PanMotion");
+					$this->DisableAction("TiltMotion");
+					$this->DisableAction("Color");
+					$this->DisableAction("Gobo");
 				}
 			break;
 		default:
