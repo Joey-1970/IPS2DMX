@@ -111,11 +111,6 @@
 		// Channel 11 Standard Dimming mode (value 000-020), Stage dimming mode (value 021-040), TV Dimming mode (value 041-060), Building Dimming mode (value 061-080), Theatre Dimming mode (value 081-255)
 		$this->RegisterVariableInteger("DimmingMode", "Dimming Mode", "IPS2DMX.MovingHeadDimmingMode", 120);
 		$this->EnableAction("DimmingMode");
-		/*
-		// Programmauswahl
-		$this->RegisterVariableInteger("Program", "Program", "IPS2DMX.MovingHeadProgram", 130);
-		$this->EnableAction("Program");
-		*/
         }
  	
 	public function GetConfigurationForm() 
@@ -172,9 +167,7 @@
 	}
 	
 	public function RequestAction($Ident, $Value) 
-	{
-		// SetValueInteger($this->GetIDForIdent($Ident), $Value);
-		
+	{	
 		switch($Ident) {
 			case "PanMotion":
 				$this->SetChannelValue( 1, $Value, $Ident);
@@ -209,45 +202,10 @@
 			case "DimmingMode":
 				$this->SetChannelValue( 11, $Value, $Ident);
 				break;
-			/*
-			case "Program":
-				$this->SetValue($Ident, $Value);
-				$this->SetBuffer("StepCounter", 0);
-				If ($Value == 0) {
-					If ($this->ReadPropertyInteger("TriggerID") > 0) {
-						$this->UnregisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
-					}
-				}
-				else {
-					// De-Registrierung für die Änderung der Trigger-Variablen
-					If ($this->ReadPropertyInteger("TriggerID") > 0) {
-						$this->RegisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
-					}
-				}
-			break;
-			*/
 			default:
 			    throw new Exception("Invalid Ident");
 		}
 	}
-
-	/*
-	public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
-    	{
- 		switch ($Message) {
-			case 10603:
-				// Änderung der Trigger-Variablen
-				If ($SenderID == $this->ReadPropertyInteger("TriggerID")) {
-					$Program = $this->GetValue("Program");
-					//$this->SendDebug("MessageSink", "Ausfuehrung - Wert: ".$Data[0]." Programm: ".$Program, 0);
-					If (($Data[0] == 1) AND ($Program > 0)) {
-						$this->SetProgrammedValue();
-					}
-				}
-				break;
-		}
-    	}    
-	*/
 	    
 	// Beginn der Funktionen
 	public function SetChannelValue(Int $Channel, Int $Value, string $Ident)
@@ -261,70 +219,16 @@
 		}
 	}  
 
-	    
-	/*
-	private function SetProgrammedValue()
-	{
-		If ($this->ReadPropertyBoolean("Open") == true) {
-			$this->SendDebug("SetProgrammedValue", "Ausfuehrung", 0);
-			$Program = $this->GetValue("Program");
-			$DMXStartChannel = $this->ReadPropertyInteger("DMXStartChannel");
-
-			$Color = array(0, 8, 15, 22, 29, 36, 43, 50, 57, 128, 190);
-			$Gobo = array(0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 190);
-			// Arrayaufbau: Pan, Tilt, Color, Gobo
-			
-			switch($Program) {
-				case "1":
-					// Dance
-					$Step[0] = array(rand(0, 255), rand(0, 255), rand(0, count($Color) - 1), rand(0, count($Gobo) - 1));
-					break;
-				
-			}
-			
-			// Datenausgabe
-			$Steps = count($Step);
-			$StepCounter = intval($this->GetBuffer("StepCounter"));
-			If ($StepCounter >= $Steps) {
-				$StepCounter = 0;
-			}
-			$this->SendDebug("SetProgrammedValue", "Steps: ".$Steps." Zaehler: ".$StepCounter, 0);
-			
-			$DMXChannel = $DMXStartChannel;
-			// Pan
-			$this->SetValue("PanMotion", $Step[$StepCounter][0]);
-			$this->SetChannelValue( 1, $Step[$StepCounter][0]);
-			// Tilt
-			$this->SetValue("TiltMotion", $Step[$StepCounter][1]);
-			$this->SetChannelValue( 3, $Step[$StepCounter][1]);
-			// Color
-			$this->SetValue("Color", $Color[$Step[$StepCounter][2]]);
-			$this->SetChannelValue( 5, $Color[$Step[$StepCounter][2]]);
-   			// Gobo
-      			$this->SetValue("Gobo", $Gobo[$Step[$StepCounter][3]]);
-			$this->SetChannelValue( 6, $Gobo[$Step[$StepCounter][3]]);
-			
-			
-			$this->SetBuffer("StepCounter", $StepCounter + 1);
-			
-		}
-	}
-	*/
-	    
 	public function UKingMovingHeadSequenzer(int $Pan, int $Tilt, int $Color, int $Gobo)
 	{
 		If ($this->ReadPropertyBoolean("Open") == true) {	
 			// Pan
-			//$this->SetValue("PanMotion", $Pan);
 			$this->SetChannelValue( 1, $Pan, "PanMotion");
 			// Tilt
-			//$this->SetValue("TiltMotion", $Tilt);
 			$this->SetChannelValue( 3, $Tilt, "TiltMotion");
 			// Color
-			//$this->SetValue("Color", $Color);
 			$this->SetChannelValue( 5, $Color, "Color");
    			// Gobo
-      			//$this->SetValue("Gobo", $Gobo);
 			$this->SetChannelValue( 6, $Gobo, "Gobo");
 		}
 	}
