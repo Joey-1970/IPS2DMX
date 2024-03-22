@@ -329,32 +329,6 @@
 					}
 					break;
 			}
-			
-			// Datenausgabe
-			/*
-			$Steps = count($Step);
-			$StepCounter = intval($this->GetBuffer("StepCounter"));
-			If ($StepCounter >= $Steps) {
-				$StepCounter = 0;
-			}
-			$this->SendDebug("SetProgrammedValue", "Steps: ".$Steps." Zaehler: ".$StepCounter, 0);
-			
-			
-			// Daten senden
-			for ($i = 1; $i <= 4; $i++) {
-				$UKingMovingHeadInstanceID = $this->ReadPropertyInteger("UKingMovingHeadInstanceID_".$i);
-				$UKingMovingHeadActive = $this->ReadPropertyBoolean("UKingMovingHeadActive_".$i);
-				If (($UKingMovingHeadInstanceID > 0) AND ($UKingMovingHeadActive = true)) {
-					$Pan = $Step[$StepCounter][0];
-					$Tilt = $Step[$StepCounter][1];
-					$Color = $ColorArray[$Step[$StepCounter][2]];
-					$Gobo = $GoboArray[$Step[$StepCounter][3]];
-					I2DUKMH_UKingMovingHeadSequenzer($UKingMovingHeadInstanceID, $Pan, $Tilt, $Color, $Gobo);
-				}
-			}
-			*/
-			//$this->SetBuffer("StepCounter", $StepCounter + 1);
-			
 		}
 	}
 	
