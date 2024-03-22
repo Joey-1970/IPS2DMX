@@ -315,17 +315,17 @@
 	{
 		If ($this->ReadPropertyBoolean("Open") == true) {	
 			// Pan
-			$this->SetValue("PanMotion", $Pan);
-			$this->SetChannelValue( 1, $Pan);
+			//$this->SetValue("PanMotion", $Pan);
+			$this->SetChannelValue( 1, $Pan, $this->GetIDForIdent("PanMotion"));
 			// Tilt
-			$this->SetValue("TiltMotion", $Tilt);
-			$this->SetChannelValue( 3, $Tilt);
+			//$this->SetValue("TiltMotion", $Tilt);
+			$this->SetChannelValue( 3, $Tilt, $this->GetIDForIdent("TiltMotion"));
 			// Color
-			$this->SetValue("Color", $Color);
-			$this->SetChannelValue( 5, $Color);
+			//$this->SetValue("Color", $Color);
+			$this->SetChannelValue( 5, $Color, $this->GetIDForIdent("Color"));
    			// Gobo
-      			$this->SetValue("Gobo", $Gobo);
-			$this->SetChannelValue( 6, $Gobo);
+      			//$this->SetValue("Gobo", $Gobo);
+			$this->SetChannelValue( 6, $Gobo, $this->GetIDForIdent("Gobo"));
 		}
 	}
 	
