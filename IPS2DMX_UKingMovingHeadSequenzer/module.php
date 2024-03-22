@@ -353,7 +353,7 @@
 				}
 			}
 			*/
-			$this->SetBuffer("StepCounter", $StepCounter + 1);
+			//$this->SetBuffer("StepCounter", $StepCounter + 1);
 			
 		}
 	}
