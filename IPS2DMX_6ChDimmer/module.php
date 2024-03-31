@@ -78,7 +78,7 @@
 		
 		
 		
-		If ($this->HasActiveParent() == true) {	
+		//If ($this->HasActiveParent() == true) {	
 			If ($this->ReadPropertyBoolean("Open") == true) {
 				If ($this->GetStatus() <> 102) {
 					$this->SetStatus(102);
@@ -89,7 +89,7 @@
 					$this->SetStatus(104);
 				}
 			}
-		}
+		//}
 	}
 	
 	public function RequestAction($Ident, $Value) 
