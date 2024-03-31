@@ -125,7 +125,7 @@
 		$this->EnableAction("Color_Flash_0");
 		
 		
-		If ($this->HasActiveParent() == true) {	
+		//If ($this->HasActiveParent() == true) {	
 			If ($this->ReadPropertyBoolean("Open") == true) {
 				If ($this->GetStatus() <> 102) {
 					$this->SetStatus(102);
@@ -143,7 +143,7 @@
 				$this->UnregisterMessage($this->ReadPropertyInteger("TriggerID"), 10603);
 				$this->SetTimerInterval("FlashTimer", 0);
 			}
-		}
+		//}
 	}
 	
 	public function RequestAction($Ident, $Value) 
