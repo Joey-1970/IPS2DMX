@@ -209,7 +209,7 @@
 					$Step[5] = array(0, 0, 0, 0, 0, 255);
 					break;
 				case "3":
-					// Knght Rider
+					// Knight Rider
 					$Step[0] = array(255, 0, 0, 0, 0, 0);
 					$Step[1] = array(0, 255, 0, 0, 0, 0);
 					$Step[2] = array(0, 0, 255, 0, 0, 0);
@@ -222,7 +222,7 @@
 					$Step[9] = array(0, 255, 0, 0, 0, 0);
 					break;
 				case "4":
-					// Doppel-Laulicht
+					// Doppel-Lauflicht
 					$Step[0] = array(255, 0, 0, 0, 0, 255);
 					$Step[1] = array(0, 255, 0, 0, 255, 0);
 					$Step[2] = array(0, 0, 255, 255, 0, 0);
@@ -248,8 +248,8 @@
 			$this->SendDebug("SetProgrammedValue", "Steps: ".$Steps." Zaehler: ".$StepCounter, 0);
 			for ($i = 0; $i <= 5; $i++) {
 				$DMXChannel = $DMXStartChannel + $i;
-				$this->SetValue("Intensity_".($i + 1), $Value);
 				$Value = min($IntensityMaster, $Step[$StepCounter][$i]);
+				$this->SetValue("Intensity_".($i + 1), $Value);
 				$this->SendDataToParent(json_encode(Array("DataID"=> "{F241DA6A-A8BD-484B-A4EA-CC2FA8D83031}", "Size" => 1,  "Channel" => $DMXChannel, "Value" => $Value, "FadingSeconds" => $FadeTime, "DelayedSeconds" => 0.0 )));
 			}
 			$this->SetBuffer("StepCounter", $StepCounter + 1);
